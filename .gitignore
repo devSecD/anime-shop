@@ -1,0 +1,31 @@
+# --- SISTEMA OPERATIVO / EDITORES ---
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Archivos y carpetas de editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# --- CONFIGURACIONES LOCALES / SENSIBLES ---
+app/config/database.php
+
+# --- CACHE / LOGS ---
+cache/
+logs/
+*.cache
+
+# --- OTROS ---
+# Si en el futuro decides usar variables de entorno
+.env
+# --- PHP ---
+# Es como un "ejecutable" en php
+*.phar
