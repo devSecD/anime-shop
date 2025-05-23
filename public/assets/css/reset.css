@@ -1,0 +1,69 @@
+/* Reset CSS */
+*, 
+*::before, 
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif; /* Define una fuente por defecto */
+    line-height: 1.6; /* Espaciado entre lineas */
+    background-color: #fff; /* Color de fondo por defecto */
+}
+
+/* Eliminar estilos predeterminado de listas */
+ul, ol {
+    list-style: none;
+}
+
+/* Eliminar subrayado de los enlaces */
+a {
+    text-decoration: none;
+}
+
+/* Eliminar bordes y estilos en los formulario */
+button, 
+input, 
+textarea {
+    border: none;
+    outline: none;
+}
+
+input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    appearance: none;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.3s ease, border-color 0.2s ease;
+}
+
+/* Ajustar imagenes para que no se desborden */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Eliminar bordes de los marcos de los iframes */
+iframe {
+    border: none;
+}
+
+/* Hacer que las tablas sean mas legibles */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Eliminar margenes de los parrafos */
+p {
+    margin: 0;
+}
+
+/* Asegurar que los elementos de bloque no colapsen */
+section, article, aside, footer, header, main, nav, figure, figcaption {
+    display: block;
+}

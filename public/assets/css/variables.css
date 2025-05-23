@@ -1,0 +1,44 @@
+:root {
+    --primary-color: #0277bd;
+    --secondary-color: #ffc107;
+    --accent-color: #d32f2f;
+    --text-color: #fff;
+    --secondary-text-color: #000;
+
+    /* Background and borders */
+    --background-color: #f9f9f9;
+    --background-color-secondary: #222021;
+    --border-color: #ddd;
+
+    /* Fonts */
+    --main-font: 'Poppins', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+
+    /* Spacing */
+    --small-spacing: 8px;
+    --medium-spacing: 16px;
+    --large-spacing: 32px;
+
+    /* Font size */
+    --font-size-title: 2rem;
+    --font-size-paragraph: 1rem;
+    --font-size-small: 0.875rem;
+
+    /* Bordes y sombras */
+    --border-radius: 5px;
+    --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+    /* Tamaños */
+    --max-width: 1200px;
+
+    /*
+
+    Breve documentacion
+    * Encabezados y botones                           => var(--primary-color)
+    * Llamadas a la accion (CTA), ofertas             => var(--secondary--color)
+    * Detalles y resaltes                             => var(--accent-color)
+    * Textos principales                              => var(--secondary-text-color)
+    * Fondo general                                   => var(--background-color)
+
+    */
+}
