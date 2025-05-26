@@ -10,10 +10,9 @@ class Router
         // Obtener la URL limpia
         $url = $_GET['url'] ?? '';
         $url = trim($url, '/');
-        $segments = explode('/', $url);
+        $segments = $url !== '' ? explode('/', $url) : [];
 
-        // Definir valores por defecto
-        $controller = $segments[0] ?? 'home';
+        $controller = !empty($segments[0]) ? $segments[0] : 'home';
         $action = $segments[1] ?? 'index';
         $params = array_slice($segments, 2);
 
