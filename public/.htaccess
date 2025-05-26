@@ -1,6 +1,7 @@
 # Reescritura de URLs para routing amigable
 
 RewriteEngine On
+RewriteBase /anime-shop/
 
 # Redirigir todo a index.php
 RewriteCond %{REQUEST_FILENAME} !-f
