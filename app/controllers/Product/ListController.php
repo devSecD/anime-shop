@@ -10,21 +10,30 @@ class ListController extends Controller
     {
         $db = $this->loadDB();
         $repo = new ProductRepository($db);
-        // $products = $repo->getCatalog();
 
-        // Paso 1: Pagina actual
+        // Capturar filtros desde la URL
+        $filter = $_GET['filter'] ?? null;
+        $sort = $_GET['sort'] ?? null;
+        $category = $_GET['category'] ?? null;
+
+        // Pagina actual
         $currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
         $productsPerPage = 8;
 
-        // Paso 2: Calcular offset
+        // Calcular offset
         $offset = ($currentPage - 1) * $productsPerPage;
 
-        // Paso 3: Obtener productos paginados
-        $products = $repo->getPaginatedProducts($productsPerPage, $offset);
+        // Obtener productos filtrados y paginados
+        // $products = $repo->getPaginatedProducts($productsPerPage, $offset);
+        $products = $repo->getFilteredPaginatedProducts($filter, $sort, $category, $productsPerPage, $offset);
 
-        // Paso 4: Calcular total de paginas
-        $totalProducts = $repo->countAllProducts();
+        // Obtener total de productos para paginacion (tambien filtrado)
+        $totalProducts = $repo->countFilteredProducts($filter, $category);
         $totalPages = ceil($totalProducts / $productsPerPage);
+
+        // Calcular total de paginas
+        // $totalProducts = $repo->countAllProducts();
+        // $totalPages = ceil($totalProducts / $productsPerPage);
         
         // Paso 5: Renderizar visto con informacion de paginacion
         $this->render(
@@ -35,6 +44,5 @@ class ListController extends Controller
             ]
         );
 
-        // $this->render('products/list', ['products' => $products]);
     }
 }

@@ -1,4 +1,4 @@
-<section class="section-catalog-product">
+<section class="section-catalog-product" style="margin-top: 9rem;">
     <!-- Coleccion de barra de herramientas -->
     <!--
     <aside class="aside-collection-toolbar">
@@ -24,14 +24,14 @@
     <?php foreach($products as $product): ?>
     <section class="container-product">
         <div class="badge-container">
-            <?php if ($product['is_on_sale']): ?>
+            <?php if ($product['is_on_sale'] && $product['price_discounted'] > 0): ?>
                 <span class="badge badge-sale">¡Oferta!</span>
             <?php endif; ?>
             <?php if ($product['is_preorder']): ?>
                 <span class="badge badge-preorder">Preventa</span>
             <?php endif; ?>
         </div>
-        <img src="../public/assets/images/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
+        <img src="../public/assets/images/products/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
         <h5><?= htmlspecialchars($product['name']); ?></h5>
         <p><?= number_format($product['price'], 2); ?></p>
         <form action="">
@@ -45,20 +45,28 @@
     <aside class="aside-paginated">
         <ul class="page-list">
 
+            <?php
+            // Paramatros persistentes
+            $filter = urlencode($_GET['filter'] ?? '');
+            $sort = urlencode($_GET['sort'] ?? '');
+            $category = urlencode($_GET['category'] ?? '');
+            $extraParams = "&filter=$filter&sort=$sort&category=$category";
+            ?>
+
             <?php if ($currentPage > 1): ?>
-                <li><a href="?page=<?= $currentPage - 1; ?>" class="page-previous">Anterior</a></li>
+                <li><a href="?page=<?= $currentPage - 1 . $extraParams; ?>" class="page-previous">Anterior</a></li>
             <?php endif; ?>
 
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <?php if ($i == $currentPage): ?>
-                    <li><a href="?page=<?= $i; ?>" class="page-current"><?= $i; ?></a></li>
+                    <li><a href="?page=<?= $i . $extraParams; ?>" class="page-current"><?= $i; ?></a></li>
                 <?php else: ?>
-                    <li><a href="?page=<?= $i; ?>" class="page-number"><?= $i; ?></a></li>
+                    <li><a href="?page=<?= $i . $extraParams; ?>" class="page-number"><?= $i; ?></a></li>
                 <?php endif; ?>
             <?php endfor; ?>
 
             <?php if ($currentPage < $totalPages): ?>
-                <li><a href="?page=<?= $currentPage + 1; ?>" class="page-next">Siguiente</a></li>
+                <li><a href="?page=<?= $currentPage + 1 . $extraParams; ?>" class="page-next">Siguiente</a></li>
             <?php endif; ?>
             <!-- <span class="points">...</span> --> <!-- pendiente por implementar logica-->
         </ul>

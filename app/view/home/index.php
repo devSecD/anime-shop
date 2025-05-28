@@ -8,6 +8,11 @@
     <title>Home</title>
 </head>
 <body>
+    <header>
+        <?php include __DIR__ . '/../components/_navbar_main.php'; ?>
+        <?php include __DIR__ . '/../components/_navbar_secondary.php'; ?>
+    </header>
     <?php include __DIR__ . '/../products/_catalog_partial.php'; ?>
+    <?php include __DIR__ . '/../components/_footer.php'; ?>
 </body>
 </html>

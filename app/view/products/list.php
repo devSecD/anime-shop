@@ -16,12 +16,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/assets/css/fontawesome-free-6.7.2-web/css/all.min.css">
-    <link rel="stylesheet" href="../../public/assets/css/index.css">
+    <link rel="stylesheet" href="../public/assets/css/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../public/assets/css/index.css">
     <title>Home</title>
 </head>
 <body>
-    <h2>Catálogo completo</h2>
+    <h2>Catálogo completo (app\view\products\list.php)</h2>
     <?php include __DIR__ . '/../products/_catalog_partial.php'; ?>
 </body>
 </html>
