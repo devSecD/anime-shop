@@ -1,0 +1,106 @@
+.footer {
+    display: grid;
+    grid-template-columns: 45% 25% 30%;
+    gap: 1.5rem;
+    /* Con esto solucionamos el desbordamiento del ancho */
+    overflow: hidden;
+    /* Con esto solucionamos el desbordamiento del ancho */
+    padding: 0rem 2rem;
+    background-color: var(--primary-color);
+    color:var(--text-color);
+}
+
+.who-we-are, .options-store, .newsletter {
+    padding: 3rem 5rem;
+}
+
+.who-we-are h4, .options-store h4, .newsletter h4 {
+    margin-bottom: 1rem;
+}
+
+.who-we-are p, .newsletter p {
+    text-align: justify;
+}
+
+.options-store ul li {
+    margin-bottom: 0.5rem;
+}
+
+.options-store ul li a {
+    color: unset;
+    transition: font-weight 0.4s ease, text-decoration 0.4s ease;
+}
+
+.options-store ul li a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.who-we-are a {
+    display: block;
+    margin-top: 2rem;
+    color: unset;
+    text-decoration: underline;
+}
+
+.newsletter input{
+    width: 100%;
+    padding: 0.8rem 1rem;
+}
+
+.newsletter input[type="email"]{
+    margin-top: 1.5rem;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.newsletter input[type="email"]:focus{
+    border: 1px solid var(--accent-color);
+}
+
+.newsletter input[type="button"]{
+    margin-top: 1rem;
+    cursor: pointer;
+    color: #333;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--accent-color);
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+    transition: border 0.3s ease;
+}
+
+.newsletter input[type="button"]:hover{
+    color: var(--text-color);
+    background-color: var(--accent-color);
+    border: 1px solid var(--secondary-color);
+}
+
+/* Media queries */
+@media (max-width: 1280px) {
+    .footer {
+        gap: 0rem;
+        padding: 0rem 1rem;
+    }
+    .who-we-are, .options-store, .newsletter {
+        padding: 1rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        grid-template-columns: 100%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .footer {
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .footer {
+        grid-template-columns: 33% 33% 33%;
+    }
+}
