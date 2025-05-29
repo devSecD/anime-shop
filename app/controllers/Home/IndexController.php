@@ -11,6 +11,9 @@ class IndexController extends Controller
         $db = $this->loadDB();
         $repo = new ProductRepository($db);
 
+        // Busquedas
+        $search = $_GET['search'] ?? '';
+
         // Capturar filtros desde la URL
         $filter = $_GET['filter'] ?? null;
         $sort = $_GET['sort'] ?? null;
@@ -24,16 +27,11 @@ class IndexController extends Controller
         $offset = ($currentPage - 1) * $productsPerPage;
 
         // Obtener productos filtrados y paginados
-        // $products = $repo->getPaginatedProducts($productsPerPage, $offset);
-        $products = $repo->getFilteredPaginatedProducts($filter, $sort, $category, $productsPerPage, $offset);
+        $products = $repo->getFilteredPaginatedProducts($filter, $sort, $category, $productsPerPage, $offset, $search);
 
         // Obtener total de productos para paginacion (tambien filtrado)
-        $totalProducts = $repo->countFilteredProducts($filter, $category);
+        $totalProducts = $repo->countFilteredProducts($filter, $category, $search);
         $totalPages = ceil($totalProducts / $productsPerPage);
-
-        // Calcular total de paginas
-        // $totalProducts = $repo->countAllProducts();
-        // $totalPages = ceil($totalProducts / $productsPerPage);
         
         // Paso 5: Renderizar visto con informacion de paginacion
         $this->render(

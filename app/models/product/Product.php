@@ -54,7 +54,7 @@ class Product
     }
     */
 
-    public function getFilteredPaginated($filter, $sort, $category, $limit, $offset)
+    public function getFilteredPaginated($filter, $sort, $category, $limit, $offset, $search)
     {
         try {
             $sql = "SELECT * FROM products WHERE 1=1";
@@ -69,6 +69,10 @@ class Product
 
             if (!empty($category)) {
                 $sql .= " AND category_id = :category_id";
+            }
+
+            if (!empty($search)) {
+                $sql .= " AND name LIKE :search";
             }
 
             // Ordenamiento
@@ -88,6 +92,10 @@ class Product
                 $stmt->bindValue(':category_id', (int)$category, PDO::PARAM_INT);
             }
 
+            if (!empty($search)) {
+                $stmt->bindValue('search', '%' . $search . '%', PDO::PARAM_STR);
+            }
+
             $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
             $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
             // echo "<pre>";
@@ -101,11 +109,10 @@ class Product
         }
     }
 
-    public function countFiltered($filter, $category)
+    public function countFiltered($filter, $category, $search)
     {
         try {
             $sql = "SELECT COUNT(*) FROM products WHERE 1=1";
-            $params = [];
 
             if ($filter === 'in-stock') {
                 $sql .= " AND stock > 0";
@@ -116,12 +123,24 @@ class Product
             }
 
             if (!empty($category)) {
-                $sql .= " AND category_id = ?";
-                $params[] = $category;
+                $sql .= " AND category_id = :category_id";
+            }
+
+            if (!empty($search)) {
+                $sql .= " AND name LIKE :search";
             }
 
             $stmt = $this->db->prepare($sql);
-            $stmt->execute($params);
+
+            if (!empty($category)) {
+                $stmt->bindValue(':category_id', (int)$category, PDO::PARAM_INT);
+            }
+
+            if (!empty($search)) {
+                $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+            }
+
+            $stmt->execute();
             return (int) $stmt->fetchColumn();
         } catch (PDOException $e) {
             throw new Exception("Error al contar productos filtrados: " . $e->getMessage());

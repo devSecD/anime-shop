@@ -50,7 +50,9 @@
             $filter = urlencode($_GET['filter'] ?? '');
             $sort = urlencode($_GET['sort'] ?? '');
             $category = urlencode($_GET['category'] ?? '');
-            $extraParams = "&filter=$filter&sort=$sort&category=$category";
+            $search = urlencode($_GET['search'] ?? '');
+
+            $extraParams = "&search=$search&filter=$filter&sort=$sort&category=$category";
             ?>
 
             <?php if ($currentPage > 1): ?>

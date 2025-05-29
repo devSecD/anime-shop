@@ -33,13 +33,13 @@ class ProductRepository
     }
     */
 
-    public function getFilteredPaginatedProducts($filter, $sort, $category, $limit, $offset)
+    public function getFilteredPaginatedProducts($filter, $sort, $category, $limit, $offset, $search)
     {
-        return $this->productModel->getFilteredPaginated($filter, $sort, $category, $limit, $offset);
+        return $this->productModel->getFilteredPaginated($filter, $sort, $category, $limit, $offset, $search);
     }
 
-    public function countFilteredProducts($filter, $category)
+    public function countFilteredProducts($filter, $category, $search)
     {
-        return $this->productModel->countFiltered($filter, $category);
+        return $this->productModel->countFiltered($filter, $category, $search);
     }
 }

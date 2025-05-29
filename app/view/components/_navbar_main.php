@@ -48,8 +48,21 @@
             </a>
         </li>
         <li class="li-search">
-            <form action="">
-                <input type="text" name="search" placeholder="search" class="input-search">
+            <form method="GET" action="../public/catalog">
+                <input type="text" name="search" placeholder="search" class="input-search" value="<?=  isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '';  ?>">
+                <!-- Campos ocultos para preservar filtros -->
+                <?php if (isset($_GET['filter'])): ?>
+                    <input type="hidden" name="filter" value="<?= htmlspecialchars($_GET['filter']) ?>">
+                <?php endif;?>
+
+                <?php if (isset($_GET['sort'])): ?>
+                    <input type="hidden" name="sort" value="<?= htmlspecialchars($_GET['sort']); ?>">
+                <?php endif; ?>
+
+                <?php if (isset($_GET['category'])): ?>
+                    <input type="hidden" name="category" value="<?= htmlentities($_GET['category']); ?>">
+                <?php endif; ?>
+
                 <button type="submit" class="search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
