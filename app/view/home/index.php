@@ -14,5 +14,7 @@
     </header>
     <?php include __DIR__ . '/../products/_catalog_partial.php'; ?>
     <?php include __DIR__ . '/../components/_footer.php'; ?>
+
+    <script src="../public/assets/js/newsletter.js"></script>
 </body>
 </html>
