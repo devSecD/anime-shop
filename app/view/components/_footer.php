@@ -23,8 +23,11 @@
     <section class="newsletter">
         <h4>Newsletter</h4>
         <p>Suscribete con nosotros y recibe una promociiones, informacion de preventas y mucho mas</p>
-        <input type="email">
-        <input type="button" value="Suscribir">
+        <form id="newsletter-form">
+            <input type="email" id="newsletter-email" name="email" placeholder="Ingresa tu correo electronico" required>
+            <input type="submit" value="Suscribirme">
+            <div style="display: none;" id="newsletter-message" class="newsletter-message" role="alert" aria-live="polite"></div>
+        </form>
     </section>
 </footer>
 <!-- Footer -->
