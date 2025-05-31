@@ -69,18 +69,18 @@
             </form>
         </li>
         <li>
-            <a href="#user">
+            <a href="#user" class="nav-icon-with-text nav-user-info">
                 <i class="fa-regular fa-user"></i>
+                <span>
+                    <span class="user-greeting">¡Bienvenido!</span><br>
+                    <span class="user-action">Identifícate / Regístrate</span>
+                </span>
             </a>
         </li>
         <li>
-            <a href="#heart">
-                <i class="fa-regular fa-heart"></i>
-            </a>
-        </li>
-        <li>
-            <a href="#cartshopping">
+            <a href="#cartshopping" class="nav-icon-with-text">
                 <i class="fa-solid fa-cart-shopping"></i>
+                <span>Carrito</span>
             </a>
         </li>
     </ul>
