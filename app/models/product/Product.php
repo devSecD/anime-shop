@@ -54,54 +54,13 @@ class Product
     }
     */
 
-    public function getFilteredPaginated($filter, $sort, $category, $limit, $offset, $search)
+    public function executeQuery($sql, $params)
     {
         try {
-            $sql = "SELECT * FROM products WHERE 1=1";
-
-            if ($filter === 'in-stock') {
-                $sql .= " AND stock > 0";
-            }
-
-            if ($filter === 'discounted') {
-                $sql .= " AND is_on_sale AND price_discounted IS NOT NULL";
-            }
-
-            if (!empty($category)) {
-                $sql .= " AND category_id = :category_id";
-            }
-
-            if (!empty($search)) {
-                $sql .= " AND name LIKE :search";
-            }
-
-            // Ordenamiento
-            if ($sort === 'newest') {
-                $sql .= " ORDER BY created_at DESC";
-            } elseif ($sort === 'top-sellers') {
-                $sql .= " ORDER BY sold_count DESC";
-            } else {
-                $sql .= " ORDER BY name ASC";
-            }
-
-            $sql .= " LIMIT :limit OFFSET :offset";
-
             $stmt = $this->db->prepare($sql);
-
-            if (!empty($category)) {
-                $stmt->bindValue(':category_id', (int)$category, PDO::PARAM_INT);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
             }
-
-            if (!empty($search)) {
-                $stmt->bindValue('search', '%' . $search . '%', PDO::PARAM_STR);
-            }
-
-            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
-            // echo "<pre>";
-            // print_r($this->interpolateNamedQuery($sql, $params)); // para params puede ser = [$var1, $var2...]
-            // echo "</pre>";
-            // exit("XD");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
@@ -109,44 +68,15 @@ class Product
         }
     }
 
-    public function countFiltered($filter, $category, $search)
+    public function executeCount($sql, $params)
     {
-        try {
-            $sql = "SELECT COUNT(*) FROM products WHERE 1=1";
-
-            if ($filter === 'in-stock') {
-                $sql .= " AND stock > 0";
-            }
-
-            if ($filter === 'discounted') {
-                $sql .= " AND price_discounted IS NOT NULL";
-            }
-
-            if (!empty($category)) {
-                $sql .= " AND category_id = :category_id";
-            }
-
-            if (!empty($search)) {
-                $sql .= " AND name LIKE :search";
-            }
-
-            $stmt = $this->db->prepare($sql);
-
-            if (!empty($category)) {
-                $stmt->bindValue(':category_id', (int)$category, PDO::PARAM_INT);
-            }
-
-            if (!empty($search)) {
-                $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
-            }
-
-            $stmt->execute();
-            return (int) $stmt->fetchColumn();
-        } catch (PDOException $e) {
-            throw new Exception("Error al contar productos filtrados: " . $e->getMessage());
+        $stmt = $this->db->prepare($sql);
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
         }
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
     }
-
     public function interpolateNamedQuery($query, $params)
     {
         foreach ($params as $key => $value) {
