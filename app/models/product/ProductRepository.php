@@ -77,8 +77,6 @@ class ProductRepository
         $params[':offset'] = (int)$offset;
 
         return $this->productModel->executeQuery($sql, $params);
-
-        // return $this    ->productModel->getFilteredPaginated($filter, $sort, $category, $limit, $offset, $search);
     }
 
     public function countFilteredProducts($filter, $category, $search)

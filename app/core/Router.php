@@ -3,17 +3,14 @@
 
 namespace Core;
 
+use App\Helpers\RequestHelper;
+
 class Router
 {
     public function handleRequest()
     {
-
-        // Cargar rutas personalizadas
-        $customRoutes = require_once __DIR__ . '/../config/routes.php';
-
         // Obtener URI limpia
         $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
         $scriptName = dirname($_SERVER['SCRIPT_NAME']);
 
         // Elimionar el path base (/anime-shop/public)
@@ -23,7 +20,11 @@ class Router
 
         $url = trim($requestUri, '/');
 
-        // Verificar si hay ruta personalizada
+        // -------------------------
+        // 📌 Rutas Personalizadas
+        // -------------------------
+        $customRoutes = require_once __DIR__ . '/../config/routes.php';
+
         if (isset($customRoutes[$url])) {
             $route = $customRoutes[$url];
             $controllerClass = 'Controllers\\' . $route['controller'];
@@ -47,8 +48,11 @@ class Router
         }
 
 
-        // Obtener la URL limpia
-        $url = $_GET['url'] ?? '';
+        // -------------------------
+        // 📌 Rutas Dinámicas convencionales (/controlador/accion)
+        // -------------------------
+        // $url = $_GET['url'] ?? '';
+        $url = RequestHelper::getQueryParam('url', '');
         $url = trim($url, '/');
         $segments = $url !== '' ? explode('/', $url) : [];
 
@@ -71,7 +75,6 @@ class Router
                 throw new \Exception("Controlador $controllerClass no encontrado");
             }
         } catch(\Exception $e) {
-            // Puedes crear un ErrorController para manejar esto
             http_response_code(404);
             echo "Error: " .$e->getMessage();
         }

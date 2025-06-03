@@ -5,7 +5,7 @@ return [
         'action' => 'index'
     ],
     'newsletter/subscribe' => [
-        'controller' => 'Newsletter\\SubscribeController',
+        'controller' => 'Newsletter\SubscribeController',
         'action' => 'index'
     ]
 ];
