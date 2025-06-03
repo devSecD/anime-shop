@@ -1,0 +1,63 @@
+@import url("reset.css");
+@import url("variables.css");
+@import url("components/header.css");
+/*
+@import url("components/filters.css");
+*/
+@import url("components/catalog_products.css");
+@import url("components/footer.css");
+/*
+body {
+    font-family: var(--main-font);
+    background-color: var(--background-color);
+    color: var(--secondary-text-color);
+    font-size: var(--font-size-paragraph);
+}
+
+.container-main {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    gap: 2rem;
+    margin-top: 10rem;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.section-filter, .section-catalog-product {
+    background-color: #fff;
+}
+
+.section-filter {
+    margin-left: 1rem;
+}
+*/
+/* Media queries */
+/*
+@media (max-width: 1000px) {
+    .container-main {
+        grid-template-columns: 100%;
+    }   
+}
+*/
+/* recomendacion para diseño responsivo */
+/*
+- Hasta 480px
+    Cubre dispositivos como smartphones en orientacion vertical (por ejemplo IphoneSE, Galaxy S5)
+- Hasta 768px
+    Incluimos smartphones grandes (como el Iphone Plus o Samsung Galaxy Note) y tabletas pequeñas en orientacion vertical (como el Ipad Mini)
+- Hasta 1024px
+    Tabletas en orientacion horizontal (como el Ipad en modo apaisado) y algunos dispositivos moviles de gama mas alta
+- Hasta 1280px
+    Puede ser util para tabletas mas grandes o laptops pequeñas (como netbooks)
+*/
+/* recomendacion para diseño responsivo */
+
+/* 
+Resoluciones que se desajuta el responsive (365px, 344px) => media queria min-width: 0px - max-width: 371px
+* Input y boton de busqueda se desajustan
+* El margen del main (que contiene el catalogo y filtros de productos)
+
+-- Nota importante:
+    Esto lo dejare como feature porque aplica para pantallas con resolucion muy pequeña y la realidad es que muy pocas personas usan ese tipo de dispositivos actualmente
+
+*/

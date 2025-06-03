@@ -1,0 +1,275 @@
+/* Ajusta para que no se desborden los contenedores hijos */
+.section-catalog-product {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    width: 97%; /* ajuste de ancho */
+}
+/* Ajusta para que no se desborden los contenedores hijos */
+
+.section-catalog-product .aside-collection-toolbar{
+    grid-column: 1 / -1;
+}
+
+.section-catalog-product .aside-collection-toolbar{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+}
+
+/* filtro para responsive */
+.aside-collection-toolbar .aside-filter {
+    display: none;
+}
+
+#filter-toggle {
+    display: none;
+}
+
+.close_search {
+    display: none;
+    font-size: 1.5rem;
+    position: fixed;
+    top: 0.1rem;
+    right: 0.5rem;
+    z-index: 5;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+  
+.close_search a{
+    color: var(--accent-color);
+}
+
+.filter-menu-container i.fa-filter:hover{
+    color: var(--accent-color);
+}
+
+.nav-filter {
+    position: fixed;
+    top: 0rem;
+    margin-left: 0rem;
+    z-index: 2;
+    width: 85%;
+    height: 100%;
+    background-color: var(--primary-color); /* negro */
+    transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
+    box-shadow: -4px 0 15px var(--accent-color);
+    overflow-y: auto;
+    padding-top: 100px;
+}
+
+.nav-filter::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: var(--secondary-color);
+    backdrop-filter: blur(10px);
+}
+  
+.nav-filter ul li {
+    margin: 0 15px;
+    position: relative; /* para pdoerle aplicar posicion absoluta al a::after */
+}
+  
+.nav-filter ul li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-filter ul li a::after {
+    position: absolute;
+    right: 0.5rem; /* siempre pegado al borde */
+    content: "\25BC";
+}
+/* filtro para responsive */
+
+.container-product {
+    padding: 1rem;
+    border: 1px solid rgba(255, 193, 7, 0.5);
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.container-product:hover {
+    border: 1px solid transparent;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.6);
+}
+
+/* Badge visual de productos */
+.badge-container {
+    position: relative;
+    height: 0;
+}
+
+.badge {
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 0.25rem;
+    z-index: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.badge-sale {
+    background-color: var(--accent-color); /* Amarillo */
+}
+
+.badge-preorder {
+    background-color: #007bff; /* Azul (puedes usar otra variable si quieres) */
+}
+
+.container-product img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.container-product p {
+    margin: 1rem 0rem;
+    cursor: pointer;
+}
+
+.container-product h5 {
+    margin: 0.75rem 0rem;
+    cursor: pointer;
+}
+
+.container-product p, .container-product h5 {
+    text-align: center;
+}
+
+.container-product form input[type="button"] {
+    cursor: pointer;
+    color: #333;
+    width: 100%;
+    background-color: var(--secondary-color);
+    padding: 0.7rem;
+    border: 1px solid var(--accent-color);
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+    transition: border 0.3s ease;
+}
+
+.container-product form input[type="button"]:hover {
+    color: var(--text-color);
+    background-color: var(--accent-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.aside-paginated {
+    grid-column: 1 / -1; /* Esto sirve para que el ancho ocupa todas las columnas disponibles grid del padre */
+}
+
+.page-list {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.page-list li a {
+    padding: 0.5rem 0.7rem;
+    color: #333;
+    cursor: unset;
+}
+
+.page-list li a.page-current {
+    background-color: var(--secondary-color);
+}
+
+.page-list li a.page-number, .page-list li a.page-previous, .page-list li a.page-next {
+    transition: color 0.3s ease;
+}
+
+.page-list li a.page-number:hover, .page-list li a.page-previous:hover, .page-list li a.page-next:hover {
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
+/* Media queries */
+@media (max-width: 1000px) {
+    .section-catalog-product {
+        width: 100%;
+    }
+}
+@media (max-width: 640px) {
+    .section-catalog-product {
+        grid-template-columns: 100%;
+        padding: 0.5rem;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 999px) {
+    .section-catalog-product {
+        grid-template-columns: 50% 50%;
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1279px) {
+    .section-catalog-product {
+        grid-template-columns: 33% 33% 33%;
+        padding: 1.3rem;
+    }
+}
+
+/* filtro responsive */
+
+@media (max-width: 1000px) {
+    .aside-collection-toolbar .aside-filter {
+        display: block;
+    }
+    .nav-filter {
+        display: none;
+    }
+}
+
+/* felchas del menu desplegable de filtros */
+@media (min-width: 430px) and (max-width: 500px){
+    .nav-filter ul li a::after {
+        right: 1rem; /* 430px a 500px => 1rem */
+    }
+}
+
+@media (min-width: 501px) and (max-width: 640px){
+    .nav-filter ul li a::after {
+        right: 2rem; /* 501px a 640px => 2rem */
+    }
+}
+
+@media (min-width: 641px) and (max-width: 800px){
+    .nav-filter ul li a::after {
+        right: 3rem; /* 641px a 800px => 3rem */
+    }
+}
+
+@media (min-width: 801px) and (max-width: 900px){
+    .nav-filter ul li a::after {
+        right: 4rem; /* 801px a 900px => 4rem */
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1000px){
+    .nav-filter ul li a::after {
+        right: 5rem; /* 901px a 1000px => 5rem */
+    }
+}
+/* felchas del menu desplegable de filtros */
+
+/* filtro responsive */
