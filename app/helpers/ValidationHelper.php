@@ -1,6 +1,6 @@
 <?php
 namespace App\Helpers;
-
+// clase general para validaciones
 class ValidationHelper
 {
     public static function isPostRequest(): bool
