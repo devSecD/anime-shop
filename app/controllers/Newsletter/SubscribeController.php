@@ -28,7 +28,6 @@ class SubscribeController extends Controller
 
         $result = $newsletterModel->subscribe($email);
 
-        // header('Content-Type: application/json');
         if ($result) {
             echo json_encode(['success' => true, 'message' => '¡Gracias por suscribirte!']);
         } else {

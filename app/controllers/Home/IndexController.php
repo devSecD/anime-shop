@@ -1,6 +1,6 @@
 <?php
 namespace Controllers\Home;
-
+// controlador para el index/home
 use Core\Controller;
 use Models\Product\ProductRepository;
 use App\Helpers\RequestHelper;
