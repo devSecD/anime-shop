@@ -1,44 +1,6 @@
 <?php
-
-/*
-1. app\controllers\Home\IndexController.php
-Podria refactorizar estas lineas:
-
-$search = $_GET['search'] ?? '';
-$filter = $_GET['filter'] ?? null;
-$sort = $_GET['sort'] ?? null;
-$category = $_GET['category'] ?? null;
-
-2. app\core\Router.php
-Podria refactorizar estas lineas:
-$url = $_GET['url'] ?? '';
-
-Metiendolo en una clase y metodos donde podamos llamar ese metodo y no tener esas 4 lineas si no una que invoque al metodo, 
-claro siempre y cuando se instancie la clase que contiene dicho meotdo
-
----------------------------------------------------------------------------------------------------------------------------------------------
-
-app\controllers\Newsletter\SubscribeController.php
-Podemos meter en validaciones (app\helpers\ValidationHelper.php) estas lineas de codigo:
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    ...
-} else {
-    // si alguien accede directamente por GET
-    http_response_code(405);
-    echo "Metodo no permitido";
-}
-
-if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL))
-
----------------------------------------------------------------------------------------------------------------------------------------------
-app\controllers\Product\ListController.php
-Al parecer esto ya no se esta usando en el proyecto ya que se sustituyo por el home controller.
-Debo pedir ayudar a chatgpt para confirmar.
-*/
-
 namespace Controllers\Home;
-
+// controlador para el index/home
 use Core\Controller;
 use Models\Product\ProductRepository;
 use App\Helpers\RequestHelper;
