@@ -1,0 +1,82 @@
+.form-container {
+    max-width: 400px;
+    margin: var(--large-spacing) auto;
+    padding: var(--medium-spacing);
+    border: 1px solid rgba(255, 193, 7, 0.5); /* como en el catalogo */
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.2); /* como en el catalogo */
+    font-family: var(-main-font);
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.form-container:hover {
+    border: 1px solid transparent;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.6);
+}
+
+.form-container h2 {
+    font-size: var(font-size-title);
+    margin-bottom: var(--medium-spacing);
+    color: var(--primary-color);
+    text-align: center;
+    font-family: var(--secondary-font);
+}
+
+.form-group {
+    margin-bottom: var(--medium-spacing);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--small-spacing);
+    color: var(--secondary-text-color);
+    font-family: var(--secondary-font);
+}
+
+.form-group input {
+    width: 100%;
+    padding: var(--small-spacing);
+    font-size: var(--font-size-paragraph);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    transition: border 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: var(--secondary-color);
+    color: #333;
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-size-paragraph);
+    transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.form-container p {
+    font-size: var(--font-size-small);
+    text-align: center;
+    margin-top: var(--small-spacing);
+}
+
+.form.form-container a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.form-container a:hover {
+    text-decoration: underline;
+}

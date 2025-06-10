@@ -66,8 +66,12 @@ class Router
         try {
             if(class_exists($controllerClass)) {
                 $instance = new $controllerClass();
-                if(method_exists($instance, 'index')) {
-                    call_user_func_array([$instance, 'index'], $params);
+
+                $method = $params[0] ?? 'index';
+                $methodParams = array_slice($params, 1);
+
+                if(method_exists($instance,$method)) {
+                    call_user_func_array([$instance, $method], $methodParams);
                 } else {
                     throw new \Exception("Metodo 'index' no encontrado en $controllerClass");
                 }

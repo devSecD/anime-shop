@@ -1,10 +1,9 @@
 # Reescritura de URLs para routing amigable
 
 RewriteEngine On
-RewriteBase /anime-shop/public
 
-# Redirigir todo a index.php, excepto archivos existentes
+RewriteBase /anime-shop/public/
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-RewriteRule ^ index.php [QSA,L]
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
