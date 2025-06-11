@@ -4,11 +4,27 @@ namespace Controllers\Home;
 use Core\Controller;
 use Models\Product\ProductRepository;
 use App\Helpers\RequestHelper;
+use App\Helpers\SessionHelper; // esto lo usare para despues
 
 class IndexController extends Controller
 {
     public function index()
     {
+
+        // esto lo usare para despues
+
+        // SessionHelper::start();
+
+        // if (SessionHelper::isLoggedIn()) {
+            // usuario autenticado
+            // $user = SessionHelper::getUser(); // info del usuario
+            // echo "<pre>";
+            // print_r($user);
+            // echo "</pre>";
+        // }
+
+        // esto lo usare para despues
+
         $db = $this->loadDB();
         $repo = new ProductRepository($db);
 
