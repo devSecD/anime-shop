@@ -8,7 +8,7 @@ export function initRegisterForm() {
 
     form.addEventListener("submit", function (e){
         e.preventDefault();
-        /*
+
         const name = form.elements['name'].value;
         const email = form.elements['email'].value;
         const password = form.elements['password'].value;
@@ -40,7 +40,6 @@ export function initRegisterForm() {
             showToast(errors.join('\n'), 'error');
             return;
         }
-        */
 
         sendForm(form, function (response){
 

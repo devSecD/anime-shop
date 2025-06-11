@@ -15,5 +15,9 @@ return [
     'user/login' => [
         'controller' => 'User\LoginController', 
         'action' => 'index'
-    ]
+    ],
+    'user/logout' => [
+        'controller' => 'User\LogoutController', 
+        'action' => 'index'
+    ],
 ];
