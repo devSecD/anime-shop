@@ -17,6 +17,11 @@ class UserRepository
         return !empty($this->model->getByEmail($email));
     }
 
+    public function getUserByEmail(string $email): ?array
+    {
+        return $this->model->getByEmail($email) ?: null;
+    }
+
     public function register(array $data): array
     {
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -40,10 +45,19 @@ class UserRepository
             return ['success' => false, 'message' => 'Contraseña incorrecta.'];
         }
 
-        // puedes limpiar el array antes de devolverlo si no uieres exponer ciertos campos
         unset($user['password_hash']);
 
         return ['success' => true, 'message' => 'Inicio de sesión exitoso.', 'user' => $user];
+    }
+
+    public function findById(int $id): array
+    {
+        return $this->model->getById($id);
+    }
+
+    public function updatePassword(int $id, string $hash): bool
+    {
+        return $this->model->updatePassword($id, $hash);
     }
 
 }

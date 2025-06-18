@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../assets/css/fontawesome-free-6.7.2-web/css/all.min.css">
     <?php if (in_array('form', $assets)): ?>
         <link rel="stylesheet" href="../assets/css/form.css">
+        <link rel="stylesheet" href="../assets/css/components/spinner.css">
     <?php endif; ?>
     <link rel="stylesheet" href="../assets/css/components/alerts.css">
 </head>

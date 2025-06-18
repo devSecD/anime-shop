@@ -20,7 +20,7 @@ class UserModel
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ?: [];
+        return $result ? : [];
     }
 
     public function createUser(array $data): bool
@@ -39,6 +39,32 @@ class UserModel
             }
             throw $e;
         }
-
     }
+
+    public function updatePassword(int $userId, string $hashedPassword): bool
+    {
+        $sql = "UPDATE users SET password_hash = :password WHERE user_id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
+        $stmt->bindValue('id', $userId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function clearResetToken($userId): bool
+    {
+        $sql = "UPDATE users SET reset_token = NULL WHERE user_id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function getById(int $id): array
+    {
+        $sql = "SELECT * FROM users WHERE user_id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
+    }
+
 }
