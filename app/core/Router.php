@@ -4,6 +4,7 @@
 namespace Core;
 
 use App\Helpers\RequestHelper;
+use App\Helpers\StringHelper;
 
 class Router
 {
@@ -56,8 +57,8 @@ class Router
         $url = trim($url, '/');
         $segments = $url !== '' ? explode('/', $url) : [];
 
-        $controller = !empty($segments[0]) ? $segments[0] : 'home';
-        $action = $segments[1] ?? 'index';
+        $controller = !empty($segments[0]) ? StringHelper::toPascalCase($segments[0]) : 'home';
+        $action = $segments[1] ? StringHelper::toPascalCase($segments[1]) : 'index';
         $params = array_slice($segments, 2);
 
         // Convertir a ruta de clase

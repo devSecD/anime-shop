@@ -1,9 +1,8 @@
 const pageModules = {
     register: () => import('../components/registerForm.js').then(m => m.initRegisterForm()),
     login: () => import('../components/loginForm.js').then(m => m.initLoginForm()),
-    // Puedes agregar más páginas aquí en el futuro:
-    // catalog: () => import('../components/catalog.js').then(m => m.initCatalog()),
-    // profile: () => import('../components/profile.js').then(m => m.initProfile()),
+    forgot_password: () => import('../components/forgotPasswordForm.js').then(m => m.initForgotPasswordForm()),
+    reset_password: () => import('../components/resetPasswordForm.js').then(m => m.initResetPasswordForm()),
 };
 
 export function loadPageModule(page) {

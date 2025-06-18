@@ -12,4 +12,9 @@ class StringHelper
     {
         return implode($separator, $items);
     }
+
+    public static function toPascalCase(string $str): string
+    {
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $str)));
+    }
 }

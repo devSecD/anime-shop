@@ -20,4 +20,12 @@ return [
         'controller' => 'User\LogoutController', 
         'action' => 'index'
     ],
+    'user/forgot_password' => [
+        'controller' => 'User\PasswordRecoveryController', 
+        'action' => 'index'
+    ],
+    'user/reset_password' => [
+        'controller' => 'User\ResetPasswordController', 
+        'action' => 'index'
+    ],
 ];
