@@ -1,5 +1,6 @@
 <?php
 namespace App\Helpers;
+use Models\Product\ProductRepository;
 
 use App\Helpers\StringHelper;
 
@@ -67,6 +68,72 @@ class ValidationHelper
         $pass = StringHelper::trim($pass);
         $confirm = StringHelper::trim($confirm);
         return $pass !== $confirm ? "Las contraseñas no coinciden." : null ;
+    }
+
+    /**
+     * Valida que un número entero sea mayor o igual a 1.
+     * 
+     * @param string $fieldName Nombre del campo para mensaje de error
+     * @param int|float|null $value valor a validar
+     * @return string|null Mensaje de error o null si es válido
+     */
+    public static function mustBePositiveInt(string $fieldName, $value): ?string
+    {
+        if (!is_numeric($value) || (int)$value < 1  ) return "El campo {$fieldName} debe ser un número entero mayor o igual a 1";
+        
+        return null;
+    }   
+
+    /**
+     * Valida la existencia de un recurso basado en su entidad y su id
+     * 
+     * @param callable $finderFunc Función que recibe el id y devuelve el recurso o null si no existe
+     * @param int $id Identificador del recurso
+     * @param string $resourceName Nombre del recurso para mensaje de error (ej. "producto")
+     * @return string|null Mensaj de error o null si existe
+     */
+    public static function mustExist(callable $finderFunc, int $id, string $resourceName): ? string
+    {
+        $resource = $finderFunc($id);
+
+        if (!$resource) return "El {$resourceName} espeficado no existe.";
+
+        return null;
+    }
+    /**
+     * Valida que un número no exceda un maximo disponible.
+     * 
+     * @param string $fieldName Nombre del campo para mensaje
+     * @param int|float $value Valor a validar
+     * @param int|float $maxValue Valor máximo permitido
+     * @return string|null Mensaje de error o null si es válido
+     */
+    public static function mustNotExceed(string $fieldName, $value, $maxValue): ?string
+    {
+        if ($value > $maxValue) return "El campo {$fieldName} no puede ser mayor que {$maxValue}.";
+
+        return null;
+    }
+
+    public static function validateStock(ProductRepository $repo, int $productId, ?int $quantity): ?string
+    {
+        // 1. Validar cantidad positiva
+        $error = self::mustBePositiveInt('cantidad', $quantity);
+        if ($error) return $error;
+
+        // 2. Validar existencia del producto
+        $error = self::mustExist(   
+        fn($id) => $repo->findById($id),
+            $productId, 
+            'producto' 
+        );
+        if ($error) return $error;
+
+        // 3. Validar que cantidad no exceda stock
+        $product = $repo->findById($productId);
+        $stock = (int)($product['stock'] ?? 0); 
+
+        return self::mustNotExceed('cantidad', $quantity, $stock);
     }
 
 }

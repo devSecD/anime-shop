@@ -38,7 +38,7 @@
     height: 20px;
     text-align: center;
 }
-  
+
 .close_search a{
     color: var(--accent-color);
 }
@@ -153,21 +153,21 @@
     text-align: center;
 }
 
-.container-product form input[type="button"] {
-    cursor: pointer;
-    color: #333;
+.btn-add-to-cart {
     width: 100%;
-    background-color: var(--secondary-color);
     padding: 0.7rem;
+    background-color: var(--secondary-color);
+    color: #333;
     border: 1px solid var(--accent-color);
-    transition: color 0.3s ease;
-    transition: background-color 0.3s ease;
-    transition: border 0.3s ease;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-size-paragraph);
+    transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
 }
 
-.container-product form input[type="button"]:hover {
-    color: var(--text-color);
+.btn-add-to-cart:hover {
     background-color: var(--accent-color);
+    color: var(--text-color);
     border: 1px solid var(--secondary-color);
 }
 

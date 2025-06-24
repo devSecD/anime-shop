@@ -34,9 +34,12 @@
         <img src="../public/assets/images/products/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
         <h5><?= htmlspecialchars($product['name']); ?></h5>
         <p><?= number_format($product['price'], 2); ?></p>
-        <form action="">
-            <input type="button" value="Añadir al carrito">
-        </form>
+        <!-- <input type="button" value="Añadir al carrito"> -->
+            <button class="btn-add-to-cart"
+                data-id="<?= $product['product_id'] ?>"
+                data-qty="1">
+            Añadir al carrito
+        </button>
     </section>
     <?php endforeach; ?>
 
@@ -76,3 +79,7 @@
     <?php endif; ?>
 
 </section>
+
+<?php if (in_array('cart', $assets)): ?>
+    <script async src="/anime-shop/public/assets/js/components/cart.js" type="module"></script>
+<?php endif; ?>

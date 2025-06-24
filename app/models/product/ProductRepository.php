@@ -12,26 +12,25 @@ class ProductRepository
         $this->productModel = new Product($db);
     }
 
-    /*
-    public function getCatalog()
+    /**
+     * Devuelve un producto o null si no existe
+     */
+    public function findById(int $id): ?array
     {
-        return $this->productModel->getAll();
+        return $this->productModel->getById($id);
     }
-    */
 
-    /*
-    public function getPaginatedProducts($limit, $offset)
+    /**
+     * Devuelve varios productos a partir de un array de IDs
+     */
+    public function findByIds(array $ids): array
     {
-        return $this->productModel->getPaginated($limit, $offset);
-    }
-    */
+        if (!$ids) return [];
 
-    /*
-    public function countAllProducts()
-    {
-        return $this->productModel->countAll();
+        $in = implode(',', array_fill(0, count($ids), '?'));
+
+        return $this->productModel->getByIds($ids, $in);
     }
-    */
 
     public function getFilteredPaginatedProducts($filter, $sort, $category, $limit, $offset, $search)
     {

@@ -28,4 +28,24 @@ return [
         'controller' => 'User\ResetPasswordController', 
         'action' => 'index'
     ],
+    'cart' => [
+        'controller' => 'Cart\CartController', 
+        'action' => 'view'
+    ], 
+    'cart/count' => [
+        'controller' => 'Cart\CartController', 
+        'action' => 'count'
+    ], 
+    'cart/add' => [
+        'controller' => 'Cart\CartController', 
+        'action' => 'add'
+    ], 
+    'cart/update' => [
+        'controller' => 'Cart\CartController', 
+        'action' => 'update'
+    ], 
+    'cart/remove' => [
+        'controller' => 'Cart\CartController', 
+        'action' => 'remove'
+    ], 
 ];

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/assets/css/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet" href="../public/assets/css/index.css">
+    <link rel="stylesheet" href="/anime-shop/public/assets/css/components/alerts.css">
     <title>Home</title>
 </head>
 <body>

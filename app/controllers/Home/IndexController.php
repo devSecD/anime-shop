@@ -53,7 +53,8 @@ class IndexController extends Controller
             'home/index', [
                 'products' => $products, 
                 'currentPage' => $currentPage, 
-                'totalPages' => $totalPages
+                'totalPages' => $totalPages, 
+                'assets' => ['cart']
             ]
         );
 

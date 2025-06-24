@@ -49,6 +49,26 @@ header {
     text-decoration: none;
 }
 
+.nav-icon-with-text {
+    position: relative;                 /* referencia para el badge */
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 50%;
+    font-size: .75rem;
+    line-height: 18px;
+    text-align: center;
+    background: var(--color-accent, #ff4242);
+    color: #fff;
+    pointer-events: none;               /* que no interfiera con el clic */
+}
+
 .nav-icon-with-text span {
     display: inline;
 }
