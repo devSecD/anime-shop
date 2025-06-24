@@ -14,45 +14,32 @@ class Product
         $this->db = $db;
     }
 
-    /*
-    public function getAll()
+    /**
+     * Devuelve un producto por ID
+     */
+    public function getById(int $id): ?array
     {
-        try {
-            $stmt = $this->db->prepare("SELECT * FROM products");
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            throw new Exception("Error al obtener el producto: " . $e->getMessage());
-        }
-    }
-    */
+        $sql = "SELECT * FROM products WHERE product_id = :id LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-    /*
-    public function getPaginated($limit, $offset)
-    {
-        try {
-            $stmt = $this->db->prepare("SELECT * FROM products  LIMIT :limit offset :offset");
-            $stmt->bindValue('limit', (int)$limit, PDO::PARAM_INT);
-            $stmt->bindValue('offset', (int)$offset, PDO::PARAM_INT);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            throw new Exception("Error al obtener productos paginados: " . $e->getMessage());
-        }
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $product ?: null;
     }
-    */
 
-    /*
-    public function countAll()
+    public function getByIds(array $ids, string $in): array
     {
-        try {
-            $stmt = $this->db->query("SELECT COUNT(*) FROM products");
-            return (int) $stmt->fetchColumn();
-        } catch (PDOException $e) {
-            throw new Exception("Error al encontrar productos: " . $e->getMessage());
+        $sql = "SELECT * FROM products WHERE product_id IN($in)";
+        $stmt = $this->db->prepare($sql);
+
+        foreach($ids as $idx => $id) {
+            $stmt->bindValue($idx + 1, $id, PDO::PARAM_INT);
         }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    */
 
     public function executeQuery($sql, $params)
     {

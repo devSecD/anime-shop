@@ -5,15 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?? 'Anime Shop' ?></title>
-    <link rel="stylesheet" href="../assets/css/reset.css">
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/index.css">
-    <link rel="stylesheet" href="../assets/css/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/anime-shop/public/assets/css/reset.css">
+    <link rel="stylesheet" href="/anime-shop/public/assets/css/variables.css">
+    <link rel="stylesheet" href="/anime-shop/public/assets/css/index.css">
+    <link rel="stylesheet" href="/anime-shop/public/assets/css/fontawesome-free-6.7.2-web/css/all.min.css">
     <?php if (in_array('form', $assets)): ?>
-        <link rel="stylesheet" href="../assets/css/form.css">
-        <link rel="stylesheet" href="../assets/css/components/spinner.css">
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/form.css">
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/spinner.css">
     <?php endif; ?>
-    <link rel="stylesheet" href="../assets/css/components/alerts.css">
+    <?php if (in_array('cart', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/cart.css">
+    <?php endif; ?>
+    <link rel="stylesheet" href="/anime-shop/public/assets/css/components/alerts.css">
 </head>
 <body>
     <?php include __DIR__ . '/../components/_navbar_main.php'; ?>

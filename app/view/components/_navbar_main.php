@@ -44,7 +44,7 @@
         </li>
         <li>
             <a href="#logo">
-                <img class="logo" src="../public/assets/images/logo/Online_Store_Figures_Anime.webp" alt="logo">
+                <img class="logo" src="/anime-shop/public/assets/images/logo/Online_Store_Figures_Anime.webp" alt="logo">
             </a>
         </li>
         <li class="li-search">
@@ -78,9 +78,14 @@
             </a>
         </li>
         <li>
-            <a href="#cartshopping" class="nav-icon-with-text">
+            <a href="../public/cart" class="nav-icon-with-text nav-cart-link"> <!-- esta clase nav-cart-link aun no esta agregado al css -->
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>Carrito</span>
+
+                <!-- badge numérico  que leerá el js -->
+                <span id="mini-cart-count" class="cart-badge"> <!-- esta clase cart-badge aun no esta agregada al css -->
+                    <?= $_SESSION['cart_count'] ?? 0; ?>
+                </span>
             </a>
         </li>
     </ul>
