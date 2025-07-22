@@ -115,6 +115,7 @@ class ValidationHelper
         return null;
     }
 
+    /* metodo para validar stock */
     public static function validateStock(ProductRepository $repo, int $productId, ?int $quantity): ?string
     {
         // 1. Validar cantidad positiva
@@ -134,6 +135,53 @@ class ValidationHelper
         $stock = (int)($product['stock'] ?? 0); 
 
         return self::mustNotExceed('cantidad', $quantity, $stock);
+    }
+    /* metodo para validar stock */
+
+    // Valida teléfono (solo dígitos, entre 10 y 15)
+    public static function validatePhone(?string $value): ?string
+    {
+        $value = StringHelper::trim($value);
+
+        if (!preg_match('/^\d{10,15}$/', $value)) {
+            return "El teléfono debe tener entre 10 y 15 dígitos.";
+        }
+
+        return null;
+    }
+
+    // Valida código postal de manera genérica
+    public static function validatePostalCode(?string $value): ?string
+    {
+        $value = StringHelper::trim($value);
+
+        if (!preg_match('/^[A-Za-z0-9\- ]{3,10}$/', $value)) {
+            return "El código postal no tiene un formato válido.";
+        }
+
+        return null;
+    }
+
+    /**
+     * Valida que un número (entero o flotante) sea positivo (> 0).
+     * 
+     * @param int|float|null $n
+     * @return string|null
+     */
+    public static function validatePositive($n): ?string
+    {
+        if (!is_numeric($n) || $n <= 0) return "Debe ser mayor a 0.";
+        return null;
+    }
+
+    public static function validatePaymentMethod(callable $finderFunc, int $id): ?string
+    {
+        return self::mustExist($finderFunc, $id, 'método de pago');
+    }
+
+    public static function validateShippingAddress(callable $finderFunc, int $id): ?string
+    {
+        return self::mustExist($finderFunc, $id, 'dirección de envío');
     }
 
 }

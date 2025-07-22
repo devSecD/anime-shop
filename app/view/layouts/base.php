@@ -16,6 +16,9 @@
     <?php if (in_array('cart', $assets)): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/cart.css">
     <?php endif; ?>
+    <?php if (in_array('checkout', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/checkout.css">
+    <?php endif; ?>
     <link rel="stylesheet" href="/anime-shop/public/assets/css/components/alerts.css">
 </head>
 <body>

@@ -1,5 +1,5 @@
 .form-container {
-    max-width: 400px;
+    max-width: 600px;
     margin: var(--large-spacing) auto;
     padding: var(--medium-spacing);
     border: 1px solid rgba(255, 193, 7, 0.5); /* como en el catalogo */
@@ -43,7 +43,31 @@
     transition: border 0.3s ease;
 }
 
+/* Corrección específica para radios y checkboxes */
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+    width: auto;
+    display: inline-block;
+    margin-right: var(--small-spacing);
+}
+
 .form-group input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: var(--small-spacing);
+    font-size: var(--font-size-paragraph);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    font-family: var(--secondary-font);
+    resize: vertical;
+}
+
+.form-group textarea:focus {
     border-color: var(--accent-color);
     outline: none;
 }

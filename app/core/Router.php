@@ -58,7 +58,7 @@ class Router
         $segments = $url !== '' ? explode('/', $url) : [];
 
         $controller = !empty($segments[0]) ? StringHelper::toPascalCase($segments[0]) : 'home';
-        $action = $segments[1] ? StringHelper::toPascalCase($segments[1]) : 'index';
+        $action = isset($segments[1]) ? StringHelper::toPascalCase($segments[1]) : 'index';
         $params = array_slice($segments, 2);
 
         // Convertir a ruta de clase
@@ -68,14 +68,19 @@ class Router
             if(class_exists($controllerClass)) {
                 $instance = new $controllerClass();
 
-                $method = $params[0] ?? 'index';
-                $methodParams = array_slice($params, 1);
+                $possibleMethod = $params[0] ?? 'index';
+                // $methodParams = array_slice($params, 1);
 
-                if(method_exists($instance,$method)) {
-                    call_user_func_array([$instance, $method], $methodParams);
+                if(method_exists($instance,$possibleMethod)) {
+                    $method = $possibleMethod;
+                    $methodParams = array_slice($params, 1);
                 } else {
-                    throw new \Exception("Metodo 'index' no encontrado en $controllerClass");
+                    // Si no existe, asumimos que es index() con todos los params
+                    $method = 'index';
+                    $methodParams = $params;
+                    // throw new \Exception("Metodo 'index' no encontrado en $controllerClass");
                 }
+                call_user_func_array([$instance, $method], $methodParams);
             } else {
                 throw new \Exception("Controlador $controllerClass no encontrado");
             }

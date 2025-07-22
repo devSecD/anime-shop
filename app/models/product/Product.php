@@ -72,4 +72,14 @@ class Product
         }
         return $query;
     }
+
+    public function decreaseStock(int $productId, int $qty): bool
+    {
+        $sql = "UPDATE products SET stock = stock - :qty WHERE product_id = :productId AND stock >= :qty";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':qty', $qty, \PDO::PARAM_INT);
+        $stmt->bindValue(':productId', $productId, \PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
 }

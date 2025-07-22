@@ -1,0 +1,182 @@
+.checkout-section {
+    max-width: var(--max-width);
+    margin: auto;
+    padding: var(--large-spacing);
+    background-color: var(--background-color);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+}
+
+.checkout-title {
+    font-size: var(--font-size-title);
+    font-family: var(--main-font);
+    margin-bottom: var(--medium-spacing);
+}
+
+.checkout-table-container {
+    overflow-x: auto;
+    margin-bottom: var(--large-spacing);
+}
+
+.checkout-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.checkout-table th,
+.checkout-table td {
+    padding: var(--medium-spacing);
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.checkout-table tfoot th {
+    text-align: right;
+    font-size: var(--font-size-paragraph);
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: var(--small-spacing);
+}
+
+.product-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.product-name {
+    font-weight: bold;
+    font-size: var(--font-size-small);
+}
+
+/* Estilos para resumen del pedido */
+#order-summary {
+    list-style-type: none;
+    padding: 0;
+    margin: var(--small-spacing) 0;
+    font-family: var(--secondary-font);
+    font-size: var(--font-size-paragraph);
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: var(--medium-spacing);
+}
+
+#order-summary li {
+    display: flex;
+    align-items: center;
+    gap: var(--small-spacing);
+    padding: var(--small-spacing) 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--secondary-text-color);
+}
+
+#order-summary li:last-child {
+    border-bottom: none;
+}
+
+
+.checkout-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--small-spacing);
+    flex-wrap: wrap;
+    margin-top: var(--medium-spacing);
+}
+
+/* Estilos unificados para <a> y <button> */
+.checkout-actions a.btn,
+.checkout-actions button.btn {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0.7rem;
+    font-size: var(--font-size-paragraph);
+    border-radius: var(--border-radius);
+    font-family: var(--main-font);
+    min-width: 180px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--accent-color);
+    text-decoration: none;
+    user-select: none;
+}
+
+/* Reiniciar estilos del botón para evitar estilos por defecto del navegador */
+.checkout-actions button.btn {
+    all: unset;
+    /* luego reaplicar estilos necesarios */
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0.7rem;
+    font-size: var(--font-size-paragraph);
+    border-radius: var(--border-radius);
+    font-family: var(--main-font);
+    min-width: 180px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--accent-color);
+    background-color: var(--secondary-color);
+    color: #333;
+    user-select: none;
+}
+
+/* Estilos específicos para botón primario */
+.checkout-actions button.btn-primary, .checkout-actions a.btn-primary {
+    background-color: var(--secondary-color);
+    color: #333;
+    border: 1px solid var(--accent-color);
+}
+
+.checkout-actions button.btn-primary:hover, .checkout-actions a.btn-primary:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border-color: var(--secondary-color);
+}
+
+/* Estilos para enlace secundario */
+.checkout-actions a.btn-secondary {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: 1px solid var(--primary-color);
+}
+
+.checkout-actions a.btn-secondary:hover {
+    background-color: #01579b;
+    border-color: #01579b;
+}
+
+.checkout-actions button.btn-secondary {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: 1px solid var(--primary-color);
+    cursor: pointer; /* buena práctica para botones */
+}
+
+.checkout-actions button.btn-secondary:hover {
+    background-color: #01579b;
+    border-color: #01579b;
+}
+
+/* Responsive: apilar botones en móvil */
+@media (max-width: 600px) {
+    .checkout-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .checkout-actions a.btn,
+    .checkout-actions button.btn {
+        width: 100%;
+        min-width: 0;
+    }
+}

@@ -108,4 +108,15 @@ class ProductRepository
 
         return $this->productModel->executeCount($sql, $params);
     }
+
+    public function decreaseStock(int $productId, int $qty): bool
+    {
+        if ($qty <= 0) {
+            return false; // No tiene sentido disminuir con cantidades negativas o cero
+        }
+        // Podrías agregar más validaciones aquí si quieres
+
+        return $this->productModel->decreaseStock($productId, $qty);
+    }
+
 }

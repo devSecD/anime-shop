@@ -9,7 +9,10 @@ error_reporting(E_ALL);
 define('ROOT', dirname(__DIR__));
 define('APP_PATH', ROOT . '/app');
 
-// Cargar Autoload
+// ** Cargar Autoload de Composer primero **
+require_once ROOT . '/vendor/autoload.php';
+
+// Cargar Autoload custom
 require_once APP_PATH . '/core/Autoloader.php';
 \Core\Autoloader::register();
 
