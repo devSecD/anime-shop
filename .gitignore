@@ -17,6 +17,8 @@ Thumbs.db
 
 # --- CONFIGURACIONES LOCALES / SENSIBLES ---
 app/config/database.php
+app/config/mercadopago.php
+app/config/url.config.php
 
 # --- CACHE / LOGS ---
 cache/
@@ -29,3 +31,6 @@ logs/
 # --- PHP ---
 # Es como un "ejecutable" en php
 *.phar
+
+# Composer
+/vendor/

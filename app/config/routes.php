@@ -48,4 +48,20 @@ return [
         'controller' => 'Cart\CartController', 
         'action' => 'remove'
     ], 
+    'checkout' => [
+        'controller' => 'Checkout\CheckoutController', 
+        'action' => 'index'
+    ], 
+    'checkout/payment' => [
+        'controller' => 'Checkout\PaymentController', 
+        'action' => 'index'
+    ], 
+    'webhook/mercadopago' => [
+        'controller' => 'Webhook\WebhookController', 
+        'action' => 'handle'
+    ], 
+    'payment/result/{status}/{payment_id}/{external_reference}' => [
+        'controller' => 'Payment\ResultController', 
+        'action' => 'index'
+    ], 
 ];

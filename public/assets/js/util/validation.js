@@ -16,3 +16,45 @@ export function isValidEmail(email) {
 export function areEqual(value1, value2) {
     return trimValue(value1) === trimValue(value2);
 }
+
+/**
+ * Valida que el número telefónico contenga solo dígitos y esté en el rango permitido por la norma E.164.
+ * Permite de 10 a 15 dígitos (sin "+" ni espacios).
+ */
+export function isValidPhone(phone) {
+    const trimmed = trimValue(phone);
+    const regex = /^\d{10,15}$/;
+    return regex.test(trimmed);
+}
+
+/**
+ * Valida código postal con formato genérico (acepta letras, números y guiones).
+ * Solo valida que tenga entre 3 y 10 caracteres alfanuméricos.
+ */
+export function isValidPostalCode(postalCode) {
+    const trimmed = trimValue(postalCode);
+    const regex = /^[A-Za-z0-9\- ]{3,10}$/;
+    return regex.test(trimmed);
+}
+
+/**
+ * Verifica si un campo contiene solo letras y espacios.
+ * Útil para nombres y campos similares.
+ */
+export function isAlphabeticWithSpaces(value) {
+    const trimmed = trimValue(value);
+    const regex = /^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]+$/;
+    return regex.test(trimmed);
+}
+
+export function isRadioChecked(selector) {
+    return document.querySelector(selector) !== null;
+}
+
+/* 
+Agregar estas funciones como mejora
+
+- isValidCardNumber
+- isValidCVV
+- isValidExpirationDate
+*/

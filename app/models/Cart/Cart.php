@@ -16,6 +16,11 @@ class Cart
         $this->init();
     }
 
+    public function getProductRepository(): ProductRepository
+    {
+        return $this->repo;
+    }
+
     /** Inicializa el carrito si no existe en sesión */
     public function init(): void
     {
@@ -38,12 +43,12 @@ class Cart
         if (isset($cart[$productId])) {
             $cart[$productId]['qty'] += $qty;
         } else {
-           $cart[$productId] = [
-            'qty' => $qty, 
-            'price' => $product['price_discounted'] ?: $product['price'],
-            'name' => $product['name'], 
-            'image' => $product['image']
-           ];
+            $cart[$productId] = [
+                'qty' => $qty, 
+                'price' => $product['price_discounted'] ?: $product['price'],
+                'name' => $product['name'], 
+                'image' => $product['image']
+            ];
         }
 
         SessionHelper::set(self::SESSION_KEY, $cart);
@@ -89,6 +94,15 @@ class Cart
     public function count(): int
     {
         return array_reduce($this->items(), fn($c, $i) => $c + $i['qty'], 0);
+    }
+
+    /**
+     * Vacía todo el carrito de la sesión.
+     */
+    public function clear(): void
+    {
+        SessionHelper::start();
+        SessionHelper::set(self::SESSION_KEY, []);
     }
 
 }

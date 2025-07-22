@@ -2,7 +2,9 @@ const pageModules = {
     register: () => import('../components/registerForm.js').then(m => m.initRegisterForm()),
     login: () => import('../components/loginForm.js').then(m => m.initLoginForm()),
     forgot_password: () => import('../components/forgotPasswordForm.js').then(m => m.initForgotPasswordForm()),
-    reset_password: () => import('../components/resetPasswordForm.js').then(m => m.initResetPasswordForm()),
+    reset_password: () => import('../components/resetPasswordForm.js').then(m => m.initResetPasswordForm()), 
+    shipping_address: () => import('../components/shippingAddressForm.js').then(m => m.initShippingAddressForm()), 
+    checkout_payment: () => import('../components/paymentForm.js').then(m => m.initPaymentForm()), 
 };
 
 export function loadPageModule(page) {

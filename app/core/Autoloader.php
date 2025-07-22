@@ -11,17 +11,26 @@ class Autoloader
     public static function autoload($class)
     {
         // Elimina el namespace raíz "App\" para resolver la ruta relativa desde /app
-        if (strpos($class, 'App\\') === 0) {
-            $class = substr($class, 4); // Remueve 'App\' del namespace
-        }
+        if (strpos($class, 'App\\') === 0 || 
+            strpos($class, 'Core\\') === 0 || 
+            strpos($class, 'Models\\') === 0 || 
+            strpos($class, 'Controllers\\') === 0) {
 
-        $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-        $file = dirname(__DIR__) . DIRECTORY_SEPARATOR . $class . '.php';
+            // Si empieza con App\, quitarlo para resolver desde /app
+            if (strpos($class, 'App\\') === 0) {
+                $class = substr($class, 4); // Quita 'App\'
+            }
 
-        if (file_exists($file)) {
-            require_once $file;
-        } else {
-            throw new \Exception("No se pudo cargar la clase: $class (ruta: $file)");
+            $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+            $file = dirname(__DIR__) . DIRECTORY_SEPARATOR . $class . '.php';
+
+            if (file_exists($file)) {
+                require_once $file;
+            } else {
+                throw new \Exception("No se pudo cargar la clase: $class (ruta: $file)");
+            }
         }
+        // Si la clase no es de esos namespaces, no hacemos nada:
+        // Composer (vendor/autoload.php) se encargará.
     }
 }
