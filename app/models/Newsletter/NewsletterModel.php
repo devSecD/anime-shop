@@ -41,4 +41,21 @@ class NewsletterModel
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }
+
+    public function getAll(): array
+    {
+        $sql = "SELECT * FROM newsletter_subscriptions ORDER BY subscribed_at DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteById(int $id): bool
+    {
+        $sql = "DELETE FROM newsletter_subscriptions WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':id' => $id]);
+    }
+
 }

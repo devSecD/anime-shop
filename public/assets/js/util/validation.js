@@ -51,6 +51,27 @@ export function isRadioChecked(selector) {
     return document.querySelector(selector) !== null;
 }
 
+export function validatePositive(value) {
+    const num = parseFloat(value);
+    return !isNaN(num) && num > 0;
+}
+
+export function mustBePositiveInt(value) {
+    const num = parseInt(value);
+    return Number.isInteger(num) && num >= 1;
+}
+
+export function mustBeOptionalBoolean(value, fieldName) {
+    if (value === undefined) return null; // checkbox desmarcado = válido
+    const allowed = [true, false, '1', '0', 1, 0];
+    if (!allowed.includes(value)) {
+        return `El campo ${fieldName} debe ser verdadero o falso.`;
+    }
+    return null;
+}
+
+
+
 /* 
 Agregar estas funciones como mejora
 

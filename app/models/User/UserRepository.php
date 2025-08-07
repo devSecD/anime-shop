@@ -60,4 +60,45 @@ class UserRepository
         return $this->model->updatePassword($id, $hash);
     }
 
+    public function registerWithRole(array $data, string $roleName): array
+    {
+        try {
+
+            // 1. Crear usuario
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            $userId = $this->model->createUser($data);
+            // print_r($userId);
+            // exit;
+            if (!$userId) {
+                return ['success' => false, 'message' => 'Error al registrar el usuario.'];
+            }
+
+            // 2. Obtener ID del rol por nombre
+            $roleId = $this->model->getRoleIdByName($roleName);
+            if (!$roleId) {
+                return ['success' => false, 'message' => "El rol '$roleName' no existe."];
+            }
+
+            // 3. Asignar rol al usuario
+            $assigned = $this->model->assignRoleToUser($userId, $roleId);
+            if (!$assigned) {
+                return ['success' => false, 'message' => 'Error al asignar rol al usuario.'];
+            }
+
+            return ['success' => true, 'message' => 'Usuario registrado exitosamente con rol asignado.'];
+        } catch (\Exception $e) {
+            return ['success' => false, 'message' => 'Error inesperado: ' . $e->getMessage()];
+        }
+    }
+
+    public function getUserRoles(int $userId): array 
+    {
+        return $this->model->getUserRoles($userId);
+    }
+
+    public function getAllUsers(): array
+    {
+        return $this->model->getAll();
+    }
+
 }

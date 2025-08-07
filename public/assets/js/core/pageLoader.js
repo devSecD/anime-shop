@@ -5,6 +5,9 @@ const pageModules = {
     reset_password: () => import('../components/resetPasswordForm.js').then(m => m.initResetPasswordForm()), 
     shipping_address: () => import('../components/shippingAddressForm.js').then(m => m.initShippingAddressForm()), 
     checkout_payment: () => import('../components/paymentForm.js').then(m => m.initPaymentForm()), 
+    registerProduct: () => import('../components/createForm.js').then(m => m.initRegisterProductForm()),
+    updateProduct: () => import('../components/updateForm.js').then(m => m.initUpdateProductForm()),
+
 };
 
 export function loadPageModule(page) {

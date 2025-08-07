@@ -29,7 +29,8 @@ class RegisterController extends Controller
             'name' => $_POST['name'], 
             'email' => $_POST['email'],
             'password' => $_POST['password'], 
-            'confirm_password' => $_POST['confirm_password']
+            'confirm_password' => $_POST['confirm_password'], 
+            'role' => $_POST['role']
         ];
 
         $errors = [];
@@ -54,6 +55,9 @@ class RegisterController extends Controller
         else if ($error = ValidationHelper::matchPasswords($data['password'], $data['confirm_password']))
             $errors['confirm_password'] = $error;
 
+        if ($error = ValidationHelper::required('rol', $data['role']))
+            $errors['role'] = $error;
+
         if (!empty($errors)) {
             ResponseHelper::jsonResponse([
                 'success' => false, 
@@ -68,7 +72,8 @@ class RegisterController extends Controller
         $userData = [
             'name' => $data['name'], 
             'email' => $data['email'], 
-            'password' => $data['password']
+            'password' => $data['password'], 
+            'role' => $_POST['role']
         ];
 
         if ($userRepo->emailExists($userData['email'])) {
@@ -78,9 +83,10 @@ class RegisterController extends Controller
             ]);
         }
 
-        $result = $userRepo->register($userData);
+        // Registro con asignación de rol "customer"
+        $result = $userRepo->registerWithRole($userData, $userData['role']);
 
-        if ($result) {
+        if ($result['success']) {
             ResponseHelper::jsonResponse([
                 'success' => true, 
                 'message' => '¡Tu cuenta fue creada exitosamente! Serás redirigido al inicio de sesión en unos segundos...', 

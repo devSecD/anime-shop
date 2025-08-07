@@ -3,6 +3,8 @@ namespace Models\Product;
 
 use PDO;
 
+use App\Helpers\ValidationHelper;
+
 class ProductRepository
 {
     protected $productModel;
@@ -10,6 +12,47 @@ class ProductRepository
     public function __construct(PDO $db)
     {
         $this->productModel = new Product($db);
+    }
+
+    /**
+     * Crea un nuevo producto validando negocio extra si es necesario
+     * 
+     * @param array $data Datos del producto ya validados desde el controlador
+     * @return array Resultado ['success' => bool, 'product_id' => int|null, 'message' => string|null]
+     */
+    public function create(array $data): array
+    {
+        // Validar lógica de negocio: precio con descuento no mayor al normal
+        $error = ValidationHelper::validateDiscountedPrice(
+            $data['price_discounted'] ?? null, 
+            $data['price'] ?? null
+        );
+
+        if($error !== null) {
+            return [
+                'success' => false, 
+                'product_id' => null, 
+                'message' => $error
+            ];
+        }
+
+        $data['price_discounted'] = trim($data['price_discounted']) === '' ? null : $data['price_discounted'];
+
+        $insertedId = $this->productModel->create($data);
+
+        if ($insertedId === false) {
+            return [
+                'success' => false,
+                'product_id' => null,
+                'message' => 'Error al crear el producto en la base de datos.'
+            ];
+        }
+
+        return [
+            'success' => true,
+            'product_id' => $insertedId,
+            'message' => null
+        ];
     }
 
     /**
@@ -34,25 +77,32 @@ class ProductRepository
 
     public function getFilteredPaginatedProducts($filter, $sort, $category, $limit, $offset, $search)
     {
-        $sql = "SELECT * FROM products WHERE 1=1";
+        $sql = "SELECT 
+                p.*, 
+                c.name AS category_name, 
+                b.name AS brand_name
+            FROM products p
+            INNER JOIN categories c ON p.category_id = c.category_id
+            INNER JOIN brands b ON p.brand_id = b.brand_id 
+            WHERE 1=1";
         $conditions = [];
         $params = [];
 
         if ($filter === 'in-stock') {
-            $conditions[] = "stock > 0";
+            $conditions[] = "p.stock > 0";
         }
 
         if ($filter === 'discounted') {
-            $conditions[] = "is_on_sale = 1 AND price_discounted IS NOT NULL";
+            $conditions[] = "p.is_on_sale = 1 AND p.price_discounted IS NOT NULL";
         }
 
         if (!empty($category)) {
-            $conditions[] = "category_id = :category_id";
+            $conditions[] = "p.category_id = :category_id";
             $params[':category_id'] = $category;
         }
 
         if (!empty($search)) {
-            $conditions[] = "name LIKE :search";
+            $conditions[] = "p.name LIKE :search";
             $params[':search'] = '%' . $search . '%';
         }
 
@@ -64,11 +114,11 @@ class ProductRepository
 
         if (in_array($sort, $allowedSorts)) {
             switch($sort) {
-                case 'newest': $sql .= " ORDER BY created_at DESC"; break;
-                case 'top-sellers': $sql .= " ORDER BY sold_count DESC"; break;
+                case 'newest': $sql .= " ORDER BY p.created_at DESC"; break;
+                case 'top-sellers': $sql .= " ORDER BY p.sold_count DESC"; break;
             }
         } else {
-            $sql .= " ORDER BY name ASC";
+            $sql .= " ORDER BY p.name ASC";
         }
 
         $sql .= " LIMIT :limit OFFSET :offset";
@@ -77,7 +127,6 @@ class ProductRepository
 
         return $this->productModel->executeQuery($sql, $params);
     }
-
     public function countFilteredProducts($filter, $category, $search)
     {
         $sql = "SELECT COUNT(*) FROM products WHERE 1=1";
@@ -117,6 +166,75 @@ class ProductRepository
         // Podrías agregar más validaciones aquí si quieres
 
         return $this->productModel->decreaseStock($productId, $qty);
+    }
+
+    public function createProduct(array $data): bool 
+    {
+        return $this->productModel->createProduct($data);
+    }
+
+    public function update(array $data): array
+    {
+        // Validar lógica de negocio: precio con descuento no mayor al normal
+        $discounted = isset($data['price_discounted']) && $data['price_discounted'] !== ''
+            ? (float)$data['price_discounted'] 
+            : null;
+
+        $regular = isset($data['price']) && $data['price'] !== ''
+            ? (float)$data['price'] 
+            : null;
+
+        $error = ValidationHelper::validateDiscountedPrice($discounted, $regular);
+
+        if($error !== null) {
+            return [
+                'success' => false, 
+                'product_id' => $data['product_id'], 
+                'message' => $error
+            ];
+        }
+
+        // Verificar si el producto existe antes de actualizar
+        $product = $this->productModel->getById($data['product_id']);
+
+        if (!$product) {
+            return [
+                'success' => false,
+                'message' => 'El producto no existe.'
+            ];
+        }
+
+        // Si no hay nueva imagen, mantener la anterior
+        if (!isset($data['image'])) {
+            $data['image'] = $product['image'];
+        } else {
+            // Si quieres, aquí podrías eliminar la imagen anterior del disco
+            unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
+        }
+
+        $success = $this->productModel->update($data);
+
+        return [
+            'success' => $success,
+            'message' => $success ? 'Producto actualizado.' : 'Error al actualizar producto.'
+        ];
+    }
+
+    public function deleteProduct(int $productId): array
+    {
+        $product = $this->productModel->getById($productId);
+
+        if (!$product) {
+            return ['success' => false, 'message' => 'Producto no encontrado.'];
+        }
+
+        $deleted = $this->productModel->delete($productId);
+
+        if (!$deleted) {
+            return ['success' => false, 'message' => 'No se pudo eliminar el producto.'];
+        }
+
+        return ['success' => true, 'message' => 'Producto eliminado correctamente.'];
     }
 
 }

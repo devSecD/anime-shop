@@ -193,6 +193,87 @@ Referencias útiles:
 - [StackOverflow (ES) problema con external_reference](https://es.stackoverflow.com/questions/275430/problema-external-reference-mercadopago)
 
 
+******************************************************************************************************************************************
 
-ARCHIVOS CON INFO SENSIBLE
+🎯 Objetivo MVP
+* Crear un panel seguro para subir nuevos productos a la tienda.
+* Panel accesible solo para tu usuario administrador (puede ser por sesión o autenticación simple).
+* Funcionalidad básica para:
+    * Añadir producto (nombre, descripción, precio, stock, categoría, marca, imagen, etc.).
+    * Editar producto.
+    * Listar productos con paginación.
+    * Eliminar productos (opcional en MVP).
+* Validaciones básicas en frontend y backend.
+* Guardar imágenes (local o carpeta pública).
 
+
+🛠️ Paso a paso inicial para este módulo:
+1. Rutas y controladores
+    * Crear controlador(s) para Admin\ProductController o similar.
+    * Rutas protegidas (middleware o lógica simple que valide que solo tú puedas acceder).
+
+2. Vistas
+    * Formulario para crear/editar productos.
+    * Tabla/listado de productos existentes.
+
+3. Modelos y repositorios
+    * Usar o extender el modelo Product que ya tienes.
+    * Añadir métodos para crear, actualizar y borrar productos.
+
+4. Subida de imágenes
+    * Manejo básico de upload en PHP, guardando en carpeta pública /public/uploads/.
+    * Validar tipo y tamaño del archivo.
+
+5. Seguridad
+    * Para el MVP, puedes usar validación simple con sesión y un usuario hardcodeado.
+    * Más adelante implementarás roles y usuarios.
+
+******************************************************************************************************************************************
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+* Empezamos creando el middleware básico que valide que el usuario está logueado y que su role sea 'admin'.
+* Creamos el controlador Admin\ProductController con el método index() para listar productos.
+* Creamos vistas y formularios con la estructura que usas para el admin (sin CSS, solo marcado básico).
+* Implementamos el repositorio y modelo con el flujo ya definido para CRUD básico.
+* Creamos los scripts JS y PHP para validaciones reutilizables (o los adaptamos si ya tienes).
+* Creacion de tabals necesarios para los roles en Base de Datos
+
+* Agregar la lógica para manejar subida de imágenes.
+* Completar carga dinámica de categorías y marcas en el formulario.
+* Crear métodos para editar y eliminar productos.
+* Agregar validaciones backend y frontend reutilizando tus funciones.
+* Estilizar las vistas con tu CSS.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+ESTO CADA VEZ QUE EMPIECE UNA NUEVA FUNCIONALIDAD
+
+Mira yo traigo mi propio estilo de trabajo y te doy un contexto general y dime si te sirve que te un ejemplo del contexto:
+1. Yo llamo a las vistas desed un controlador y generalmente uso el metodo index para cargar la vista o a veces tiene otro nombre iferente de "index" pero generalmente lleva ese nombre.
+2. El css ya traigo el diseño basado en eldiseño del home junto con mis variables de csss que las tengo en un archivo del mismo nombre. Tambien tengo css que reutilizo
+3. Los archivos js los voy seperando y encapsulando con ayuda e export y de ahi los importo en donde los requiera usar
+4. Para las validaciones tanto en front como en backend uso archivos ya se js o php para tener mis funciones de validaciones y solo invocarlas cuano las use.
+5. Recuerda y esto siempre te lo repito y se te olviddda no se porque; el flujo del backend es controladdor -> repository que lleva la logica del negocio -> modelo que solo lleva las consultas SQL
+6 Referente a la base de datos. Actualmente solamente tengo una tabla de usuarios la cual tiene la sigueinte estructura (te paso el scrip SQL con el que se creo para amyor entendimiento):
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` enum('customer','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+Actualmente no tengo una tabla de roles y si me gustaria podedr implementar los roles + middleware mas que naad por seguridad.
+
+7. Yo ya tengo registro y login para usuario promedio que son los que van a ver la tienda online y si deesean comprar productos lom haran. Quiero que esto no se mueva o si se mueve sea lo mas minimo lo digo por la implementacion de roles + midleware
+
+Entonces con todddo esto creo que ya podriamos ir empezanddo esto siempre y cuando no requieres de un ejemplo (algo que ya haya echo por ejeplo registro de usuario, login, etc) para entender mejor el contexto
+
+ESTO CADA VEZ QUE EMPIECE UNA NUEVA FUNCIONALIDAD

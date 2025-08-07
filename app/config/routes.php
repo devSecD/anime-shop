@@ -64,4 +64,36 @@ return [
         'controller' => 'Payment\ResultController', 
         'action' => 'index'
     ], 
+    'admin/dashboard' => [
+        'controller' => 'Admin\IndexController', 
+        'action' => 'index'
+    ], 
+    'admin/products' => [
+        'controller' => 'Admin\Product\ListController', 
+        'action' => 'index'
+    ], 
+    'admin/products/create' => [
+        'controller' => 'Admin\Product\CreateController', 
+        'action' => 'index'
+    ], 
+    'admin/products/update/{product_id}' => [
+        'controller' => 'Admin\Product\UpdateController', 
+        'action' => 'index'
+    ], 
+    'admin/products/delete' => [
+        'controller' => 'Admin\Product\DeleteController', 
+        'action' => 'index'
+    ], 
+    'admin/orders' => [
+        'controller' => 'Admin\Order\ListController', 
+        'action' => 'index'
+    ], 
+    'admin/user' => [
+        'controller' => 'Admin\User\ListController', 
+        'action' => 'index'
+    ], 
+    'admin/newsletters' => [
+        'controller' => 'Admin\Newsletter\ListController', 
+        'action' => 'index'
+    ], 
 ];

@@ -21,4 +21,15 @@ class NewsletterRepository
     {
         return $this->newsletterModel->exists($email);
     }
+
+    public function getAll(): array
+    {
+        return $this->newsletterModel->getAll();
+    }
+
+    public function deleteById(int $id): bool
+    {
+        return $this->newsletterModel->deleteById($id);
+    }
+
 }
