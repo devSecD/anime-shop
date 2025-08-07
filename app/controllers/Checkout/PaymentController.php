@@ -29,7 +29,7 @@ class PaymentController extends Controller
         $this->cart = new Cart($repo);
     }
 
-    public function index(): void
+    public function index(int $status): void
     {
 
         SessionHelper::start();

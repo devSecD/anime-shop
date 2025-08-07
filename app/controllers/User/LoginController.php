@@ -10,6 +10,14 @@ use App\Helpers\SessionHelper;
 
 class LoginController extends Controller
 {
+    protected UserRepository $userRepo;
+
+    public function __construct()
+    {
+        $db = $this->loadDB();
+        $this->userRepo = new UserRepository($db);
+    }
+
     public function index()
     {
         $content = __DIR__ . '/../../view/user/login.php';
@@ -57,20 +65,38 @@ class LoginController extends Controller
 
         $result = $userRepo->attemptLogin($userData['email'], $userData['password']);
 
+        // Obtener roles
+        $roles = $this->userRepo->getUserRoles((int)$result['user']['user_id']);
+
         if (!$result['success']) 
             ResponseHelper::jsonResponse($result);
 
         // iniciar sesion
         SessionHelper::start();
         SessionHelper::regenerate();
-        SessionHelper::set('user', $result['user']);
-
-        ResponseHelper::jsonResponse([
-                'success' => true, 
-                'message' => $result['message'], 
-                'redirect' => '/anime-shop/public/'
+        // SessionHelper::set('user', $result['user']); // aqui faltaria meter el role $roles
+        // Guardar sesión
+        SessionHelper::setUserSession([
+            'user_id' => $result['user']['user_id'],
+            'name' => $result['user']['name'],
+            'email' => $result['user']['email'],
+            'roles' => $roles
         ]);
 
+        // Redirección según rol
+        if (in_array('admin', $roles)) {
+            ResponseHelper::jsonResponse([
+                    'success' => true, 
+                    'message' => $result['message'], 
+                    'redirect' => '/anime-shop/public/admin/dashboard'
+            ]);
+        } else {
+            ResponseHelper::jsonResponse([
+                    'success' => true, 
+                    'message' => $result['message'], 
+                    'redirect' => '/anime-shop/public/'
+            ]);
+        }
     }
 
 }

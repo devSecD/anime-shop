@@ -69,4 +69,15 @@ class SessionHelper
             $_SERVER['SERVER_PORT'] === 443
         );
     }
+
+    public static function setUserSession(array $userData): void
+    {
+        $_SESSION['user'] = $userData;
+    }
+
+    public static function hasRole(string $role): bool
+    {
+        return isset($_SESSION['user']['roles']) && in_array($role, $_SESSION['user']['roles']);
+    }
+
 }

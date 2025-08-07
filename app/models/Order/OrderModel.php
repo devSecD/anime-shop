@@ -69,4 +69,26 @@ class OrderModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getPaginatedWithUser(int $limit, int $offset): array
+    {
+        $sql = "SELECT o.*, u.name AS user_name, u.email AS user_email
+                FROM orders o
+                INNER JOIN users u ON o.user_id = u.user_id
+                ORDER BY o.created_at DESC
+                LIMIT :limit OFFSET :offset";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countAll(): int
+    {
+        $sql = "SELECT COUNT(*) FROM orders";
+        return (int) $this->db->query($sql)->fetchColumn();
+    }
+
 }

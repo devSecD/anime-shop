@@ -17,6 +17,15 @@
                 <label for="confirm_password">Confirmar contraseña</label>
                 <input type="password" id="confirm_password" name="confirm_password">
         </div>
+        <!-- Agregado: Campo de selección de rol -->
+        <div class="form-group">
+            <label for="role">Tipo de usuario</label>
+            <select id="role" name="role" required>
+                <option value="">Selecciona un rol</option>
+                <option value="customer">Cliente</option>
+                <option value="admin">Administrador</option>
+            </select>
+        </div>
         <button type="submit" class="btn-primary">Registrarse</button>
         <p>¿Ya tienes una cuenta? <a href="../user/login">Inicia  sesión aquí</a></p>
     </form>

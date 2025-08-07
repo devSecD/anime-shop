@@ -1,0 +1,85 @@
+/* Botón "Agregar producto nuevo" */
+.add-product-btn {
+    max-width: 250px;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Contenedor del botón centrado */
+.add-product-container {
+    text-align: center;
+    margin-bottom: var(--medium-spacing);
+}
+
+/* Tabla general */
+.admin-products-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--secondary-font);
+}
+
+/* Encabezado de tabla */
+.admin-products-table thead {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.admin-products-table th,
+.admin-products-table td {
+    padding: 12px;
+    text-align: center;
+}
+
+/* Fila con borde inferior */
+.admin-products-table tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Imagen de producto miniatura */
+.product-thumbnail {
+    height: 40px;
+    border-radius: 4px;
+}
+
+/* Estilo para texto "Sin imagen" */
+.no-image {
+    color: #aaa;
+}
+
+/* Acciones (íconos de editar y eliminar) */
+.action-edit {
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.action-delete {
+    color: var(--accent-color);
+}
+
+/* paginado del listado */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: var(--large-spacing);
+}
+
+.pagination-btn {
+    padding: 0.5rem 0.9rem;
+    background-color: var(--secondary-color);
+    color: #fff;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    transition: background 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background-color: var(--accent-color);
+}
+
+.pagination-btn.active {
+    background-color: var(--primary-color);
+    font-weight: bold;
+}
+/*paginado del listado  */

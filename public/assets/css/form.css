@@ -9,9 +9,44 @@
     transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+/* Sobrescritura para formularios más anchos */
+.form-container.form-wide {
+    max-width: 1000px; /* o el valor que consideres */
+}
+
 .form-container:hover {
     border: 1px solid transparent;
     box-shadow: 0 4px 10px rgba(255, 193, 7, 0.6);
+}
+
+.form-row {
+    display: flex;
+    gap: var(--medium-spacing);
+    flex-wrap: wrap;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 250px;
+}
+
+.file-upload-group img {
+    max-width: 100%;        /* Nunca excede el ancho del contenedor */
+    max-height: 150px;      /* Altura máxima para miniatura */
+    height: auto;           /* Mantiene proporción */
+    object-fit: contain;    /* Ajuste sin recorte */
+    border: 1px solid #ddd; /* Borde suave */
+    border-radius: 6px;     /* Esquinas redondeadas */
+    margin-top: 8px;        /* Espacio superior */
+    display: block;         /* Evita alineación inline rara */
+}
+
+/* Opcional: para alinear mejor los checkboxes */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.5rem;
 }
 
 .form-container h2 {
@@ -43,6 +78,37 @@
     transition: border 0.3s ease;
 }
 
+/* Estilo personalizado para inputs de archivos */
+/* Oculta el input real */
+.file-upload-input {
+    display: none;
+}
+
+/* Estilo para el botón personalizado (label) */
+.file-upload-label {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: var(--primary-color); /* o un color que uses para botones */
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.file-upload-label:hover {
+    background-color: var(--primary-color-dark); /* una versión más oscura del color */
+}
+
+/* Estilo para mostrar nombre del archivo seleccionado */
+.file-name-preview {
+    display: inline-block;
+    margin-left: 10px;
+    font-style: italic;
+    font-size: 14px;
+    color: #666;
+}
+
 /* Corrección específica para radios y checkboxes */
 .form-group input[type="radio"],
 .form-group input[type="checkbox"] {
@@ -70,6 +136,35 @@
 .form-group textarea:focus {
     border-color: var(--accent-color);
     outline: none;
+}
+
+.form-group select {
+    width: 100%;
+    padding: var(--small-spacing);
+    font-size: var(--font-size-paragraph);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    font-family: var(--secondary-font);
+    background-color: var(--background-color);
+    color: var(--secondary-text-color);
+    appearance: none; /* Oculta la flecha nativa */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%230277bd' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1.2rem;
+    transition: border 0.3s ease;
+}
+
+.form-group select:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    background-color: #fff;
+}
+
+.form-group select option {
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
 }
 
 .btn-primary {
@@ -103,4 +198,12 @@
 
 .form-container a:hover {
     text-decoration: underline;
+}
+
+/* Campos opcionales */
+.optional .optional-tag {
+    font-weight: normal;
+    font-size: 0.9em;
+    color: #888;
+    margin-left: 4px;
 }

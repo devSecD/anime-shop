@@ -139,7 +139,7 @@ class ValidationHelper
     /* metodo para validar stock */
 
     // Valida teléfono (solo dígitos, entre 10 y 15)
-    public static function validatePhone(?string $value): ?string
+    public static function validatePhone(?string $value): ?string 
     {
         $value = StringHelper::trim($value);
 
@@ -182,6 +182,98 @@ class ValidationHelper
     public static function validateShippingAddress(callable $finderFunc, int $id): ?string
     {
         return self::mustExist($finderFunc, $id, 'dirección de envío');
+    }
+
+    /**
+     * Valida que se haya subido un archivo en un campo requerido.
+     * 
+     * @param array|null $file El archivo de $_FILES['campo']
+     * @param string $fieldName Nombre del campo para el mensaje
+     * @return string|null Mensaje de error o null si es válido
+     */
+    public static function validateRequiredFile(?array $file, string $fieldName): ?string
+    {
+        if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
+            return "La imagen del producto es obligatoria.";
+        }
+
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            return "Error al subir el archivo para el campo {$fieldName}.";
+        }
+
+        return null;
+    }
+
+    /**
+     * Valida que un valor opcional sea un booleano (0 o 1).
+     * 
+     * @param mixed $value
+     * @param string $fieldName
+     * @return string|null
+     */
+    public static function mustBeOptionalBoolean($value, string $fieldName): ?string
+    {
+        if ($value === null || $value === '') return null;
+
+        // Aceptamos 0, 1, "0", "1"
+        if (!in_array($value, [0, 1, '0', '1'], true)) {
+            return "El campo {$fieldName} debe ser verdadero o falso.";
+        }
+
+        return null;
+    }
+
+    // Valida que el archivo subido sea una imagen válida y segura
+    public static function validateImageUpload(?array $file, string $fieldName = 'imagen'): ?string
+    {
+        // Validación básica (ya la tienes pero la reusamos)
+        $error = self::validateRequiredFile($file, $fieldName);
+        if ($error) return $error;
+
+        // Validar tamaño (ej. max 5 MB)
+        $maxSize = 5 * 1024 * 1024;
+        if ($file['size'] > $maxSize) {
+            return "La imagen excede el tamaño máximo permitido (5 MB).";
+        }
+
+        // Validar extensión segura (evitar .php, .exe, etc.)
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (!in_array($ext, $allowedExtensions)) {
+            return "La extensión del archivo no está permitida.";
+        }
+
+        // Validar tipo MIME real (no solo por extensión)
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $file['tmp_name']);
+        finfo_close($finfo);
+
+        if (!in_array($mimeType, ['image/jpeg', 'image/png', 'image/webp', 'image/gif'])) {
+            return "El archivo no es una imagen válida.";
+        }
+
+        // Validar que realmente sea una imagen (dimensiones válidas)
+        $imageSize = getimagesize($file['tmp_name']);
+        if ($imageSize === false) {
+            return "El archivo no contiene datos de imagen válidos.";
+        }
+
+        return null; // todo bien
+    }
+
+    /**
+     * Valida que el precio con descuento no exceda el precio normal.
+     *
+     * @param float|null $discounted Precio con descuento
+     * @param float|null $regular Precio normal
+     * @return string|null Mensaje de error o null si es válido
+     */
+    public static function validateDiscountedPrice(?float $discounted, ?float $regular): ?string
+    {
+        if (!is_null($discounted) && $discounted > $regular) {
+            return "El precio con descuento no puede ser mayor que el precio normal.";
+        }
+        return null;
     }
 
 }

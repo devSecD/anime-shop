@@ -14,6 +14,35 @@ class Product
         $this->db = $db;
     }
 
+    public function create(array $data)
+    {
+        $sql = "INSERT INTO products 
+            (name, description, price, price_discounted, stock, category_id, brand_id, image, is_on_sale, is_preorder) 
+            VALUES 
+            (:name, :description, :price, :price_discounted, :stock, :category_id, :brand_id, :image, :is_on_sale, :is_preorder)";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
+        $stmt->bindValue(':description', $data['description'], PDO::PARAM_STR);
+        $stmt->bindValue(':price', $data['price'], PDO::PARAM_STR);
+        $stmt->bindValue(':price_discounted', $data['price_discounted'], is_null($data['price_discounted']) ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(':stock', $data['stock'], PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $data['category_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':brand_id', $data['brand_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':image', $data['image'], PDO::PARAM_STR);
+        $stmt->bindValue(':is_on_sale', $data['is_on_sale'], PDO::PARAM_INT);
+        $stmt->bindValue(':is_preorder', $data['is_preorder'], PDO::PARAM_INT);
+
+        // Ejecutar con bind de datos
+        $result = $stmt->execute();
+
+        if ($result) {
+            return $this->db->lastInsertId();
+        }
+
+        return false;
+    }
+
     /**
      * Devuelve un producto por ID
      */
@@ -80,6 +109,60 @@ class Product
         $stmt->bindValue(':qty', $qty, \PDO::PARAM_INT);
         $stmt->bindValue(':productId', $productId, \PDO::PARAM_INT);
         return $stmt->execute();
+    }
+
+    public function createProduct(array $data): bool 
+    {
+        $sql = "INSERT INTO products (name, description, price, stock, category_id, brand_id) 
+                VALUES (:name, :description, :price, :stock, :category_id, :brand_id)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
+        $stmt->bindValue(':description', $data['description'], PDO::PARAM_STR);
+        $stmt->bindValue(':price', $data['price'], PDO::PARAM_STR); // definir que pddo:: sera porque es un valor decimal/flotante
+        $stmt->bindValue(':stock', $data['stock'], PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $data['category_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':brand_id', $data['brand_id'], PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    public function update(array $data): bool
+    {
+        $sql = "UPDATE products SET 
+                    name = :name,
+                    description = :description,
+                    price = :price,
+                    price_discounted = :price_discounted,
+                    stock = :stock,
+                    image = :image,
+                    category_id = :category_id,
+                    brand_id = :brand_id,
+                    is_on_sale = :is_on_sale,
+                    is_preorder = :is_preorder
+                WHERE product_id = :product_id";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
+        $stmt->bindValue(':description', $data['description'], PDO::PARAM_STR);
+        $stmt->bindValue(':price', $data['price'], PDO::PARAM_STR);
+        $stmt->bindValue(':price_discounted', $data['price_discounted'], is_null($data['price_discounted'] ? PDO::PARAM_NULL : PDO::PARAM_STR));
+        $stmt->bindValue(':stock', $data['stock'], PDO::PARAM_INT);
+        $stmt->bindValue(':image', $data['image'], PDO::PARAM_STR);
+        $stmt->bindValue(':category_id', $data['category_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':brand_id', $data['brand_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':is_on_sale', $data['is_on_sale'], PDO::PARAM_INT);
+        $stmt->bindValue(':is_preorder', $data['is_preorder'], PDO::PARAM_INT);
+        $stmt->bindValue(':product_id', $data['product_id'], PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    public function delete(int $id): bool
+    {
+        $sql = "DELETE FROM products WHERE product_id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':id' => $id]);
     }
 
 }

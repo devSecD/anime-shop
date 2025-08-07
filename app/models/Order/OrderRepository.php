@@ -41,4 +41,14 @@ class OrderRepository
         return $this->model->getOrderById($orderId) !== null;
     }
 
+    public function getPaginatedOrders(int $limit, int $offset): array
+    {
+        return $this->model->getPaginatedWithUser($limit, $offset);
+    }
+
+    public function countOrders(): int
+    {
+        return $this->model->countAll();
+    }
+
 }
