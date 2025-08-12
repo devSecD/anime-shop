@@ -19,7 +19,6 @@ class ListController extends Controller
 
     public function index(): void
     {
-        // Verificación de permisos admin (middleware o helper)
         $this->auth->handle();
 
         $currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;

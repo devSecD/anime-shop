@@ -96,4 +96,8 @@ return [
         'controller' => 'Admin\Newsletter\ListController', 
         'action' => 'index'
     ], 
+    'admin/setting' => [
+        'controller' => 'Admin\Setting\IndexController', 
+        'action' => 'index'
+    ], 
 ];

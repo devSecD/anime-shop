@@ -1,3 +1,8 @@
+<?php
+    use App\Helpers\SessionHelper;
+    SessionHelper::start();
+    $user = SessionHelper::getUser() ;
+?>
 <!DOCTYPE html>
 <html lang="es">
     <?php include $html_head ?>
@@ -9,26 +14,32 @@
         <main class="main-content">
             <header class="dashboard-header">
             <h1>Panel de Administración</h1>
-            <p>Bienvenido, Admin</p>
+            <p>Bienvenido, <?= $user["name"] ?></p>
             </header>
 
             <!-- Summary Cards -->
             <section class="dashboard-cards">
             <div class="card">
-                <h3>120</h3>
+                <h3><?= $totalProducts ?></h3>
                 <p>Productos</p>
             </div>
             <div class="card">
-                <h3>35</h3>
-                <p>Órdenes nuevas</p>
+                <h3><?= $totalOrders ?></h3>
+                <p>Órdenes</p>
             </div>
             <div class="card">
-                <h3>10</h3>
+                <h3><?= $totalSubscribers ?></h3>
                 <p>Suscriptores</p>
             </div>
             <div class="card">
-                <h3>5</h3>
+                <h3><?= $pendingOrders ?></h3>
                 <p>En espera</p>
+                <!--
+                Explicación rápida:
+                1. 'pending' = órdenes esperando pago o confirmación
+                2. 'paid' = pagadas pero aún no enviadas (aún en proceso)
+                Los estados 'shipped' y 'cancelled' usualmente no se consideran “en espera” porque ya están en envío o canceladas.
+                -->
             </div>
             </section>
 
@@ -46,20 +57,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>#001</td>
-                    <td>Naruto Figure</td>
-                    <td>$29.99</td>
-                    <td>15</td>
-                    <td><button class="btn-action">Editar</button></td>
-                </tr>
-                <tr>
-                    <td>#002</td>
-                    <td>Attack Titan T-Shirt</td>
-                    <td>$19.99</td>
-                    <td>40</td>
-                    <td><button class="btn-action">Editar</button></td>
-                </tr>
+                    <?php foreach ($recentProducts as $product): ?>
+                        <tr>
+                            <td>#<?= htmlspecialchars($product['product_id']) ?></td>
+                            <td><?= htmlspecialchars($product['name']) ?></td>
+                            <td>$<?= number_format($product['price'], 2) ?></td>
+                            <td><?= (int)$product['stock'] ?></td>
+                            <td>
+                                <a href="/anime-shop/public/admin/product/update/<?= $product['product_id'] ?>" title="Editar" class="action-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <?php if (empty($recentProducts)): ?>
+                        <tr>
+                            <td colspan="5">No hay productos recientes.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
             </section>

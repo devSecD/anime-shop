@@ -114,7 +114,6 @@
 .badge {
     position: absolute;
     top: -0.5rem;
-    left: -0.5rem;
     padding: 0.3rem 0.6rem;
     font-size: 0.75rem;
     font-weight: bold;
@@ -125,11 +124,13 @@
 }
 
 .badge-sale {
+    left: -0.5rem;
     background-color: var(--accent-color); /* Amarillo */
 }
 
 .badge-preorder {
-    background-color: #007bff; /* Azul (puedes usar otra variable si quieres) */
+    right: 0rem; /* desplaza a la derecha para que no se superponga */
+    background-color: #007bff; /* azul */
 }
 
 .container-product img {

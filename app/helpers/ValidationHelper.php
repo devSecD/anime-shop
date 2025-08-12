@@ -276,4 +276,39 @@ class ValidationHelper
         return null;
     }
 
+    /**
+     * Valida que el timezone sea válido según PHP
+     */
+    public static function validateTimezone(?string $value): ?string
+    {
+        if (!in_array($value, timezone_identifiers_list(), true)) {
+            return "La zona horaria no es válida.";
+        }
+        return null;
+    }
+
+    /* metodo exclusivo para validaciones de setting del panel administrativo de la tienda */
+    public static function validateSetting(string $key, ?string $value): ?string
+    {
+        switch ($key) {
+            case 'site_name':
+                return self::validateName($value);
+
+            case 'contact_email':
+                return self::validateEmail($value);
+
+            case 'items_per_page':
+                return self::mustBePositiveInt('ítems por página', $value);
+
+            case 'timezone':
+                return self::validateTimezone($value);
+
+            case 'maintenance_mode':
+                return self::mustBeOptionalBoolean($value, 'modo mantenimiento');
+
+            default:
+                return self::required($key, $value);
+        }
+    }
+
 }

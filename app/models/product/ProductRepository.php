@@ -22,11 +22,11 @@ class ProductRepository
      */
     public function create(array $data): array
     {
+        $regularPrice = is_numeric($data['price']) ? (float) $data['price'] : null;
+        $discountedPrice = trim($data['price_discounted']) === '' ? null : (float) $data['price_discounted'];
+
         // Validar lógica de negocio: precio con descuento no mayor al normal
-        $error = ValidationHelper::validateDiscountedPrice(
-            $data['price_discounted'] ?? null, 
-            $data['price'] ?? null
-        );
+        $error = ValidationHelper::validateDiscountedPrice($discountedPrice, $regularPrice);
 
         if($error !== null) {
             return [
@@ -36,7 +36,7 @@ class ProductRepository
             ];
         }
 
-        $data['price_discounted'] = trim($data['price_discounted']) === '' ? null : $data['price_discounted'];
+        $data['price_discounted'] = $discountedPrice;
 
         $insertedId = $this->productModel->create($data);
 
@@ -212,6 +212,8 @@ class ProductRepository
             unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
         }
 
+        $data['price_discounted'] = $data['price_discounted'] === '' ? null : $data['price_discounted'];
+
         $success = $this->productModel->update($data);
 
         return [
@@ -234,7 +236,29 @@ class ProductRepository
             return ['success' => false, 'message' => 'No se pudo eliminar el producto.'];
         }
 
+        unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
+
         return ['success' => true, 'message' => 'Producto eliminado correctamente.'];
+    }
+
+    /**
+     * Retorna la cantidad total de productos
+     * @return int
+     */
+    public function getTotalProductsCount(): int
+    {
+        return $this->productModel->countAllProducts();
+    }
+
+    /**
+     * Retorna un arreglo con los productos recientes
+     *
+     * @param int $limit
+     * @return array
+     */
+    public function getRecentProducts(int $limit = 5): array
+    {
+        return $this->productModel->getRecentProducts($limit);
     }
 
 }

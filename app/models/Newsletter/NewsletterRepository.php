@@ -32,4 +32,9 @@ class NewsletterRepository
         return $this->newsletterModel->deleteById($id);
     }
 
+    public function getSubscribersCount(): int
+    {
+        return $this->newsletterModel->countSubscribers();
+    }
+
 }

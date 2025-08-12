@@ -8,12 +8,10 @@ use PDOException;
 class Product
 {
     protected $db;
-
     public function __construct(PDO $db)
     {
         $this->db = $db;
     }
-
     public function create(array $data)
     {
         $sql = "INSERT INTO products 
@@ -42,7 +40,6 @@ class Product
 
         return false;
     }
-
     /**
      * Devuelve un producto por ID
      */
@@ -146,7 +143,7 @@ class Product
         $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
         $stmt->bindValue(':description', $data['description'], PDO::PARAM_STR);
         $stmt->bindValue(':price', $data['price'], PDO::PARAM_STR);
-        $stmt->bindValue(':price_discounted', $data['price_discounted'], is_null($data['price_discounted'] ? PDO::PARAM_NULL : PDO::PARAM_STR));
+        $stmt->bindValue(':price_discounted', $data['price_discounted'], is_null($data['price_discounted']) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindValue(':stock', $data['stock'], PDO::PARAM_INT);
         $stmt->bindValue(':image', $data['image'], PDO::PARAM_STR);
         $stmt->bindValue(':category_id', $data['category_id'], PDO::PARAM_INT);
@@ -164,5 +161,32 @@ class Product
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':id' => $id]);
     }
+    /**
+     * Obtiene el total de productos en la base de datos
+     * @return int
+     */
+    public function countAllProducts(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM products";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        return (int) ($result['total'] ?? 0);
+    }
+    /**
+     * Obtiene los productos más recientes limitados
+     * 
+     * @param int $limit Cantidad máxima de productos a obtener
+     * @return array
+     */
+    public function getRecentProducts(int $limit = 5): array
+    {
+        $sql = "SELECT product_id, name, price, stock FROM products ORDER BY created_at DESC LIMIT :limit";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

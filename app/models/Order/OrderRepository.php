@@ -51,4 +51,14 @@ class OrderRepository
         return $this->model->countAll();
     }
 
+    public function getTotalOrdersCount(): int
+    {
+        return $this->model->countAll();
+    }
+
+    public function getPendingOrdersCount(): int
+    {
+        return $this->model->countPendingOrders();
+    }
+
 }
