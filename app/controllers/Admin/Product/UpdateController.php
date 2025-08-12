@@ -35,7 +35,6 @@ class UpdateController extends Controller
 
     public function index(int $id): void
     {
-        // Verificar permisos admin
         $this->auth->handle();
 
         if (!$id) {

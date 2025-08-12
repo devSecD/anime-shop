@@ -1,3 +1,8 @@
+<?php
+    use App\Helpers\SessionHelper;
+    SessionHelper::start();
+    $user = SessionHelper::getUser() ;
+?>
 <!DOCTYPE html>
 <html lang="es">
     <?php include $html_head ?>
@@ -8,7 +13,7 @@
         <main class="main-content" data-page="<?= $page ?? '' ?>">
             <header class="dashboard-header">
                 <h1><?= $title ?></h1>
-                <p>Bienvenido, Admin</p>
+                <p>Bienvenido, <?= $user["name"] ?></p>
             </header>
 
             <?php if (!empty($error)): ?>

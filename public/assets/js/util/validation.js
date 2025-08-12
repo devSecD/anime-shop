@@ -70,12 +70,12 @@ export function mustBeOptionalBoolean(value, fieldName) {
     return null;
 }
 
-
-
-/* 
-Agregar estas funciones como mejora
-
-- isValidCardNumber
-- isValidCVV
-- isValidExpirationDate
-*/
+export function isValidTimezone(tz) {
+    if (typeof Intl === 'object' && typeof Intl.supportedValuesOf === 'function') {
+        const validTimezones = Intl.supportedValuesOf('timeZone');
+        return validTimezones.includes(tz);
+    }
+    // Fallback simple (puedes ampliar con lista estática si quieres)
+    const fallback = ['UTC', 'America/New_York', 'Europe/London', 'Asia/Tokyo'];
+    return fallback.includes(tz);
+}

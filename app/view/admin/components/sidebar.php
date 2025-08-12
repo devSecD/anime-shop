@@ -28,7 +28,7 @@
                 <li><a href="/anime-shop/public/admin/newsletters"><i class="fa fa-list"></i> Ver todos</a></li>
             </ul>
         </li>
-        <li><a href="#"><i class="fa fa-cogs"></i> Configuración</a></li>
+        <li><a href="/anime-shop/public/admin/setting"><i class="fa fa-cogs"></i> Configuración</a></li>
     </ul>
     </nav>
 </aside>

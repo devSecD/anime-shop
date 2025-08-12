@@ -84,11 +84,32 @@ class OrderModel
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    /**
+     * Retorna el total de órdenes
+     * @return int
+     */
     public function countAll(): int
     {
         $sql = "SELECT COUNT(*) FROM orders";
-        return (int) $this->db->query($sql)->fetchColumn();
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return (int) ($result['total'] ?? 0);
+    }
+
+    /**
+     * Retorna la cantidad de órdenes en estado 'pending' o 'paid' (En espera)
+     * @return int
+     */
+    public function countPendingOrders(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM orders WHERE status IN ('pending', 'paid')";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return (int) ($result['total'] ?? 0);
     }
 
 }

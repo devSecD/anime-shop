@@ -19,7 +19,6 @@ class DeleteController extends Controller
 
     public function index()
     {
-        // Verificación de permisos admin (middleware o helper)
         $this->auth->handle();
 
         // rechazar si no es metodo post

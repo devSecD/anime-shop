@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="/anime-shop/public/assets/css/form.css">
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/spinner.css">
     <?php endif; ?>
-    <?php if($page === 'admin_products_list' || $page === 'admin_orders_list' || $page === 'admin_users_list' || $page === 'admin_newsletter_list'): ?>
+    <?php if($page === 'admin_products_list' || $page === 'admin_orders_list' || $page === 'admin_users_list' || $page === 'admin_newsletter_list' || $page === 'updateConfiguration'): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/admin-products.css">
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/modal-delete.css">
     <?php endif; ?>

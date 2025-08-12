@@ -58,4 +58,18 @@ class NewsletterModel
         return $stmt->execute([':id' => $id]);
     }
 
+    /**
+     * Cuenta total de suscriptores activos
+     * @return int
+     */
+    public function countSubscribers(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM newsletter_subscriptions";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return (int) ($result['total'] ?? 0);
+    }
+
 }

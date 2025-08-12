@@ -12,6 +12,6 @@
         <button type="submit" class="btn-primary">Ingresar</button>
         <p><a href="/user/recover">¿Olvidaste tu contraseña?</a></p>
     </form>
-    <script async type="module" src="../../public/assets/js/main.js">
+    <script async type="module" src="/anime-shop/public/assets/js/main.js">
     </script>
 </section>

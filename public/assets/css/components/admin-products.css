@@ -35,6 +35,20 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+.admin-products-table td .file-upload-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-spacing);
+}
+
+.admin-products-table td .file-upload-group img {
+    border: none;
+    max-height: 80px;
+    max-width: 100%;
+    border-radius: var(--border-radius);
+    padding: 4px;
+}
+
 /* Imagen de producto miniatura */
 .product-thumbnail {
     height: 40px;

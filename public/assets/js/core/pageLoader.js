@@ -7,7 +7,7 @@ const pageModules = {
     checkout_payment: () => import('../components/paymentForm.js').then(m => m.initPaymentForm()), 
     registerProduct: () => import('../components/createForm.js').then(m => m.initRegisterProductForm()),
     updateProduct: () => import('../components/updateForm.js').then(m => m.initUpdateProductForm()),
-
+    updateConfiguration: () => import('../components/updateConfiguration.js').then(m => m.initUpdateConfigurationForm()),
 };
 
 export function loadPageModule(page) {
