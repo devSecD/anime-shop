@@ -4,6 +4,7 @@ namespace Models\Product;
 use PDO;
 
 use App\Helpers\ValidationHelper;
+use Exception;
 
 class ProductRepository
 {
@@ -260,5 +261,92 @@ class ProductRepository
     {
         return $this->productModel->getRecentProducts($limit);
     }
+    public function findDetailedById(int $id): ?array
+    {
+        return $this->productModel->getDetailedById($id);
+    }
+    // 1️⃣ Imágenes adicionales
+    public function getProductImages($productId)
+    {
+        return $this->productModel->getImages($productId);
+    }
+
+    // 2️⃣ Reseñas del producto
+    public function getReviews($productId)
+    {
+        return $this->productModel->getReviews($productId);
+    }
+
+    // 3️⃣ Productos relacionados (por categoría)
+    public function getRelatedProducts($categoryId, $excludeProductId)
+    {
+        return $this->productModel->getRelated($categoryId, $excludeProductId);
+    }
+
+    // metodos para poder insertar varias imagenes del producto
+    public function generateImagesWithWatermark() {
+        try {
+            $products = $this->productModel->getAllProducts();
+
+            foreach ($products as $product) {
+                $productId = $product['product_id'];
+                $mainImage = $product['image'];
+                if (!$mainImage) continue;
+
+                $sourcePath = BASE_PATH . "/public/assets/images/products/$mainImage";
+
+                if (!file_exists($sourcePath)) continue;
+
+                $extension = strtolower(pathinfo($mainImage, PATHINFO_EXTENSION));
+                $createFunc = $this->getCreateFunc($extension);
+                $saveFunc = $this->getSaveFunc($extension);
+
+                if (!$createFunc || !$saveFunc) continue;
+
+                for ($i = 1; $i <= 4; $i++) {
+                    $newImageName = "product-{$productId}-{$i}.$extension";
+                    $destPath = BASE_PATH . "/public/assets/images/products/$newImageName";
+
+                    if ($this->productModel->imageExists($productId, "$newImageName")) continue;
+
+                    $img = @$createFunc($sourcePath);
+                    if (!$img) continue;
+
+                    $color = ($extension === 'png' || $extension === 'webp') 
+                                ? imagecolorallocatealpha($img, 255, 0, 0, 80)
+                                : imagecolorallocate($img, 255, 0, 0);
+
+                    imagestring($img, 5, 10, 10, "Image $i", $color);
+                    $saveFunc($img, $destPath);
+                    imagedestroy($img);
+
+                    $this->productModel->insertProductImage($productId, "$newImageName");
+                }
+            }
+        } catch(Exception $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    private function getCreateFunc($ext) {
+        return match($ext) {
+            'jpg', 'jpeg' => 'imagecreatefromjpeg',
+            'png' => 'imagecreatefrompng',
+            'webp' => 'imagecreatefromwebp',
+            'gif' => 'imagecreatefromgif',
+            default => null
+        };
+    }
+
+    private function getSaveFunc($ext) {
+        return match($ext) {
+            'jpg', 'jpeg' => 'imagejpeg',
+            'png' => 'imagepng',
+            'webp' => 'imagewebp',
+            'gif' => 'imagegif',
+            default => null
+        };
+    }
+    // metodos para poder insertar varias imagenes del producto
 
 }

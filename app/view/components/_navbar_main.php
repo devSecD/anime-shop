@@ -48,7 +48,7 @@
             </a>
         </li>
         <li class="li-search">
-            <form method="GET" action="../public/catalog">
+            <form method="GET" action="/anime-shop/public/catalog">
                 <input type="text" name="search" placeholder="search" class="input-search" value="<?=  isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '';  ?>">
                 <!-- Campos ocultos para preservar filtros -->
                 <?php if (isset($_GET['filter'])): ?>
@@ -78,7 +78,7 @@
             </a>
         </li>
         <li>
-            <a href="../public/cart" class="nav-icon-with-text nav-cart-link"> <!-- esta clase nav-cart-link aun no esta agregado al css -->
+            <a href="/anime-shop/public/cart" class="nav-icon-with-text nav-cart-link"> <!-- esta clase nav-cart-link aun no esta agregado al css -->
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>Carrito</span>
 

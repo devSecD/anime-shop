@@ -189,4 +189,98 @@ class Product
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getDetailedById(int $id): ?array
+    {
+        $sql = "
+            SELECT p.*, c.name AS category_name, b.name AS brand_name
+            FROM products p
+            LEFT JOIN categories c ON p.category_id = c.category_id
+            LEFT JOIN brands b ON p.brand_id = b.brand_id
+            WHERE p.product_id = :id
+            LIMIT 1
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $product ?: null;
+    }
+
+    // Obtener imágenes adicionales
+    public function getImages($productId)
+    {
+        $stmt = $this->db->prepare("
+            SELECT image_path
+            FROM product_images
+            WHERE product_id = :id
+        ");
+        $stmt->bindValue(':id', $productId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN); // devuelve array de URLs
+    }
+
+    // Obtener reseñas del producto
+    public function getReviews($productId)
+    {
+        $stmt = $this->db->prepare("
+            SELECT r.*, u.name AS user_name
+            FROM reviews r
+            LEFT JOIN users u ON r.user_id = u.user_id
+            WHERE r.product_id = :id
+            ORDER BY r.created_at DESC
+        ");
+        $stmt->bindValue(':id', $productId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Obtener productos relacionados (por categoría)
+    public function getRelated($categoryId, $excludeProductId)
+    {
+        $stmt = $this->db->prepare("
+            SELECT *
+            FROM products
+            WHERE category_id = :catId AND product_id != :excludeId
+            ORDER BY created_at DESC
+            LIMIT 8
+        ");
+        $stmt->bindValue(':catId', $categoryId);
+        $stmt->bindValue(':excludeId', $excludeProductId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    // metodos para poder insertar varias imagenes del producto
+    public function getAllProducts() {
+        $stmt = $this->db->query("SELECT product_id, image FROM products");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function insertProductImage($productId, $imageName) {
+        $stmt = $this->db->prepare("
+            INSERT INTO product_images (product_id, image_path)
+            VALUES (:product_id, :image_path)
+        ");
+        return $stmt->execute([
+            ':product_id' => $productId,
+            ':image_path' => $imageName
+        ]);
+    }
+
+    public function imageExists($productId, $imageName) {
+        $stmt = $this->db->prepare("
+            SELECT COUNT(*) FROM product_images 
+            WHERE product_id = :product_id AND image_path = :image_path
+        ");
+        $stmt->execute([
+            ':product_id' => $productId,
+            ':image_path' => $imageName
+        ]);
+        return $stmt->fetchColumn() > 0;
+    }
+    // metodos para poder insertar varias imagenes del producto
+
 }

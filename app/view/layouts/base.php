@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="/anime-shop/public/assets/css/variables.css">
     <link rel="stylesheet" href="/anime-shop/public/assets/css/index.css">
     <link rel="stylesheet" href="/anime-shop/public/assets/css/fontawesome-free-6.7.2-web/css/all.min.css">
+    <?php if(in_array('product-detail', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/detail-product.css">
+    <?php endif; ?>
     <?php if (in_array('form', $assets)): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/form.css">
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/spinner.css">
@@ -19,6 +22,11 @@
     <?php if (in_array('checkout', $assets)): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/checkout.css">
     <?php endif; ?>
+
+    <?php if (in_array('errors', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/errors.css">
+    <?php endif; ?>
+
     <link rel="stylesheet" href="/anime-shop/public/assets/css/components/alerts.css">
 </head>
 <body>
