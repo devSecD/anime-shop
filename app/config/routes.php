@@ -100,4 +100,12 @@ return [
         'controller' => 'Admin\Setting\IndexController', 
         'action' => 'index'
     ], 
+    'product/detail' => [
+        'controller' => 'Product\DetailController',
+        'action' => 'index',
+    ],
+    'product_images/generate' => [
+        'controller' => 'Product\ProductImageController',
+        'action' => 'generate',
+    ],
 ];

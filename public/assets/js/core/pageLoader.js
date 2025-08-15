@@ -8,6 +8,7 @@ const pageModules = {
     registerProduct: () => import('../components/createForm.js').then(m => m.initRegisterProductForm()),
     updateProduct: () => import('../components/updateForm.js').then(m => m.initUpdateProductForm()),
     updateConfiguration: () => import('../components/updateConfiguration.js').then(m => m.initUpdateConfigurationForm()),
+    productDetail: () => import('../components/productDetail.js').then(m => m.initProductDetail()),
 };
 
 export function loadPageModule(page) {

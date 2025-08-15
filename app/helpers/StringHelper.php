@@ -17,4 +17,48 @@ class StringHelper
     {
         return str_replace(' ', '', ucwords(str_replace('-', ' ', $str)));
     }
+    /**
+     * Convierte un texto en un slug amigable para URL.
+     * Ejemplo: "Figura Naruto Shippuden" => "figura-naruto-shippuden"
+     *
+     * @param string $text
+     * @return string
+     */
+    public static function generateSlug(string $text): string
+    {
+        // Paso 1: Convertir a minúsculas
+        $text = mb_strtolower($text, 'UTF-8');
+
+        // Paso 2: Eliminar acentos y caracteres especiales
+        $text = self::removeAccents($text);
+
+        // Paso 3: Reemplazar cualquier caracter no alfanumérico por guiones
+        $text = preg_replace('/[^a-z0-9]+/', '-', $text);
+
+        // Paso 4: Eliminar guiones al inicio y al final
+        $text = trim($text, '-');
+
+        return $text;
+    }
+
+    /**
+     * Quita acentos y caracteres especiales latinos
+     *
+     * @param string $text
+     * @return string
+     */
+    private static function removeAccents(string $text): string
+    {
+        $transliterator = \Transliterator::create('NFD; [:Nonspacing Mark:] Remove; NFC');
+        if ($transliterator) {
+            return $transliterator->transliterate($text);
+        }
+
+        // Si no hay transliterator, fallback manual
+        $chars = [
+            'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
+            'ñ'=>'n', 'ü'=>'u'
+        ];
+        return strtr($text, $chars);
+    }
 }

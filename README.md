@@ -277,3 +277,123 @@ Actualmente no tengo una tabla de roles y si me gustaria podedr implementar los 
 Entonces con todddo esto creo que ya podriamos ir empezanddo esto siempre y cuando no requieres de un ejemplo (algo que ya haya echo por ejeplo registro de usuario, login, etc) para entender mejor el contexto
 
 ESTO CADA VEZ QUE EMPIECE UNA NUEVA FUNCIONALIDAD
+
+# Módulo Wishlist - Plan de desarrollo (Anime Shop)
+
+## 1️⃣ Funcionalidades principales
+1. **Agregar productos al wishlist**
+   - Desde la ficha del producto.
+   - Desde el listado/catálogo.
+2. **Ver el wishlist**
+   - Página dedicada (lista de deseos).
+   - Mostrar mini-resumen en cabecera o menú lateral (opcional).
+3. **Eliminar productos del wishlist**
+   - Desde la página del wishlist.
+   - Desde el catálogo (si ya estaba agregado).
+4. **Persistencia y sincronización**
+   - Guardar para usuarios registrados en BD.
+   - Guardar temporalmente en localStorage para invitados y migrar al iniciar sesión.
+5. **Control de stock y precios**
+   - Avisar si un producto ya no está disponible o su precio cambió.
+6. **Acciones rápidas**
+   - Botón de “Agregar al carrito” desde el wishlist.
+   - Eliminar varios productos a la vez.
+
+---
+
+## 2️⃣ Backend: dividido en partes pequeñas
+| Paso  | Funcionalidad            | Descripción |
+|-------|--------------------------|-------------|
+| **B1** | **Modelo de datos**       | Crear tabla `wishlist` con campos: `id`, `user_id`, `product_id`, `created_at`. |
+| **B2** | **Repositorio y modelo**  | Métodos: `addItem($userId, $productId)`, `removeItem($userId, $productId)`, `getItems($userId)`, `exists($userId, $productId)`. |
+| **B3** | **Controlador: agregar**  | Acción para manejar `POST /wishlist/add` con validación y respuesta JSON (para AJAX). |
+| **B4** | **Controlador: listar**   | Acción `GET /wishlist` que retorna la vista con todos los productos guardados. |
+| **B5** | **Controlador: eliminar** | Acción para `POST /wishlist/remove` (único producto) o `POST /wishlist/remove-multiple`. |
+| **B6** | **Sincronización invitados** | Al iniciar sesión, migrar items de localStorage a la base de datos. |
+| **B7** | **Notificaciones de cambios** | Script backend que detecte cambios de stock o precio para avisar (opcional a futuro). |
+
+---
+
+## 3️⃣ Frontend: dividido en partes pequeñas
+| Paso  | Funcionalidad            | Descripción |
+|-------|--------------------------|-------------|
+| **F1** | **Botón de wishlist en el catálogo** | Ícono de corazón que cambia de estado (vacío/lleno) y llama a AJAX. |
+| **F2** | **Botón de wishlist en ficha del producto** | Más visible y con texto “Agregar a mi lista”. |
+| **F3** | **Animación visual** | Pequeña animación al agregar (feedback instantáneo). |
+| **F4** | **Vista de la lista de deseos** | Página `/wishlist` mostrando productos en cards con imagen, nombre, precio, stock, y botones de eliminar/agregar al carrito. |
+| **F5** | **AJAX y estado visual** | Al agregar o eliminar, actualizar íconos y lista sin recargar página. |
+| **F6** | **Persistencia para invitados** | Usar `localStorage` y reflejar cambios al iniciar sesión. |
+| **F7** | **Indicador en el header** | Número total de productos en wishlist, visible en todo el sitio. |
+
+---
+
+## 4️⃣ Orden recomendado para desarrollo
+1. **Backend base**: tabla + métodos CRUD en `WishlistRepository` y `WishlistModel`.
+2. **Controlador para agregar/listar/eliminar** (solo para usuarios logueados).
+3. **Vista `/wishlist` básica** (HTML estático usando tus estilos).
+4. **Botón de “Agregar a wishlist” en catálogo y producto** (funcional con AJAX).
+5. **Eliminar desde la lista y actualizar en tiempo real**.
+6. **Persistencia para invitados con localStorage**.
+7. **Migración de localStorage a BD al iniciar sesión**.
+8. **Extras visuales y mejoras** (indicador en header, notificaciones de cambios de precio, etc.).
+
+
+# Módulo Detalle del Producto - Plan de desarrollo (Anime Shop)
+
+## 1️⃣ Funcionalidades principales
+1. **Mostrar información completa del producto**
+   - Nombre, precio, disponibilidad, SKU, marca, categoría.
+   - Descripción corta y descripción detallada.
+2. **Galería de imágenes**
+   - Imagen principal ampliable.
+   - Miniaturas para cambiar imagen.
+   - Zoom al pasar el cursor (opcional).
+3. **Opciones de compra**
+   - Botón "Agregar al carrito".
+   - Botón "Agregar al wishlist".
+4. **Estado de stock**
+   - Mostrar si hay unidades disponibles o si está agotado.
+5. **Información extra**
+   - Opiniones y calificaciones de otros usuarios.
+   - Productos relacionados o recomendados.
+6. **Datos estructurados (SEO)**
+   - Implementar metaetiquetas y JSON-LD para mejorar posicionamiento en buscadores.
+
+---
+
+## 2️⃣ Backend: dividido en partes pequeñas
+| Paso  | Funcionalidad                | Descripción |
+|-------|------------------------------|-------------|
+| **B1** | **Ruta y controlador**        | Acción `GET /product/{id}/{slug}` que reciba ID y slug para mostrar el detalle. |
+| **B2** | **Modelo y repositorio**      | Método `getProductById($id)` que retorne toda la información del producto (uniones con categorías, marcas, stock). |
+| **B3** | **Control de errores**        | Si el producto no existe, mostrar página 404 personalizada. |
+| **B4** | **Galería de imágenes**       | Método para obtener imágenes adicionales del producto desde tabla `product_images`. |
+| **B5** | **Opiniones de usuarios**     | Método `getReviewsByProductId($id)` para mostrar reseñas. |
+| **B6** | **Productos relacionados**    | Método `getRelatedProducts($categoryId, $excludeId)` para sugerencias. |
+| **B7** | **Datos SEO**                 | Generar metaetiquetas dinámicas (title, description, og:image, etc.). |
+
+---
+
+## 3️⃣ Frontend: dividido en partes pequeñas
+| Paso  | Funcionalidad                | Descripción |
+|-------|------------------------------|-------------|
+| **F1** | **Estructura básica HTML**    | Maquetar nombre, precio, botones y descripción. |
+| **F2** | **Galería de imágenes**       | Imagen principal + miniaturas; clic en miniatura cambia la imagen. |
+| **F3** | **Zoom o modal de imagen**    | Ampliar imagen al hacer clic o pasar el cursor. |
+| **F4** | **Botones de acción**         | "Agregar al carrito" y "Agregar al wishlist" con eventos JavaScript/AJAX. |
+| **F5** | **Estado de stock**           | Mostrar disponibilidad visualmente (verde: disponible, rojo: agotado). |
+| **F6** | **Opiniones de usuarios**     | Lista de reseñas con nombre, fecha, comentario y calificación en estrellas. |
+| **F7** | **Productos relacionados**    | Carrusel o grid con productos similares. |
+| **F8** | **Responsive design**         | Adaptar la vista a móviles y tablets. |
+
+---
+
+## 4️⃣ Orden recomendado para desarrollo
+1. **Backend base**: ruta, controlador y método `getProductById`.
+2. **Maquetado básico** (HTML/CSS) con datos estáticos.
+3. **Integrar datos reales** desde la base de datos.
+4. **Agregar galería de imágenes**.
+5. **Botones de acción funcionales** (carrito y wishlist).
+6. **Opiniones y calificaciones**.
+7. **Productos relacionados**.
+8. **Mejoras visuales y optimizaciones SEO**.

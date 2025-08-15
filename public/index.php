@@ -9,6 +9,8 @@ error_reporting(E_ALL);
 define('ROOT', dirname(__DIR__));
 define('APP_PATH', ROOT . '/app');
 
+define('BASE_PATH', dirname(__DIR__));
+
 // ** Cargar Autoload de Composer primero **
 require_once ROOT . '/vendor/autoload.php';
 

@@ -1,3 +1,4 @@
+<?php use App\Helpers\StringHelper; ?>
 <section class="section-catalog-product" style="margin-top: 9rem;">
     <!-- Coleccion de barra de herramientas -->
     <!--
@@ -31,8 +32,16 @@
                 <span class="badge badge-preorder">Preventa</span>
             <?php endif; ?>
         </div>
-        <img src="../public/assets/images/products/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
-        <h5><?= htmlspecialchars($product['name']); ?></h5>
+        <!-- Enlace a detalle del producto -->
+        <a href="/anime-shop/public/product/detail?product_id=<?= $product['product_id'] ?>&product_name=<?= StringHelper::generateSlug($product['name']) ?>">
+            <img src="/anime-shop/public/assets/images/products/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
+        </a>
+        <!-- Título clickeable -->
+        <h5>
+            <a href="/anime-shop/public/product/detail/?product_id=<?= $product['product_id'] ?>&product_name=<?= StringHelper::generateSlug($product['name']) ?>">
+                <?= htmlspecialchars($product['name']); ?>
+            </a>
+        </h5>
         <p><?= number_format($product['price'], 2); ?></p>
         <!-- <input type="button" value="Añadir al carrito"> -->
             <button class="btn-add-to-cart"
