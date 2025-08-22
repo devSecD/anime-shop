@@ -1,3 +1,11 @@
+<?php
+    use App\Helpers\SessionHelper;
+
+    SessionHelper::start();
+    SessionHelper::regenerate();
+
+    $user = SessionHelper::getUser();
+?>
 <!-- Barra de navegacion -->
 <nav class="navbar-main">
     <ul class="ul-main">
@@ -72,7 +80,7 @@
             <a href="#user" class="nav-icon-with-text nav-user-info">
                 <i class="fa-regular fa-user"></i>
                 <span>
-                    <span class="user-greeting">¡Bienvenido!</span><br>
+                    <span class="user-greeting">¡ Bienvenido <?= $user['name'] ?? '' ?> !</span><br>
                     <span class="user-action">Identifícate / Regístrate</span>
                 </span>
             </a>
@@ -86,6 +94,12 @@
                 <span id="mini-cart-count" class="cart-badge"> <!-- esta clase cart-badge aun no esta agregada al css -->
                     <?= $_SESSION['cart_count'] ?? 0; ?>
                 </span>
+            </a>
+        </li>
+        <li class="header-wishlist">
+            <a href="/anime-shop/public/wishlist">
+                <i class="fa-solid fa-heart"></i>
+                <span id="wishlist-count"><?= SessionHelper::get('user_wishlist_count') ?? 0 ?></span>
             </a>
         </li>
     </ul>

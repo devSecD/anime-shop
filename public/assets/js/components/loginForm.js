@@ -1,5 +1,6 @@
-import { isNotEmpty, isMinLength, isValidEmail, areEqual } from '../../../assets/js/util/validation.js';
+import { isNotEmpty, isMinLength, isValidEmail } from '../../../assets/js/util/validation.js';
 import { sendForm } from "../../../assets/js/ajax/sendForm.js";
+import { updateHeaderCounter } from '../../../assets/js/util/wishlistCounter.js';
 import { showToast } from '../../../assets/js/components/alertToast.js';
 
 export function initLoginForm() {
@@ -26,6 +27,19 @@ export function initLoginForm() {
             return;
         }
 
+        // Incluir el localWishlist si existe en localStorage
+        const localWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        let wishlistInput = form.querySelector('input[name="localWishlist"]');
+
+        if (!wishlistInput) {
+            wishlistInput = document.createElement('input');
+            wishlistInput.type = 'hidden';
+            wishlistInput.name = 'localWishlist';
+            form.appendChild(wishlistInput);
+        }
+
+        wishlistInput.value = JSON.stringify(localWishlist);
+
         sendForm(form, function (response){
 
             if (!response.success) {
@@ -33,6 +47,12 @@ export function initLoginForm() {
             }
             if (response.success && response.redirect) {
                 showToast(response.message, 'success');
+
+                // Actualizar contador usando el valor del servidor
+                updateHeaderCounter('#wishlist-count', response.wishlistCount);
+
+                // Limpiar wishlist del localStorage
+                localStorage.removeItem('wishlist');
 
                 setTimeout(() => {
                     window.location.href = response.redirect;
@@ -42,5 +62,4 @@ export function initLoginForm() {
         });
 
     });
-
 }

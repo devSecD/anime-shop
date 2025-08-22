@@ -250,6 +250,8 @@ Referencias útiles:
 
 ESTO CADA VEZ QUE EMPIECE UNA NUEVA FUNCIONALIDAD
 
+-----------------------------------------------------------------------------------------------------------------------------
+
 Mira yo traigo mi propio estilo de trabajo y te doy un contexto general y dime si te sirve que te un ejemplo del contexto:
 1. Yo llamo a las vistas desed un controlador y generalmente uso el metodo index para cargar la vista o a veces tiene otro nombre iferente de "index" pero generalmente lleva ese nombre.
 2. El css ya traigo el diseño basado en eldiseño del home junto con mis variables de csss que las tengo en un archivo del mismo nombre. Tambien tengo css que reutilizo
@@ -277,66 +279,6 @@ Actualmente no tengo una tabla de roles y si me gustaria podedr implementar los 
 Entonces con todddo esto creo que ya podriamos ir empezanddo esto siempre y cuando no requieres de un ejemplo (algo que ya haya echo por ejeplo registro de usuario, login, etc) para entender mejor el contexto
 
 ESTO CADA VEZ QUE EMPIECE UNA NUEVA FUNCIONALIDAD
-
-# Módulo Wishlist - Plan de desarrollo (Anime Shop)
-
-## 1️⃣ Funcionalidades principales
-1. **Agregar productos al wishlist**
-   - Desde la ficha del producto.
-   - Desde el listado/catálogo.
-2. **Ver el wishlist**
-   - Página dedicada (lista de deseos).
-   - Mostrar mini-resumen en cabecera o menú lateral (opcional).
-3. **Eliminar productos del wishlist**
-   - Desde la página del wishlist.
-   - Desde el catálogo (si ya estaba agregado).
-4. **Persistencia y sincronización**
-   - Guardar para usuarios registrados en BD.
-   - Guardar temporalmente en localStorage para invitados y migrar al iniciar sesión.
-5. **Control de stock y precios**
-   - Avisar si un producto ya no está disponible o su precio cambió.
-6. **Acciones rápidas**
-   - Botón de “Agregar al carrito” desde el wishlist.
-   - Eliminar varios productos a la vez.
-
----
-
-## 2️⃣ Backend: dividido en partes pequeñas
-| Paso  | Funcionalidad            | Descripción |
-|-------|--------------------------|-------------|
-| **B1** | **Modelo de datos**       | Crear tabla `wishlist` con campos: `id`, `user_id`, `product_id`, `created_at`. |
-| **B2** | **Repositorio y modelo**  | Métodos: `addItem($userId, $productId)`, `removeItem($userId, $productId)`, `getItems($userId)`, `exists($userId, $productId)`. |
-| **B3** | **Controlador: agregar**  | Acción para manejar `POST /wishlist/add` con validación y respuesta JSON (para AJAX). |
-| **B4** | **Controlador: listar**   | Acción `GET /wishlist` que retorna la vista con todos los productos guardados. |
-| **B5** | **Controlador: eliminar** | Acción para `POST /wishlist/remove` (único producto) o `POST /wishlist/remove-multiple`. |
-| **B6** | **Sincronización invitados** | Al iniciar sesión, migrar items de localStorage a la base de datos. |
-| **B7** | **Notificaciones de cambios** | Script backend que detecte cambios de stock o precio para avisar (opcional a futuro). |
-
----
-
-## 3️⃣ Frontend: dividido en partes pequeñas
-| Paso  | Funcionalidad            | Descripción |
-|-------|--------------------------|-------------|
-| **F1** | **Botón de wishlist en el catálogo** | Ícono de corazón que cambia de estado (vacío/lleno) y llama a AJAX. |
-| **F2** | **Botón de wishlist en ficha del producto** | Más visible y con texto “Agregar a mi lista”. |
-| **F3** | **Animación visual** | Pequeña animación al agregar (feedback instantáneo). |
-| **F4** | **Vista de la lista de deseos** | Página `/wishlist` mostrando productos en cards con imagen, nombre, precio, stock, y botones de eliminar/agregar al carrito. |
-| **F5** | **AJAX y estado visual** | Al agregar o eliminar, actualizar íconos y lista sin recargar página. |
-| **F6** | **Persistencia para invitados** | Usar `localStorage` y reflejar cambios al iniciar sesión. |
-| **F7** | **Indicador en el header** | Número total de productos en wishlist, visible en todo el sitio. |
-
----
-
-## 4️⃣ Orden recomendado para desarrollo
-1. **Backend base**: tabla + métodos CRUD en `WishlistRepository` y `WishlistModel`.
-2. **Controlador para agregar/listar/eliminar** (solo para usuarios logueados).
-3. **Vista `/wishlist` básica** (HTML estático usando tus estilos).
-4. **Botón de “Agregar a wishlist” en catálogo y producto** (funcional con AJAX).
-5. **Eliminar desde la lista y actualizar en tiempo real**.
-6. **Persistencia para invitados con localStorage**.
-7. **Migración de localStorage a BD al iniciar sesión**.
-8. **Extras visuales y mejoras** (indicador en header, notificaciones de cambios de precio, etc.).
-
 
 # Módulo Detalle del Producto - Plan de desarrollo (Anime Shop)
 
@@ -397,3 +339,396 @@ ESTO CADA VEZ QUE EMPIECE UNA NUEVA FUNCIONALIDAD
 6. **Opiniones y calificaciones**.
 7. **Productos relacionados**.
 8. **Mejoras visuales y optimizaciones SEO**.
+
+--------------------------------------------------------------------------------------------------------------------
+
+# Módulo Wishlist - Estado actual (Anime Shop MVP)
+
+## ✅ Funcionalidades esenciales implementadas
+
+### Backend
+| Funcionalidad | Estado |
+|---------------|--------|
+| Tabla `wishlist` con campos `id`, `user_id`, `product_id`, `created_at` | ✅ Hecha |
+| `WishlistModel` y `WishlistRepository` con métodos `addItem`, `removeItem`, `getItems`, `exists` | ✅ Hecho |
+| Controladores: agregar (`add`), eliminar (`remove`), listar (`list`) | ✅ Hecho |
+| Migración de localStorage al iniciar sesión | ✅ Hecho |
+
+### Frontend
+| Funcionalidad | Estado |
+|---------------|--------|
+| Botón de wishlist en detalle del producto con AJAX | ✅ Hecho |
+| Animación del corazón al agregar/eliminar | ✅ Hecho |
+| Vista `/wishlist` mostrando productos o mensaje de lista vacía | ✅ Hecho |
+| Persistencia para invitados usando `localStorage` | ✅ Hecho |
+| Contador de wishlist en el header actualizado en tiempo real | ✅ Hecho |
+
+## ❌ Funcionalidades excluidas para MVP / mejoras futuras
+| Funcionalidad | Estado |
+|---------------|--------|
+| Agregar wishlist desde listado/catálogo | ❌ Mejora futura |
+| Eliminar múltiples productos a la vez | ❌ Mejora futura |
+| Notificaciones de cambios de stock o precio | ❌ Mejora futura |
+| Acciones visuales o animaciones avanzadas adicionales | ❌ Mejora futura |
+
+## ✅ Conclusión
+El módulo Wishlist esencial está completo y listo para el MVP. Todas las funcionalidades críticas para usuarios registrados e invitados funcionan correctamente.
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+ Entonces voy a comenzar el modulo del wishlist/lista de deseos para esto te dare el siguiente contexto relevante:
+
+1. Para todas las vistas quiero el mismo diseño que incluyen estos css uno de variables y el otro es un ejemplo de implementacion del diseño con hojas de estilo:
+
+* variables css
+
+:root {
+    --primary-color: #0277bd;
+    --primary-color-dark: #015a94;
+    --secondary-color: #ffc107;
+    --accent-color: #d32f2f;
+    --text-color: #fff;
+    --secondary-text-color: #000;
+
+    /* Background and borders */
+    --background-color: #f9f9f9;
+    --background-color-secondary: #222021;
+    --border-color: #ddd;
+
+    /* Fonts */
+    --main-font: 'Poppins', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+
+    /* Spacing */
+    --small-spacing: 8px;
+    --medium-spacing: 16px;
+    --large-spacing: 32px;
+
+    /* Font size */
+    --font-size-title: 2rem;
+    --font-size-paragraph: 1rem;
+    --font-size-small: 0.875rem;
+
+    /* Bordes y sombras */
+    --border-radius: 5px;
+    --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+    /* Tamaños */
+    --max-width: 1200px;
+
+    /*
+
+    Breve documentacion
+    * Encabezados y botones                           => var(--primary-color)
+    * Llamadas a la accion (CTA), ofertas             => var(--secondary--color)
+    * Detalles y resaltes                             => var(--accent-color)
+    * Textos principales                              => var(--secondary-text-color)
+    * Fondo general                                   => var(--background-color)
+
+    */
+}
+
+* Y un ejemplo basado en el catalogo:
+
+/* Ajusta para que no se desborden los contenedores hijos */
+.section-catalog-product {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    width: 97%; /* ajuste de ancho */
+}
+/* Ajusta para que no se desborden los contenedores hijos */
+
+.section-catalog-product .aside-collection-toolbar{
+    grid-column: 1 / -1;
+}
+
+.section-catalog-product .aside-collection-toolbar{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+}
+
+/* filtro para responsive */
+.aside-collection-toolbar .aside-filter {
+    display: none;
+}
+
+#filter-toggle {
+    display: none;
+}
+
+.close_search {
+    display: none;
+    font-size: 1.5rem;
+    position: fixed;
+    top: 0.1rem;
+    right: 0.5rem;
+    z-index: 5;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+.close_search a{
+    color: var(--accent-color);
+}
+
+.filter-menu-container i.fa-filter:hover{
+    color: var(--accent-color);
+}
+
+.nav-filter {
+    position: fixed;
+    top: 0rem;
+    margin-left: 0rem;
+    z-index: 2;
+    width: 85%;
+    height: 100%;
+    background-color: var(--primary-color); /* negro */
+    transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
+    box-shadow: -4px 0 15px var(--accent-color);
+    overflow-y: auto;
+    padding-top: 100px;
+}
+
+.nav-filter::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: var(--secondary-color);
+    backdrop-filter: blur(10px);
+}
+  
+.nav-filter ul li {
+    margin: 0 15px;
+    position: relative; /* para pdoerle aplicar posicion absoluta al a::after */
+}
+  
+.nav-filter ul li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-filter ul li a::after {
+    position: absolute;
+    right: 0.5rem; /* siempre pegado al borde */
+    content: "\25BC";
+}
+/* filtro para responsive */
+
+.container-product {
+    padding: 1rem;
+    border: 1px solid rgba(255, 193, 7, 0.5);
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.container-product:hover {
+    border: 1px solid transparent;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.6);
+}
+
+/* Badge visual de productos */
+.badge-container {
+    position: relative;
+    height: 0;
+}
+
+.badge {
+    position: absolute;
+    top: -0.5rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 0.25rem;
+    z-index: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.badge-sale {
+    left: -0.5rem;
+    background-color: var(--accent-color); /* Amarillo */
+}
+
+.badge-preorder {
+    right: 0rem; /* desplaza a la derecha para que no se superponga */
+    background-color: #007bff; /* azul */
+}
+
+.container-product img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.container-product p {
+    margin: 1rem 0rem;
+    cursor: pointer;
+}
+
+.container-product h5 {
+    margin: 0.75rem 0rem;
+    cursor: pointer;
+}
+
+.container-product p, .container-product h5 {
+    text-align: center;
+}
+
+.btn-add-to-cart {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: var(--secondary-color);
+    color: #333;
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-size-paragraph);
+    transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+}
+
+.btn-add-to-cart:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.aside-paginated {
+    grid-column: 1 / -1; /* Esto sirve para que el ancho ocupa todas las columnas disponibles grid del padre */
+}
+
+.page-list {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.page-list li a {
+    padding: 0.5rem 0.7rem;
+    color: #333;
+    cursor: unset;
+}
+
+.page-list li a.page-current {
+    background-color: var(--secondary-color);
+}
+
+.page-list li a.page-number, .page-list li a.page-previous, .page-list li a.page-next {
+    transition: color 0.3s ease;
+}
+
+.page-list li a.page-number:hover, .page-list li a.page-previous:hover, .page-list li a.page-next:hover {
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
+/* remueve estilos por defecto de enlaces */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:active {
+    color: inherit;
+}
+/* remueve estilos por defecto de enlaces */
+
+/* Media queries */
+@media (max-width: 1000px) {
+    .section-catalog-product {
+        width: 100%;
+    }
+}
+@media (max-width: 640px) {
+    .section-catalog-product {
+        grid-template-columns: 100%;
+        padding: 0.5rem;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 999px) {
+    .section-catalog-product {
+        grid-template-columns: 50% 50%;
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1279px) {
+    .section-catalog-product {
+        grid-template-columns: 33% 33% 33%;
+        padding: 1.3rem;
+    }
+}
+
+/* filtro responsive */
+
+@media (max-width: 1000px) {
+    .aside-collection-toolbar .aside-filter {
+        display: block;
+    }
+    .nav-filter {
+        display: none;
+    }
+}
+
+/* felchas del menu desplegable de filtros */
+@media (min-width: 430px) and (max-width: 500px){
+    .nav-filter ul li a::after {
+        right: 1rem; /* 430px a 500px => 1rem */
+    }
+}
+
+@media (min-width: 501px) and (max-width: 640px){
+    .nav-filter ul li a::after {
+        right: 2rem; /* 501px a 640px => 2rem */
+    }
+}
+
+@media (min-width: 641px) and (max-width: 800px){
+    .nav-filter ul li a::after {
+        right: 3rem; /* 641px a 800px => 3rem */
+    }
+}
+
+@media (min-width: 801px) and (max-width: 900px){
+    .nav-filter ul li a::after {
+        right: 4rem; /* 801px a 900px => 4rem */
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1000px){
+    .nav-filter ul li a::after {
+        right: 5rem; /* 901px a 1000px => 5rem */
+    }
+}
+/* felchas del menu desplegable de filtros */
+
+/* filtro responsive */
+
+2. Siempre se usa MVC + Repository para el backend. La forma de implementarlo es la siguiente:
+
+* Controlador invoca repository. Respository se encarga de la logica del negocio e invoca al modelo. El modelo se encarga exclusivamente de la(s) consulta(s) SQL.

@@ -1,3 +1,9 @@
+<?php
+    use App\Helpers\SessionHelper;
+
+    SessionHelper::start();
+    SessionHelper::regenerate();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,6 +28,9 @@
     <?php if (in_array('checkout', $assets)): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/checkout.css">
     <?php endif; ?>
+    <?php if (in_array('wishlist', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/wishlist.css">
+    <?php endif; ?>
 
     <?php if (in_array('errors', $assets)): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/errors.css">
@@ -35,5 +44,12 @@
     <main style="min-height: 80vh;" data-page="<?= $page ?? '' ?>"><?php include $content; ?></main>
 
     <?php include __DIR__ . '/../components/_footer.php'; ?>
+
+    <script type="module">
+        import { setUserWishlistCount, setUserLoggedIn } from '/anime-shop/public/assets/js/core/userStatus.js';
+        setUserLoggedIn(<?= SessionHelper::getUser() ? 'true' : 'false' ?>);
+        setUserWishlistCount(<?= SessionHelper::get('user_wishlist_count') ?>);
+    </script>
+
 </body>
 </html>

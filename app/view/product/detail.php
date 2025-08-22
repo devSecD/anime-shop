@@ -31,7 +31,10 @@
             <p class="price">$<?= number_format($product['price'], 2) ?></p>
             <span class="stock"><?= $product['stock'] > 0 ? 'En stock' : 'Agotado' ?></span>
             <button class="btn-add-to-cart" data-id="<?= $product['product_id'] ?>">🛒 Agregar al carrito</button>
-            <button class="btn-wishlist" data-id="<?= $product['product_id'] ?>">❤️ Agregar a Wishlist</button>
+            <button class="btn-wishlist" data-id="<?= $product['product_id'] ?>">
+                <i class="fa-solid fa-heart"></i>    
+                Agregar a Wishlist
+            </button>
             <div class="product-description">
                 <h3>Descripción</h3>
                 <p><?= nl2br(htmlspecialchars($product['description'])) ?></p>
@@ -54,7 +57,10 @@
                     <h5><?= htmlspecialchars($rp['name']) ?></h5>
                     <p class="price">$<?= number_format($rp['price'], 2) ?></p>
                     <button data-id="<?= $rp['product_id'] ?>" class="btn-add-to-cart">Agregar al carrito</button>
-                    <button data-id="<?= $rp['product_id'] ?>" class="btn-wishlist">❤️ Wishlist</button>
+                    <button data-id="<?= $rp['product_id'] ?>" class="btn-wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                        Wishlist
+                    </button>
                 </div>
             <?php endforeach; ?>
         </div>

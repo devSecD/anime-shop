@@ -108,4 +108,12 @@ return [
         'controller' => 'Product\ProductImageController',
         'action' => 'generate',
     ],
+    'wishlist' => [
+        'controller' => 'Wishlist\ListController',
+        'action' => 'index',
+    ],
+    'wishlist/manage' => [
+        'controller' => 'Wishlist\ManageController',
+        'action' => 'index',
+    ],
 ];
