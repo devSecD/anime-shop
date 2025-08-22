@@ -1,4 +1,5 @@
 import { initModal } from '../components/modal.js';
+import { initWishlist } from '../components/wishlist.js'; // <<--- importar nuestro wishlist
 
 export function initProductDetail() {
     initModal({
@@ -14,5 +15,7 @@ export function initProductDetail() {
         }
     });
 
-    // Aquí puedes meter lógica extra de la vista, como wishlist
+    // --------- Wishlist ---------
+    // Inicializar la wishlist (botón detalle + relacionados)
+    initWishlist();
 }

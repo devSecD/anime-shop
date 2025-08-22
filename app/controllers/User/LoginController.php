@@ -3,6 +3,8 @@ namespace Controllers\User;
 
 use Core\Controller;
 use Models\User\UserRepository;
+use App\Models\Wishlist\WishlistRepository;
+use App\Models\Wishlist\WishlistModel;
 use App\Helpers\ValidationHelper;
 use App\Helpers\StringHelper;
 use App\Helpers\ResponseHelper;
@@ -11,11 +13,13 @@ use App\Helpers\SessionHelper;
 class LoginController extends Controller
 {
     protected UserRepository $userRepo;
+    protected WishlistRepository $wishlistRepository;
 
     public function __construct()
     {
         $db = $this->loadDB();
         $this->userRepo = new UserRepository($db);
+        $this->wishlistRepository = new WishlistRepository(new WishlistModel($db));
     }
 
     public function index()
@@ -74,7 +78,7 @@ class LoginController extends Controller
         // iniciar sesion
         SessionHelper::start();
         SessionHelper::regenerate();
-        // SessionHelper::set('user', $result['user']); // aqui faltaria meter el role $roles
+
         // Guardar sesión
         SessionHelper::setUserSession([
             'user_id' => $result['user']['user_id'],
@@ -82,6 +86,22 @@ class LoginController extends Controller
             'email' => $result['user']['email'],
             'roles' => $roles
         ]);
+
+        // ------------------- Migración wishlist de invitados -------------------
+        if (!empty($_POST['localWishlist'])) {
+            $wishlistItems = json_decode($_POST['localWishlist'], true); // convertir a array
+            if(is_array($wishlistItems)) {
+                foreach ($wishlistItems as $productId) {
+                    if (!$this->wishlistRepository->exists($result['user']['user_id'], (int)$productId)) {
+                        $this->wishlistRepository->addItem($result['user']['user_id'], (int)$productId);
+                    }
+                }
+            }
+        }
+
+        $totalWishlist = $this->wishlistRepository->getItems($result['user']['user_id']);
+        $totalWishlistCount = count($totalWishlist);
+        SessionHelper::set('user_wishlist_count', $totalWishlistCount);
 
         // Redirección según rol
         if (in_array('admin', $roles)) {
@@ -94,6 +114,7 @@ class LoginController extends Controller
             ResponseHelper::jsonResponse([
                     'success' => true, 
                     'message' => $result['message'], 
+                    'wishlistCount' => $totalWishlistCount, 
                     'redirect' => '/anime-shop/public/'
             ]);
         }

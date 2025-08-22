@@ -1,3 +1,12 @@
+<?php
+    use App\Helpers\SessionHelper;
+
+    SessionHelper::start();
+    SessionHelper::regenerate();
+
+    // Obtiene el usuario
+    // $user = SessionHelper::getUser();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,7 +24,6 @@
     </header>
     <?php include __DIR__ . '/../products/_catalog_partial.php'; ?>
     <?php include __DIR__ . '/../components/_footer.php'; ?>
-
     <script src="../public/assets/js/newsletter.js"></script>
 </body>
 </html>

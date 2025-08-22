@@ -9,6 +9,7 @@ const pageModules = {
     updateProduct: () => import('../components/updateForm.js').then(m => m.initUpdateProductForm()),
     updateConfiguration: () => import('../components/updateConfiguration.js').then(m => m.initUpdateConfigurationForm()),
     productDetail: () => import('../components/productDetail.js').then(m => m.initProductDetail()),
+    wishlist: () => import('../components/wishlistIndex.js').then(m => m.initWishlistIndex()),
 };
 
 export function loadPageModule(page) {
