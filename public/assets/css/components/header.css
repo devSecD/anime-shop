@@ -1,7 +1,7 @@
 header {
     position: fixed;
     top: 0;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
 }
 
@@ -15,10 +15,19 @@ header {
 .ul-main {
     width: 100%;
     display: flex;
+    flex-direction: row; /* horizontal por defecto */
     flex-wrap: wrap; /* Permite que los elementos se desplacen a la siguiente linea */
     align-items: center;
     justify-content: space-around;
     gap: 20px;
+}
+
+.nav-icons-group {
+    display: flex;
+    flex-direction: row; /* fila siempre */
+    align-items: center;
+    gap: 15px;
+    margin-top: 0; /* por defecto sin margen extra */
 }
 
 .ul-main .li-search {
@@ -100,7 +109,6 @@ header {
     opacity: 0.85;
 }
 
-
 .ul-main li a i{
     transition: color 0.3s ease;
     font-size: 1.2rem;
@@ -150,6 +158,7 @@ header {
     width: 100%;
     background-color: #fff;
     padding: 15px 20px;
+    box-shadow: 0 4px 6px -2px rgba(1, 90, 148, 0.3);
 }
 
 .ul-secondary {
@@ -163,8 +172,6 @@ header {
     align-content: center; /* centra verticalmente los elementos */
     transition: color 0.3s ease;
 }
-
-
 
 .ul-secondary li a:hover {
     color: var(--accent-color);
@@ -213,7 +220,7 @@ header {
     transform-origin: center;
     transition: all 0.4s ease-in-out;
 }
-  
+
 /* Checkbox Hack */
 #burger-toggle {
     display: none;
@@ -226,13 +233,19 @@ header {
 .menu-burger {
     position: fixed;
     top: 0;
-    right: -300px;
+    left: 0;
+    width: 70%;
     height: 100%;
     background-color: var(--primary-color);
-    transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
+    transform: translateX(-100%); /* fuera de pantalla */
+    transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
     box-shadow: -4px 0 15px var(--accent-color);
     overflow-y: auto;
     padding-top: 100px;
+}
+
+.menu-burger.open {
+    transform: translateX(0);
 }
 
 .menu-burger::before {
@@ -245,12 +258,12 @@ header {
     background: var(--secondary-color);
     backdrop-filter: blur(10px);
 }
-  
+
 .menu-burger ul li {
     margin: 0 15px;
     position: relative; /* para pdoerle aplicar posicion absoluta al a::after */
 }
-  
+
 .menu-burger ul li a {
     display: block;
     color: #fff;
@@ -271,21 +284,47 @@ header {
 #burger-toggle:checked ~ .burger-container .burger-line:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
-  
- #burger-toggle:checked ~ .burger-container .burger-line:nth-child(2) {
+
+#burger-toggle:checked ~ .burger-container .burger-line:nth-child(2) {
     opacity: 0;
 }
-  
+
 #burger-toggle:checked ~ .burger-container .burger-line:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
 }
-  
+
 /* Navigation Slide In */
 #burger-toggle:checked ~ .menu-burger {
     left: 0;
 }
 
 /* Menu de hamburguesa */
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    list-style: none;
+    padding: 10px 0;
+    min-width: 180px;
+    z-index: 10;
+}
+.dropdown-menu.show {
+    display: block;
+}
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+}
+.dropdown-menu li a:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
+
 
 /* Media queries */
 @media (max-width: 768px) {
@@ -300,5 +339,159 @@ header {
 @media (max-width: 1024px) {
     .ul-main .li-menu-burger {
         display: block;
+    }
+}
+
+/* ===============================
+    Media Queries - Navbar Anime Shop
+   =============================== */
+
+/* Tablets en horizontal y laptops pequeñas */
+@media (max-width: 1024px) {
+    /* Muestra hamburguesa y oculta menú horizontal */
+    .ul-main {
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .ul-main .li-search {
+        flex: 3;
+    }
+
+    .ul-main .li-menu-burger {
+        display: block; /* ya lo tenías, pero reforzamos */
+    }
+}
+
+/* Tablets en vertical */
+@media (max-width: 768px) {
+    .ul-main {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    /* Buscador ocupa toda la fila */
+    .ul-main .li-search {
+        order: 2;
+        width: 100%;
+    }
+
+    .li-search form {
+        width: 100%;
+    }
+
+    /* Logo centrado arriba */
+    .ul-main li a img.logo {
+        max-width: 120px;
+        margin: 0 auto;
+    }
+
+    /* 🔥 Agrupación de íconos */
+    .nav-icons-group {
+        order: 3;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 10px;
+    }
+}
+
+/* Móviles grandes */
+@media (max-width: 767px) {
+    .ul-main {
+        gap: 10px;
+    }
+
+    .ul-main li {
+        text-align: center;
+    }
+
+    /* Logo más pequeño */
+    .ul-main li a img.logo {
+        max-width: 100px;
+    }
+
+    /* Íconos más chicos */
+    .ul-main li a i {
+        font-size: 1rem;
+    }
+
+    .nav-user-info span {
+        font-size: 0.8rem;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    .navbar-main {
+        padding: 10px;
+    }
+
+    .input-search {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+
+    .search-btn {
+        padding: 0.6rem;
+    }
+
+    .nav-user-info span,
+    .nav-icon-with-text span {
+        display: none; /* muestra solo los íconos */
+    }
+
+    .nav-user-info i,
+    .nav-cart-link i,
+    .header-wishlist i {
+        font-size: 1.1rem;
+    }
+}
+
+/* Para pantallas ≤1024px */
+@media (max-width: 1024px) {
+    .ul-main li:nth-child(2) { /* el logo es el segundo li */
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        z-index: 0; /* por debajo del burger */
+    }
+
+    .ul-main li a img.logo {
+        max-width: 120px;
+        margin: 0 auto;
+    }
+}
+
+
+/* test */
+
+/* Clases para visibilidad */
+.desktop-only { display: flex; justify-content: center; gap: 15px; }
+.mobile-only { display: none; }
+
+@media (max-width: 1024px) {
+    .desktop-only {
+        display: none;
+    }
+    .mobile-only {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    /* Aseguramos que los <ul> dentro del menu-burger sean columna */
+    .mobile-only .ul-secondary {
+        flex-direction: column; /* cada <li> en fila separada */
+        gap: 10px;              /* separación vertical entre filtros */
+    }
+
+    .mobile-only .ul-secondary li {
+        width: 100%; /* ocupa todo el ancho del menú hamburguesa */
+    }
+
+    .mobile-only .ul-secondary li a {
+        display: block;       /* ocupa todo el ancho del li */
+        padding: 12px 0;      /* un poco más de espacio vertical */
     }
 }

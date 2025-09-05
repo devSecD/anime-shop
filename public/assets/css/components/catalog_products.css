@@ -1,5 +1,6 @@
 /* Ajusta para que no se desborden los contenedores hijos */
 .section-catalog-product {
+    margin-top: 9rem;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
@@ -71,12 +72,12 @@
     background: var(--secondary-color);
     backdrop-filter: blur(10px);
 }
-  
+
 .nav-filter ul li {
     margin: 0 15px;
     position: relative; /* para pdoerle aplicar posicion absoluta al a::after */
 }
-  
+
 .nav-filter ul li a {
     display: block;
     color: #fff;
@@ -236,6 +237,16 @@ a:active {
         padding: 0.5rem;
     }
 }
+/*
+190 - 768
+margin-top: 17rem;
+*/
+@media (min-width: 190px) and (max-width: 769px) {
+    .section-catalog-product {
+        margin-top: 17rem;
+    }
+}
+
 
 @media (min-width: 641px) and (max-width: 999px) {
     .section-catalog-product {

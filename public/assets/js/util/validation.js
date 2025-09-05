@@ -79,3 +79,11 @@ export function isValidTimezone(tz) {
     const fallback = ['UTC', 'America/New_York', 'Europe/London', 'Asia/Tokyo'];
     return fallback.includes(tz);
 }
+
+/**
+ * Valida que un texto tenga un tamaño entre min y max caracteres.
+ */
+export function isTextLengthBetween(value, min, max) {
+    const length = trimValue(value).length;
+    return length >= min && length <= max;
+}

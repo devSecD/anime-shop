@@ -1,26 +1,5 @@
 <?php use App\Helpers\StringHelper; ?>
-<section class="section-catalog-product" style="margin-top: 9rem;">
-    <!-- Coleccion de barra de herramientas -->
-    <!--
-    <aside class="aside-collection-toolbar">
-        <aside class="aside-filter">
-            <input type="checkbox" id="filter-toggle">
-            <label for="filter-toggle" class="filter-menu-container" onclick="document.getElementById('nav-filter').style.display = 'block'; document.getElementById('close_search').style.display = 'block';">
-                <i class="fa-solid fa-filter"></i>
-                Filtro
-            </label>
-            <div class="close_search" id="close_search" onclick="document.getElementById('nav-filter').style.display = 'none'; this.style.display = 'none';"><a>x</a></div>
-            <nav class="nav-filter" id="nav-filter">
-                <ul>
-                    <li><a href="#">Filtro 1</a></li>
-                    <li><a href="#">Filtro 2</a></li>
-                    <li><a href="#">Filtro 3</a></li>
-                </ul>
-            </nav>
-        </aside>
-    </aside>
-    -->
-
+<section class="section-catalog-product">
     <!-- Primera fila -->
     <?php foreach($products as $product): ?>
     <section class="container-product">

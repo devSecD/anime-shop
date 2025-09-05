@@ -3,9 +3,6 @@
 
     SessionHelper::start();
     SessionHelper::regenerate();
-
-    // Obtiene el usuario
-    // $user = SessionHelper::getUser();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,10 +17,14 @@
 <body>
     <header>
         <?php include __DIR__ . '/../components/_navbar_main.php'; ?>
-        <?php include __DIR__ . '/../components/_navbar_secondary.php'; ?>
     </header>
     <?php include __DIR__ . '/../products/_catalog_partial.php'; ?>
     <?php include __DIR__ . '/../components/_footer.php'; ?>
-    <script src="../public/assets/js/newsletter.js"></script>
+    <script src="/anime-shop/public/assets/js/newsletter.js"></script>
+    <script src="/anime-shop/public/assets/js/components/userDropdown.js" defer></script>
+    <script type="module">
+        import { initBurgerMenu } from '/anime-shop/public/assets/js/components/burgerMenu.js';
+        initBurgerMenu();
+    </script>
 </body>
 </html>

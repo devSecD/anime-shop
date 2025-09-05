@@ -112,4 +112,18 @@ class OrderModel
         return (int) ($result['total'] ?? 0);
     }
 
+    public function getOrdersByUser(int $userId, int $limit = 5): array
+    {
+        $sql = "SELECT * FROM orders 
+                WHERE user_id = :user_id 
+                ORDER BY created_at DESC 
+                LIMIT :limit";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

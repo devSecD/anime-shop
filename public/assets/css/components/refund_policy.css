@@ -1,0 +1,84 @@
+/* Contenedor principal */
+.policy-section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--large-spacing);
+    font-family: var(--main-font);
+    color: var(--secondary-text-color);
+    background-color: var(--background-color);
+}
+
+/* Título principal */
+.policy-section h1 {
+    font-size: var(--font-size-title);
+    color: var(--primary-color);
+    margin-bottom: var(--medium-spacing);
+    text-align: center;
+}
+
+/* Subtítulos */
+.policy-section h2 {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-top: var(--large-spacing);
+    margin-bottom: var(--small-spacing);
+    border-left: 4px solid var(--secondary-color);
+    padding-left: var(--small-spacing);
+}
+
+/* Párrafos */
+.policy-section p {
+    font-size: var(--font-size-paragraph);
+    line-height: 1.6;
+    margin-bottom: var(--medium-spacing);
+}
+
+/* Listas */
+.policy-section ul,
+.policy-section ol {
+    margin-left: var(--large-spacing);
+    margin-bottom: var(--medium-spacing);
+    padding-left: var(--small-spacing);
+}
+
+.policy-section li {
+    margin-bottom: var(--small-spacing);
+    line-height: 1.6;
+}
+
+/* Links */
+.policy-section a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.policy-section a:hover {
+    text-decoration: underline;
+    color: var(--primary-color-dark);
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .policy-section {
+        padding: var(--medium-spacing);
+    }
+    .policy-section h1 {
+        font-size: 1.7rem;
+    }
+    .policy-section h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .policy-section {
+        padding: var(--small-spacing);
+    }
+    .policy-section h1 {
+        font-size: 1.5rem;
+    }
+    .policy-section h2 {
+        font-size: 1.2rem;
+    }
+}

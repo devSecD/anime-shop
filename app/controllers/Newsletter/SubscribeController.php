@@ -15,7 +15,7 @@ class SubscribeController extends Controller
         $email = trim($_POST['email'] ?? '');
 
         // validar email
-        if (!ValidationHelper::validateEmail($email)) {
+        if (ValidationHelper::validateEmail($email)) {
             echo json_encode(['success' => false, 'message' => 'Email invalido']);
             return;
         }

@@ -72,4 +72,11 @@ class NewsletterModel
         return (int) ($result['total'] ?? 0);
     }
 
+    public function deleteByEmail(string $email): bool
+    {
+        $sql = "DELETE FROM newsletter_subscriptions WHERE email = :email";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':email' => $email]);
+    }
+
 }

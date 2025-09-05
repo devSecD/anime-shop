@@ -207,3 +207,67 @@
     color: #888;
     margin-left: 4px;
 }
+
+.form-message {
+    margin: var(--medium-spacing) 0;
+    padding: var(--small-spacing) var(--medium-spacing);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-small);
+    display: none;
+    font-family: var(--secondary-font);
+}
+
+.form-message.success {
+    display: block;
+    background-color: #e6ffed;
+    color: var(--primary-color-dark);
+    border: 1px solid var(--primary-color);
+}
+
+.form-message.error {
+    display: block;
+    background-color: #ffe6e6;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+/* Botón de cancelar (secundario) */
+.btn-cancel {
+    display: inline-block;
+    width: 100%;
+    padding: 0.7rem;
+    background-color: rgba(128, 128, 128, 0.2); /* gris opaco */
+    color: #555; /* texto gris oscuro */
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-size-paragraph);
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+    text-decoration: none;
+    margin-top: var(--small-spacing);
+}
+
+.btn-cancel:hover {
+    background-color: rgba(128, 128, 128, 0.35); /* ligeramente más oscuro */
+    color: #333; /* resalta el texto */
+    border: 1px solid rgba(128, 128, 128, 0.6);
+}
+
+/* Campos opcionales */
+.optional .optional-tag {
+    font-weight: normal;
+    font-size: 0.9em;
+    color: #888;
+    margin-left: 4px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 480px) {
+    .form-container {
+        padding: var(--small-spacing);
+    }
+    .btn-primary, .btn-secondary {
+        font-size: 0.9rem;
+    }
+}

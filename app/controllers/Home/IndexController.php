@@ -39,6 +39,7 @@ class IndexController extends Controller
         $filter = $params['filter'];
         $sort = $params['sort'];
         $category = $params['category'];
+        $pages = ['home', 'catalog'];
 
         $currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
         $productsPerPage = 8;
@@ -54,7 +55,8 @@ class IndexController extends Controller
                 'products' => $products, 
                 'currentPage' => $currentPage, 
                 'totalPages' => $totalPages, 
-                'assets' => ['cart']
+                'assets' => ['cart'], 
+                'pages' => $pages
             ]
         );
 

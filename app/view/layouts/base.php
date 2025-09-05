@@ -31,6 +31,24 @@
     <?php if (in_array('wishlist', $assets)): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/wishlist.css">
     <?php endif; ?>
+    <?php if (in_array('faq', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/faq.css">
+    <?php endif; ?>
+    <?php if (in_array('privacy', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/privacy_policy.css">
+    <?php endif; ?>
+    <?php if (in_array('terms', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/terms_of_service.css">
+    <?php endif; ?>
+    <?php if (in_array('refund', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/refund_policy.css">
+    <?php endif; ?>
+    <?php if (in_array('account', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/account.css">
+    <?php endif; ?>
+    <?php if (in_array('orders', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/orders.css">
+    <?php endif; ?>
 
     <?php if (in_array('errors', $assets)): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/errors.css">
@@ -44,6 +62,8 @@
     <main style="min-height: 80vh;" data-page="<?= $page ?? '' ?>"><?php include $content; ?></main>
 
     <?php include __DIR__ . '/../components/_footer.php'; ?>
+
+    <script src="/anime-shop/public/assets/js/components/userDropdown.js" defer></script>
 
     <script type="module">
         import { setUserWishlistCount, setUserLoggedIn } from '/anime-shop/public/assets/js/core/userStatus.js';

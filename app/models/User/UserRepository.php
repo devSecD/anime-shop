@@ -6,7 +6,6 @@ use PDO;
 class UserRepository
 {
     private $model;
-
     public function __construct(PDO $db)
     {
         $this->model = new UserModel($db);
@@ -100,5 +99,26 @@ class UserRepository
     {
         return $this->model->getAll();
     }
+
+    public function findByEmail(string $email): ?array
+    {
+        return $this->model->findByEmail($email);
+    }
+
+    public function update(int $userId, array $data): array
+    {
+        try {
+            $success = $this->model->update($userId, $data);
+            return [
+                'success' => $success,
+                'message' => $success ? '' : 'No se pudo actualizar el perfil'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }   
 
 }

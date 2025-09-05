@@ -10,6 +10,10 @@ const pageModules = {
     updateConfiguration: () => import('../components/updateConfiguration.js').then(m => m.initUpdateConfigurationForm()),
     productDetail: () => import('../components/productDetail.js').then(m => m.initProductDetail()),
     wishlist: () => import('../components/wishlistIndex.js').then(m => m.initWishlistIndex()),
+    contactForm: () => import('../components/contactForm.js').then(m => m.initContactForm()),
+    account: () => import('../components/account.js').then(m => m.initAccount()),
+    accountEdit: () => import('../components/accountUpdate.js').then(m => m.initAccountUpdate()),
+
 };
 
 export function loadPageModule(page) {

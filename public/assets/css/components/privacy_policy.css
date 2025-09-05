@@ -1,0 +1,83 @@
+/* Contenedor principal */
+.privacy-policy {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--large-spacing);
+    font-family: var(--main-font);
+    color: var(--secondary-text-color);
+    background-color: var(--background-color);
+}
+
+/* Título principal */
+.privacy-policy h1 {
+    font-size: var(--font-size-title);
+    color: var(--primary-color);
+    margin-bottom: var(--medium-spacing);
+    text-align: center;
+}
+
+/* Subtítulos de secciones */
+.privacy-policy h2 {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-top: var(--large-spacing);
+    margin-bottom: var(--medium-spacing);
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 0.3rem;
+}
+
+/* Párrafos generales */
+.privacy-policy p {
+    font-size: var(--font-size-paragraph);
+    line-height: 1.6;
+    margin-bottom: var(--medium-spacing);
+}
+
+/* Listas */
+.privacy-policy ul {
+    margin: 0 0 var(--medium-spacing) 1.5rem;
+    padding: 0;
+    list-style-type: disc;
+}
+
+.privacy-policy ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Enlaces dentro de la política */
+.privacy-policy a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.privacy-policy a:hover {
+    color: var(--primary-color-dark);
+}
+
+/* Fecha de actualización */
+.privacy-policy p:last-child {
+    font-size: var(--font-size-small);
+    font-style: italic;
+    color: var(--accent-color);
+    margin-top: var(--large-spacing);
+    text-align: right;
+}
+
+/* Responsive: tablets y móviles */
+@media (max-width: 1000px) {
+    .privacy-policy {
+        padding: var(--medium-spacing);
+    }
+    .privacy-policy h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .privacy-policy {
+        padding: var(--small-spacing);
+    }
+    .privacy-policy h2 {
+        font-size: 1.2rem;
+    }
+}

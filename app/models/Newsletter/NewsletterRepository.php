@@ -37,4 +37,9 @@ class NewsletterRepository
         return $this->newsletterModel->countSubscribers();
     }
 
+    public function deleteByEmail(string $email): bool
+    {
+        return $this->newsletterModel->deleteByEmail($email);
+    }
+
 }

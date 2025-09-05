@@ -2,9 +2,7 @@
     display: grid;
     grid-template-columns: 45% 25% 30%;
     gap: 1.5rem;
-    /* Con esto solucionamos el desbordamiento del ancho */
-    overflow: hidden;
-    /* Con esto solucionamos el desbordamiento del ancho */
+    overflow: hidden; /* Con esto solucionamos el desbordamiento del ancho */
     padding: 0rem 2rem;
     background-color: var(--primary-color);
     color:var(--text-color);
@@ -20,6 +18,14 @@
 
 .who-we-are p, .newsletter p {
     text-align: justify;
+}
+
+.who-we-are p span.text-animeshop {
+    color: var(--secondary-color); /* Amarillo */
+    font-weight: bold; /* Refuerza el impacto */
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.6),   /* Sombra oscura suave */
+        -1px -1px 0 var(--primary-color); /* Borde sutil azul */
 }
 
 .options-store ul li {

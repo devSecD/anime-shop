@@ -1,0 +1,115 @@
+/* Tabla de pedidos */
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-small);
+    margin-top: var(--medium-spacing);
+}
+
+.orders-section {
+    background-color: var(--background-color);
+    padding: var(--medium-spacing);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: var(--large-spacing); /* separación con otras secciones */
+}
+
+/* Título */
+.orders-section h1 {
+    font-size: var(--font-size-title);
+    margin-bottom: var(--medium-spacing);
+    color: var(--primary-color);
+}
+
+/* Tabla de pedidos */
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-small);
+    margin-top: var(--small-spacing); /* separación del título */
+    margin-bottom: var(--medium-spacing); /* separación inferior */
+}
+
+.orders-table th,
+.orders-table td {
+    padding: var(--small-spacing) var(--medium-spacing);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color-light, #eaeaea);
+}
+
+.orders-table th {
+    background-color: var(--background-light, #f8f8f8);
+    color: var(--primary-color-dark);
+    font-weight: bold;
+    font-size: var(--font-size-paragraph);
+}
+
+.orders-table tr:hover {
+    background-color: var(--hover-background, #f4f9ff);
+    transition: background 0.3s ease;
+}
+
+/* Mensaje cuando no hay pedidos */
+.account-orders p {
+    font-size: var(--font-size-small);
+    color: var(--secondary-text-color);
+    margin-top: var(--medium-spacing);
+    text-align: center;
+}
+
+.btn-table {
+    display: block;
+    margin: 0.5rem auto;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .orders-table thead {
+        display: none; /* Ocultamos cabecera en pantallas pequeñas */
+    }
+
+    .orders-table,
+    .orders-table tbody,
+    .orders-table tr,
+    .orders-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .orders-table tr {
+        margin-bottom: var(--medium-spacing);
+        border-bottom: 2px solid var(--border-color-light, #eaeaea);
+        padding-bottom: var(--small-spacing);
+    }
+
+    .orders-table td {
+        text-align: right;
+        padding: var(--small-spacing);
+        position: relative;
+    }
+
+    .orders-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: var(--small-spacing);
+        font-weight: bold;
+        color: var(--primary-color-dark);
+        text-align: left;
+    }
+
+    .btn-table {
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .orders-section {
+        padding: var(--small-spacing); /* más compacto aún en móviles chicos */
+    }
+
+    .orders-section h1 {
+        font-size: var(--font-size-paragraph);
+    }
+}
