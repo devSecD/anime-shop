@@ -116,4 +116,44 @@ return [
         'controller' => 'Wishlist\ManageController',
         'action' => 'index',
     ],
+    'faq' => [
+        'controller' => 'Pages\FAQController',
+        'action' => 'index',
+    ],
+    'contact' => [
+        'controller' => 'Pages\ContactController',
+        'action' => 'index',
+    ],
+    'contact/submit' => [
+        'controller' => 'Pages\ContactController',
+        'action' => 'send',
+    ],
+    'privacy-policy' => [
+        'controller' => 'Pages\PrivacyPolicyController',
+        'action' => 'index',
+    ],
+    'terms-of-service' => [
+        'controller' => 'Pages\TermsController',
+        'action' => 'index',
+    ],
+    'refund-policy' => [
+        'controller' => 'Pages\RefundController',
+        'action' => 'index',
+    ],
+    'user/account' => [
+        'controller' => 'User\AccountController',
+        'action' => 'index',
+    ],
+    'user/account/edit' => [
+        'controller' => 'User\EditController',
+        'action' => 'index',
+    ],
+    'user/account/update' => [
+        'controller' => 'User\EditController',
+        'action' => 'update',
+    ],
+    'user/orders' => [
+        'controller' => 'User\OrdersController',
+        'action' => 'index',
+    ],
 ];

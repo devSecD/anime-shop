@@ -23,7 +23,7 @@ class ValidationHelper
 
     public static function required(string $fieldName, ?string $value): ?string
     {
-        return empty(StringHelper::trim($value)) ? "El campo $fieldName es obligatorio." : null ;
+        return empty(StringHelper::trim($value)) ? "El campo $fieldName es obligatorio PHP." : null ;
     }
 
     public static function validateName(?string $value): ?string
@@ -31,11 +31,11 @@ class ValidationHelper
         $value = StringHelper::trim($value);
 
         if (strlen($value) < 3) {
-            return "El nombre debe tener al menos 3 caracteres.";
+            return "El nombre debe tener al menos 3 caracteres PHP.";
         }
 
         if (!preg_match('/^[\p{L}\s]+$/u', $value)) {
-            return "El nombre solo puede contener letras y espacios.";
+            return "El nombre solo puede contener letras y espacios PHP.";
         }
 
         return null;
@@ -45,7 +45,7 @@ class ValidationHelper
     {
         $value = StringHelper::trim($value);
 
-        return filter_var($value, FILTER_VALIDATE_EMAIL) ? null : "El correo no es válido." ;
+        return filter_var($value, FILTER_VALIDATE_EMAIL) ? null : "El correo no es válido PHP." ;
     }
 
     public static function validatePasswordStrength(?string $value): ?string
@@ -53,11 +53,11 @@ class ValidationHelper
         $value = StringHelper::trim($value);
 
         if (strlen($value) < 8) {
-            return "La contraseña debe tener al menos 8 caracteres.";
+            return "La contraseña debe tener al menos 8 caracteres PHP.";
         }
 
         if (!preg_match('/[A-Za-z]/', $value) || !preg_match('/\d/', $value)) {
-            return "La contraseña debe contener letras y números.";
+            return "La contraseña debe contener letras y números PHP.";
         }
 
         return null;
@@ -144,7 +144,7 @@ class ValidationHelper
         $value = StringHelper::trim($value);
 
         if (!preg_match('/^\d{10,15}$/', $value)) {
-            return "El teléfono debe tener entre 10 y 15 dígitos.";
+            return "El teléfono debe tener entre 10 y 15 dígitos PHP.";
         }
 
         return null;
@@ -309,6 +309,18 @@ class ValidationHelper
             default:
                 return self::required($key, $value);
         }
+    }
+
+    public static function validateText($value, $min = 1, $max = 255) {
+        $length = mb_strlen(trim($value), 'UTF-8');
+
+        if ($length < $min) {
+            return "El texto debe tener al menos $min caracteres.";
+        }
+        if ($length > $max) {
+            return "El texto no puede superar los $max caracteres.";
+        }
+        return null;
     }
 
 }

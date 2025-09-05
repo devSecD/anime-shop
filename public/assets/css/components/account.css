@@ -1,0 +1,221 @@
+.account-page {
+    display: grid;
+    gap: 1rem;
+    padding: 1.5rem;
+    width: 70%;
+    margin: auto;
+    font-family: var(--main-font);
+}
+
+.account-section {
+    grid-column: 1 / -1; /* cada sección ocupa todo el ancho */
+    background-color: var(--background-color);
+    padding: var(--medium-spacing);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.account-page h1 {
+    font-size: var(--font-size-title);
+    margin-bottom: var(--medium-spacing);
+    color: var(--primary-color);
+}
+
+.account-section h2 {
+    font-size: var(--font-size-paragraph);
+    margin-bottom: var(--medium-spacing);
+    color: var(--primary-color-dark);
+}
+
+/* Información del usuario */
+.account-info p {
+    margin: var(--small-spacing) 0;
+    font-size: var(--font-size-small);
+    color: var(--secondary-text-color);
+}
+
+.account-newsletter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alínea toggle a la derecha */
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--secondary-color); /* color base */
+    transition: 0.4s;
+    border-radius: 28px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--secondary-color);
+}
+
+input:checked + .slider:hover {
+    background-color: var(--accent-color);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--secondary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+/* Botones */
+.btn-edit-profile,
+.btn-newsletter {
+    margin-top: var(--small-spacing);
+    padding: var(--small-spacing) var(--medium-spacing);
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-size-paragraph);
+    transition: background 0.3s ease;
+}
+
+.btn-edit-profile:hover,
+.btn-newsletter:hover {
+    background-color: var(--primary-color-dark);
+}
+
+/* Pedidos */
+.account-orders p {
+    font-size: var(--font-size-small);
+    color: var(--secondary-text-color);
+    text-align: center;
+}
+
+/* Contenedor del botón de editar perfil */
+.account-actions {
+    margin-top: var(--medium-spacing);
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Botón editar perfil */
+.btn-edit-profile {
+    display: inline-block;
+    margin: 0;
+    text-align: left;
+    padding: var(--small-spacing) var(--medium-spacing);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: var(--font-size-paragraph);
+    transition: background 0.3s ease;
+    text-decoration: none; /* quita subrayado si es <a> */
+}
+
+.btn-edit-profile:hover {
+    background-color: var(--accent-color);
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .account-page {
+        grid-template-columns: 1fr;
+        padding: var(--medium-spacing);
+    }
+}
+
+@media (max-width: 500px) {
+    .account-newsletter {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Responsive: en pantallas pequeñas lo dejamos ocupar todo el ancho */
+@media (max-width: 500px) {
+    .btn-edit-profile {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ===================================
+    Responsive - Account Page
+=================================== */
+
+/* Tablets grandes y laptops pequeñas */
+@media (max-width: 1200px) {
+    .account-page {
+        width: 85%;
+    }
+}
+
+/* Tablets en vertical */
+@media (max-width: 992px) {
+    .account-page {
+        width: 90%;
+        gap: 1rem;
+    }
+}
+
+/* Pantallas chicas (smartphones grandes) */
+@media (max-width: 768px) {
+    .account-page {
+        width: 100%;
+        padding: var(--medium-spacing);
+    }
+
+    .account-section,
+    .orders-section {
+        padding: var(--small-spacing);
+    }
+
+    .account-section h1,
+    .orders-section h1 {
+        font-size: 1.4rem;
+    }
+    
+    .account-section h2 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 500px) {
+    .account-newsletter {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--small-spacing);
+    }
+}

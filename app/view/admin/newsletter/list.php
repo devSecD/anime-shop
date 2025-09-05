@@ -33,11 +33,10 @@
                         <?php else: ?>
                             <?php foreach ($subscribers as $subscriber): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($subscriber['id']) ?></td>
                                     <td><?= htmlspecialchars($subscriber['email']) ?></td>
-                                    <td><?= date('d/m/Y H:i', strtotime($subscriber['created_at'])) ?></td>
+                                    <td><?= date('d/m/Y H:i', strtotime($subscriber['subscribed_at'])) ?></td>
                                     <td>
-                                        <a href="/anime-shop/public/admin/newsletter/delete?id=<?= $subscriber['id'] ?>" 
+                                        <a href="/anime-shop/public/admin/newsletter/delete?id=<?= $subscriber['email'] ?>" 
                                            data-confirm="¿Deseas eliminar este suscriptor?" 
                                            class="action-delete btn-confirm-delete" 
                                            title="Eliminar">

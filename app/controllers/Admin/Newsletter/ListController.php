@@ -25,6 +25,7 @@ class ListController extends Controller
 
         $html_head = __DIR__ . '/../../../view/admin/components/html_head.php';
         $sidebar = __DIR__ . '/../../../view/admin/components/sidebar.php';
+        $modalConfirmDelete = __DIR__ . '/../../../view/admin/components/modal-confirm-delete.php';
 
         $title = 'Suscriptores del newsletter';
         $page = 'admin_newsletter_list';

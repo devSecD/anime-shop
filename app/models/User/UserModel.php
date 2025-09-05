@@ -1,16 +1,20 @@
 <?php
 namespace Models\User;
 
+use App\Helpers\SecureLogger;
+
 use PDO;
 use PDOException;
 
 class UserModel
 {
     protected $db;
+    private SecureLogger $logger;
 
     public function __construct(PDO $db)
     {
         $this->db = $db;
+        $this->logger = new SecureLogger('user.log');
     }
 
     public function getByEmail($email): array
@@ -127,6 +131,49 @@ class UserModel
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findByEmail(string $email): ?array
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM users WHERE email = :email");
+            $stmt->bindValue(':email', $email);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $user ?: null;
+        } catch (PDOException $e) {
+            $this->logger->write('Error en findByEmail', ['email' => $email, 'error' => $e->getMessage()]);
+            return null;
+        }
+    }
+
+    public function update(int $userId, array $data): bool
+    {
+        try {
+            $sql = "UPDATE users SET name = :name, email = :email, phone = :phone";
+            if (!empty($data['password_hash'])) {
+                $sql .= ", password_hash = :password_hash";
+            }
+            $sql .= " WHERE user_id = :user_id";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':name', $data['name']);
+            $stmt->bindValue(':email', $data['email']);
+            $stmt->bindValue(':phone', $data['phone'] ?? null);
+            if (!empty($data['password_hash'])) {
+                $stmt->bindValue(':password_hash', $data['password_hash']);
+            }
+            $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            $this->logger->write('Error en update', [
+                'user_id' => $userId,
+                'data' => $data,
+                'error' => $e->getMessage()
+            ]);
+            return false;
+        }
     }
 
 }

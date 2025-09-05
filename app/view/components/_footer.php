@@ -1,23 +1,19 @@
-<!-- Footer -->
 <footer class="footer">
     <section class="who-we-are">
-        <h4>¿Quienes somos?</h4>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        <a href="#who-we-are">Leer mas</a>
+        <h4>¿Quiénes somos?</h4>
+        <p>
+            En <span class="text-animeshop">Anime Shop</span> vivimos la pasión por el anime, el manga y la cultura otaku. Nuestra tienda nace para ofrecerte productos auténticos y de calidad, pensados para fans que disfrutan coleccionar, vestir y compartir su mundo favorito.
+            Más que una tienda, somos un espacio hecho por y para otakus, donde cada artículo cuenta una historia y cada compra te acerca un poco más al universo que amas.
+        </p>
     </section>
     <section class="options-store">
-        <h4>Nombre de la tienda</h4>
+        <h4>Anime Shop</h4>
         <ul>
-            <li><a href="#who-we-are">Quienes somos</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#faq">FAQ (Preguntas frecuentes)</a></li>
-            <li><a href="#contact">Contacto</a></li>
-            <li><a href="#work-with-us">Trabaja con nostros</a></li>
-            <li><a href="#notice-privacy">Aviso ded privacidad</a></li>
-            <li><a href="#download-our-app">Descarga nuestra App</a></li>
-            <li><a href="#terms-of-service">Terminos de servicio</a></li>
-            <li><a href="#policy-refund">Politica de reembolso</a></li>
-            <li><a href="#deletion-account">Eliminacion de la cuenta</a></li>
+            <li><a href="/anime-shop/public/faq">FAQ (Preguntas frecuentes)</a></li>
+            <li><a href="/anime-shop/public/contact">Contacto</a></li>
+            <li><a href="/anime-shop/public/privacy-policy">Aviso de privacidad</a></li>
+            <li><a href="/anime-shop/public/terms-of-service">Términos de servicio</a></li>
+            <li><a href="/anime-shop/public/refund-policy">Política de reembolso</a></li>
         </ul>
     </section>
     <section class="newsletter">
@@ -30,4 +26,3 @@
         </form>
     </section>
 </footer>
-<!-- Footer -->

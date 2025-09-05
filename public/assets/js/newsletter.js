@@ -25,10 +25,10 @@ form.addEventListener('submit', async function (e) {
 
     const email = emailInput.value.trim();
 
-    if (!email || !isValidEmail(email)) {
-        showMessage('Por favor, ingresa un correo valido.', 'error');
-        return;
-    }
+    // if (!email || !isValidEmail(email)) {
+        // showMessage('Por favor, ingresa un correo valido.', 'error');
+        // return;
+    // }
 
     try {
         setFormDisabled(true);

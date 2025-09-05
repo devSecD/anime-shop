@@ -19,6 +19,8 @@ Thumbs.db
 app/config/database.php
 app/config/mercadopago.php
 app/config/url.config.php
+app/config/recaptcha.php
+storage/user.log
 
 # --- CACHE / LOGS ---
 cache/

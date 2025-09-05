@@ -1,0 +1,73 @@
+/* Contenedor principal */
+.terms-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--large-spacing);
+  font-family: var(--main-font);
+  color: var(--secondary-text-color);
+  background-color: var(--background-color);
+}
+
+/* Título principal */
+.terms-section h1 {
+  font-size: var(--font-size-title);
+  color: var(--primary-color);
+  margin-bottom: var(--medium-spacing);
+  text-align: center;
+}
+
+/* Subtítulos */
+.terms-section h2 {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  margin-top: var(--large-spacing);
+  margin-bottom: var(--medium-spacing);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 0.3rem;
+}
+
+/* Párrafos */
+.terms-section p {
+  font-size: var(--font-size-paragraph);
+  line-height: 1.6;
+  margin-bottom: var(--medium-spacing);
+}
+
+/* Listas */
+.terms-section ul {
+  margin: 0 0 var(--medium-spacing) 1.5rem;
+  padding: 0;
+  list-style-type: disc;
+}
+
+.terms-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Enlaces */
+.terms-section a {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+.terms-section a:hover {
+  color: var(--primary-color-dark);
+}
+
+/* Última actualización */
+.terms-section p:last-child {
+  font-size: var(--font-size-small);
+  font-style: italic;
+  color: var(--accent-color);
+  margin-top: var(--large-spacing);
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .terms-section { padding: var(--medium-spacing); }
+  .terms-section h2 { font-size: 1.3rem; }
+}
+@media (max-width: 640px) {
+  .terms-section { padding: var(--small-spacing); }
+  .terms-section h2 { font-size: 1.2rem; }
+}
