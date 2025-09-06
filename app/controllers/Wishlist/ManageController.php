@@ -48,6 +48,15 @@ class ManageController extends Controller
             );
         }
 
+        if ($userId) {
+            $wishlistRepo = new WishlistRepository(new WishlistModel($this->db));
+            $wishlistItems = $wishlistRepo->getItems($userId); // array de productos
+            SessionHelper::set('user_wishlist', array_column($wishlistItems, 'product_id'));
+            SessionHelper::set('user_wishlist_count', count($wishlistItems));
+        } else {
+            SessionHelper::set('user_wishlist', []);
+            SessionHelper::set('user_wishlist_count', 0);
+        }
 
         switch($action) {
             case "add":
@@ -67,7 +76,11 @@ class ManageController extends Controller
 
         // Obtener el número actualizado de items en la wishlist
         $totalWishlistCount = $this->repository->getCount($userId);
+        $wishlistItems = $this->repository->getItems($userId);
+        $wishlistIds = array_column($wishlistItems, 'product_id');
+
         SessionHelper::set('user_wishlist_count', $totalWishlistCount);
+        SessionHelper::set('user_wishlist_ids', $wishlistIds);
 
         ResponseHelper::jsonResponse([
             'success' => $result,

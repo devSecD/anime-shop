@@ -15,7 +15,5 @@ export function initProductDetail() {
         }
     });
 
-    // --------- Wishlist ---------
-    // Inicializar la wishlist (botón detalle + relacionados)
     initWishlist();
 }

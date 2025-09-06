@@ -66,10 +66,10 @@
     <script src="/anime-shop/public/assets/js/components/userDropdown.js" defer></script>
 
     <script type="module">
-        import { setUserWishlistCount, setUserLoggedIn } from '/anime-shop/public/assets/js/core/userStatus.js';
+        import { setUserWishlistCount, setUserLoggedIn, setUserWishlist } from '/anime-shop/public/assets/js/core/userStatus.js';
         setUserLoggedIn(<?= SessionHelper::getUser() ? 'true' : 'false' ?>);
         setUserWishlistCount(<?= SessionHelper::get('user_wishlist_count') ?>);
+        setUserWishlist(<?= json_encode(SessionHelper::get('user_wishlist_ids') ?? []) ?>);
     </script>
-
 </body>
 </html>
