@@ -14,6 +14,9 @@ export const localWishlist = {
         wishlist = wishlist.filter(id => id !== productId);
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
     },
+    has(productId) {
+        return this.get().includes(productId);
+    },
     count() {
         return this.get().length;
     }

@@ -33,7 +33,7 @@
             <button class="btn-add-to-cart" data-id="<?= $product['product_id'] ?>">🛒 Agregar al carrito</button>
             <button class="btn-wishlist" data-id="<?= $product['product_id'] ?>">
                 <i class="fa-solid fa-heart"></i>    
-                Agregar a Wishlist
+                <span class="wishlist-text">Agregar a Wishlist</span>
             </button>
             <div class="product-description">
                 <h3>Descripción</h3>

@@ -3,6 +3,8 @@ import { localWishlist } from '../util/localWishlist.js';
 import { updateHeaderCounter } from '../util/wishlistCounter.js';
 import { sendRequest } from '../ajax/sendRequest.js';
 import { initWishlistIcon } from "../components/wishlistIcon.js";
+import { updateWishlistButtonText, updateWishlistButtonIcon } from '../util/wishlistText.js';
+import { showToast } from '../components/alertToast.js';
 
 /**
  * Inicializa la funcionalidad de wishlist
@@ -17,6 +19,16 @@ export function initWishlist() {
     initWishlistIcon();
 
     wishlistButtons.forEach(btn => {
+        const productId = parseInt(btn.dataset.productId || btn.dataset.id, 10);
+        const isAdded = window.USER_LOGGED_IN
+            ? window.USER_WISHLIST.includes(productId)
+            : localWishlist.has(productId);
+
+        if (isAdded) btn.classList.add("added");
+
+        updateWishlistButtonText(btn, isAdded);
+        updateWishlistButtonIcon(btn.querySelector("i.fa-heart"), isAdded);
+
         btn.addEventListener('click', function() {
             const productId = parseInt(this.dataset.productId || this.dataset.id);
 
@@ -25,10 +37,19 @@ export function initWishlist() {
                 if (this.classList.contains('added')) {
                     localWishlist.remove(productId);
                     this.classList.remove('added');
+                    updateWishlistButtonText(this, false);
+                    updateWishlistButtonIcon(btn.querySelector("i.fa-heart"), false);
+                    showToast('Se ha eliminado el producto a la wishlist', 'success')
+
                 } else {
                     localWishlist.add(productId);
                     this.classList.add('added');
+                    updateWishlistButtonText(this, true);
+                    updateWishlistButtonIcon(btn.querySelector("i.fa-heart"), true);
+                    showToast('Se ha agregado el producto a la wishlist', 'success')
+
                 }
+
                 updateHeaderCounter(); // usa localWishlist.count()
             } else {
                 // Usuario logueado: AJAX
@@ -43,15 +64,21 @@ export function initWishlist() {
 
                             // Alterna clase added
                             this.classList.toggle('added');
+                            updateWishlistButtonText(this, this.classList.contains('added'));
+                            updateWishlistButtonIcon(btn.querySelector("i.fa-heart"), this.classList.contains('added'));
 
                             // Si la acción fue "remove", eliminar el card completo
                             if (action === 'remove') {
                                 const card = this.closest('.wishlist-card');
                                 if (card) card.remove();
+                                showToast('Se ha eliminado el producto a la wishlist', 'success');
+                            } else {
+                                showToast('Se ha agregado el producto a la wishlist', 'success');
                             }
 
                         } else {
                             alert(data.message);
+                            showToast('No se pudo agregar/remover de la wishlist el producto', 'error');
                         }
                     });
             }

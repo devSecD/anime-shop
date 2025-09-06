@@ -45,7 +45,7 @@ class ListController extends Controller
         $content = __DIR__ . '/../../view/wishlist/index.php';
         $title = 'Lista ded deseos';
         $page = 'wishlist';
-        $assets = ['wishlist'];
+        $assets = ['wishlist', 'cart'];
 
         include __DIR__ . '/../../view/layouts/base.php';
     }
