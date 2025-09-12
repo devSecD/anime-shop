@@ -17,7 +17,7 @@ class PasswordRecoveryController extends Controller
 
         $page = 'forgot_password';
 
-        $assets = ['form'];
+        $assets = ['form', 'cart'];
 
         include __DIR__ . '/../../view/layouts/base.php';
     }

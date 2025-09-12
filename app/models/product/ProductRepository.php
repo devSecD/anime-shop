@@ -159,15 +159,24 @@ class ProductRepository
         return $this->productModel->executeCount($sql, $params);
     }
 
-    public function decreaseStock(int $productId, int $qty): bool
+    public function decreaseStock(int $productId, int $qty, int $stock): bool
     {
-        if ($qty <= 0) {
-            return false; // No tiene sentido disminuir con cantidades negativas o cero
-        }
+        if ($qty <= 0 || $qty > $stock) return false;
+
         // Podrías agregar más validaciones aquí si quieres
 
         return $this->productModel->decreaseStock($productId, $qty);
     }
+
+    public function increaseSoldCount(int $productId, int $qty, int $stock): bool
+    {
+        if ($qty <= 0 || $qty > $stock) return false;
+
+        // Aquí podrías agregar validaciones adicionales si lo requieres
+
+        return $this->productModel->increaseSoldCount($productId, $qty);
+    }
+
 
     public function createProduct(array $data): bool 
     {

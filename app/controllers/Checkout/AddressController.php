@@ -29,6 +29,12 @@ class AddressController extends Controller
             exit;
         }
 
+        if (!SessionHelper::isLoggedIn()) 
+        {
+            header('Location: /anime-shop/public/user/login');
+            exit;
+        }
+
         $content = __DIR__ . '/../../view/checkout/address.php';
         $title = 'Dirección de envío';
         $page = 'shipping_address';

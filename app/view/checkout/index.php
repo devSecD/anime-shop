@@ -19,9 +19,9 @@
                             <img src="/anime-shop/public/assets/images/products/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="product-img">
                             <span class="product-name"><?= htmlspecialchars($item['name']) ?></span>
                         </td>
-                        <td><?= $item['qty'] ?></td>
-                        <td>$<?= number_format($item['price'], 2) ?></td>
-                        <td>$<?= number_format($item['price'] * $item['qty'], 2) ?></td>
+                        <td data-label="Cantidad"><?= $item['qty'] ?></td>
+                        <td data-label="Precio">$<?= number_format($item['price'], 2) ?></td>
+                        <td data-label="Subtotal">$<?= number_format($item['price'] * $item['qty'], 2) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

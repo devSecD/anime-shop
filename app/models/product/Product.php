@@ -108,6 +108,19 @@ class Product
         return $stmt->execute();
     }
 
+    public function increaseSoldCount(int $productId, int $qty): bool
+    {
+        $sql = "UPDATE products 
+                SET sold_count = sold_count + :qty 
+                WHERE product_id = :productId";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':qty', $qty, \PDO::PARAM_INT);
+        $stmt->bindValue(':productId', $productId, \PDO::PARAM_INT);
+        
+        return $stmt->execute();
+    }
+
     public function createProduct(array $data): bool 
     {
         $sql = "INSERT INTO products (name, description, price, stock, category_id, brand_id) 

@@ -77,7 +77,9 @@ class WebhookController extends Controller
 
         $logRepo->createLog($orderId, $eventType, [
             'payload' => $payload,
-            'payment_valid' => $paymentValid
+            'payment_valid' => $paymentValid, 
+            'status_original' => $paymentInfo->status ?? null, // Estado que devuelve Mercado Pago
+            'status_local' => $localStatus,
         ]);
 
         // Responder a Mercado Pago (IMPORTANTE: status 200 para que no reintenten)

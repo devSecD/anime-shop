@@ -8,6 +8,7 @@
 }
 
 .cart-title {
+    color: var(--primary-color);
     font-size: var(--font-size-title);
     font-family: var(--main-font);
     margin-bottom: var(--medium-spacing);
@@ -28,7 +29,7 @@
     margin-bottom: var(--large-spacing);
 }
 
-.cart-table {
+.table-cart {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
@@ -37,8 +38,8 @@
     box-shadow: var(--box-shadow);
 }
 
-.cart-table th,
-.cart-table td {
+.table-cart th,
+.table-cart td {
     padding: var(--medium-spacing);
     text-align: center;
     border-bottom: 1px solid var(--border-color);
@@ -53,7 +54,8 @@
 .product-img {
     width: 60px;
     height: 60px;
-    object-fit: cover;
+    object-fit: contain; /* ajusta completa */
+    object-position: center;
     border-radius: var(--border-radius);
 }
 
@@ -138,8 +140,67 @@
         flex-direction: column;
         align-items: flex-start;
     }
-    .cart-summary {
-        flex-direction: column;
-        align-items: flex-start;
+}
+
+/* Estilo para móvil: convertir tabla en lista */
+@media (max-width: 600px) {
+    .table-cart thead {
+        display: none; /* ocultamos encabezado */
+    }
+
+    .table-cart, 
+    .table-cart tbody, 
+    .table-cart tr, 
+    .table-cart td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-cart tr {
+        margin-bottom: var(--medium-spacing);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: var(--small-spacing);
+    }
+
+    /* Solo las columnas que NO sean product-info reciben padding y ::before */
+    .table-cart td:not(.product-info) {
+        text-align: left;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table-cart td:not(.product-info)::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        font-weight: bold;
+        padding-left: var(--small-spacing);
+        color: var(--secondary-text-color);
+    }
+
+    /* La columna product-info mantiene su padding normal */
+    .product-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--small-spacing);
+        padding-left: 0; /* elimina espacio extra */
+    }
+
+    .product-img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain; /* evita recorte */
+        flex-shrink: 0; /* evita que se reduzca demasiado */
+    }
+
+    .cart-qty-input {
+        width: 50px;
+    }
+
+    .btn-remove {
+        padding: 0.3rem 0.5rem;
     }
 }
+
