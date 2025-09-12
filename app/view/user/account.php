@@ -32,7 +32,7 @@
         <h1>Mis pedidos</h1>
 
         <div class="account-orders">
-            <?php // if (!empty($orders)): ?>
+            <?php if (!empty($orders)): ?>
                 <table class="orders-table">
                     <thead>
                         <tr>
@@ -44,39 +44,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php // foreach ($orders as $order): ?>
+                        <?php foreach ($orders as $order): ?>
                             <tr>
-                                <td data-label="ID Pedido">#<?php echo "1"; //= htmlspecialchars($order['order_id']) ?></td>
-                                <td data-label="Fecha"><?php echo "04/09/2025"; //= htmlspecialchars($order['created_at']) ?></td>
-                                <td data-label="Estado"><?php echo "paid"; //= htmlspecialchars($order['status']) ?></td>
-                                <td data-label="Total">$<?php echo "1582.10 MXN"; //= number_format($order['total'], 2) ?></td>
+                                <td data-label="ID Pedido">#<?= htmlspecialchars($order['order_id']) ?></td>
+                                <td data-label="Fecha"><?= htmlspecialchars($order['created_at']) ?></td>
+                                <td data-label="Estado"><?= htmlspecialchars($order['status']) ?></td>
+                                <td data-label="Total">$<?= number_format($order['total'], 2) ?></td>
                                 <td data-label="Acción">
-                                    <a href="/anime-shop/public/user/orderDetail?id=<?php echo "1"; //= urlencode($order['order_id']) ?>" 
+                                    <a href="/anime-shop/public/user/orderDetail?id=<?= urlencode($order['order_id']) ?>" 
                                     class="btn-primary btn-table">
                                         Ver detalle
                                     </a>
                                 </td>
                             </tr>
-                        <?php // endforeach; ?>
-
-                            <tr>
-                                <td data-label="ID Pedido">#<?php echo "2"; //= htmlspecialchars($order['order_id']) ?></td>
-                                <td data-label="Fecha"><?php echo "01/09/2025"; //= htmlspecialchars($order['created_at']) ?></td>
-                                <td data-label="Estado"><?php echo "pending"; //= htmlspecialchars($order['status']) ?></td>
-                                <td data-label="Total">$<?php echo "754.23 MXN"; //= number_format($order['total'], 2) ?></td>
-                                <td data-label="Acción">
-                                    <a href="/anime-shop/public/user/orderDetail?id=<?php echo "1"; //= urlencode($order['order_id']) ?>" 
-                                    class="btn-primary btn-table">
-                                        Ver detalle
-                                    </a>
-                                </td>
-                            </tr>
-
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
-            <?php // else: ?>
+            <?php else: ?>
                 <!-- <p>Aún no tienes pedidos registrados.</p> -->
-            <?php // endif; ?>
+            <?php endif; ?>
         </div>
     </section>
 

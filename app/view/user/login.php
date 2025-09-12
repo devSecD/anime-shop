@@ -10,8 +10,12 @@
             <input type="password" id="password" name="password" required>
         </div>
         <button type="submit" class="btn-primary">Ingresar</button>
-        <p><a href="/user/recover">¿Olvidaste tu contraseña?</a></p>
+        <p><a href="/anime-shop/public/user/forgot_password">¿Olvidaste tu contraseña?</a></p>
+        <p><a href="/anime-shop/public/user/register">Crear una cuenta </a></p>
+
     </form>
-    <script async type="module" src="/anime-shop/public/assets/js/main.js">
-    </script>
+    <script async type="module" src="/anime-shop/public/assets/js/main.js"></script>
+    <?php if (in_array('cart', $assets)): ?>
+        <script async src="/anime-shop/public/assets/js/components/cart.js" type="module"></script>
+    <?php endif; ?>
 </section>

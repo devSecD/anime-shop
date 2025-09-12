@@ -1,3 +1,4 @@
+/* Estilos base ya existentes */
 body {
     font-family: var(--main-font);
     background-color: var(--background-color);
@@ -18,7 +19,6 @@ body {
     margin-bottom: var(--medium-spacing);
 }
 
-/* Encabezados de colores diferentes según la vista */
 .payment-success h1 {
     color: var(--primary-color);
 }
@@ -95,4 +95,65 @@ body {
 .btn-home:hover {
     background-color: var(--accent-color);
     color: var(--text-color);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+    .order-summary {
+        padding: var(--small-spacing);
+    }
+
+    .order-summary h2 {
+        font-size: 1.25rem;
+    }
+
+    .item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item img {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        width: 80px;
+        height: 80px;
+    }
+
+    .item-details p {
+        font-size: 0.9rem;
+    }
+
+    .payment-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-home {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 0;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-container {
+        padding: var(--medium-spacing);
+    }
+
+    .order-summary h2 {
+        font-size: 1.1rem;
+    }
+
+    .item img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .item-details p {
+        font-size: 0.85rem;
+    }
+
+    .payment-container h1 {
+        font-size: 1.3rem;
+    }
 }

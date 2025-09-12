@@ -15,8 +15,10 @@
             <label for="confirm_password">Confirmar contraseña</label>
             <input type="password" id="confirm_password" name="confirm_password" required>
         </div>
-        <button type="submit" class="btn-primary">Actualizazr</button>
+        <button type="submit" class="btn-primary">Actualizar</button>
     </form>
-    <script async type="module" src="../../public/assets/js/main.js">
-    </script>
+    <script async type="module" src="../../public/assets/js/main.js"></script>
+    <?php if (in_array('cart', $assets)): ?>
+        <script async src="/anime-shop/public/assets/js/components/cart.js" type="module"></script>
+    <?php endif; ?>
 </section>

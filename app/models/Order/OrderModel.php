@@ -59,7 +59,7 @@ class OrderModel
     public function getOrderItems(int $orderId): array
     {
         $stmt = $this->db->prepare("
-            SELECT oi.product_id, oi.quantity, oi.price, p.name, p.image
+            SELECT oi.product_id, oi.quantity, oi.price, p.name, p.image, p.stock
             FROM order_items oi
             JOIN products p ON oi.product_id = p.product_id
             WHERE oi.order_id = :order_id

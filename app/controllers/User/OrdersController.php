@@ -27,7 +27,7 @@ class OrdersController extends Controller
             exit;
         }
 
-        $orders = $this->orderRepository->getUserOrders($dataUser['user_id'], 5);
+        $orders = $this->orderRepository->getUserOrders($dataUser['user_id'], 6);
 
         $content = __DIR__ . '/../../view/user/orders.php';
         $title = 'Mis pedidos';

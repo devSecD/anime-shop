@@ -6,7 +6,8 @@ use Models\Cart\Cart;
 use Models\Product\ProductRepository;
 use Models\Order\OrderRepository;
 use Models\Order\OrderModel;
-use App\Helpers\UrlHelper;
+use App\Helpers\RequestHelper;
+// use App\Helpers\UrlHelper;
 
 class ResultController extends Controller
 {
@@ -22,14 +23,21 @@ class ResultController extends Controller
         $this->orderRepo = new OrderRepository($model);
     }
     
-    public function index(?string $status = null, ?string $paymentId = null, ?string $externalReference = null)
+    // public function index(?string $status = null, ?string $paymentId = null, ?string $externalReference = null)
+    public function index()
     {
+        $params = RequestHelper::requireGetParams(['status', 'payment_id', 'external_reference']);
+
         // Si vienen por GET, redirige con URL amigable
-        if (isset($_GET['status'], $_GET['payment_id'], $_GET['external_reference'])) {
-            $url = UrlHelper::base_url("payment/result/{$_GET['status']}/{$_GET['payment_id']}/{$_GET['external_reference']}");
-            header("Location: $url");
-            exit;
-        }
+        // if (isset($_GET['status'], $_GET['payment_id'], $_GET['external_reference'])) {
+            // $url = UrlHelper::base_url("payment/result/{$_GET['status']}/{$_GET['payment_id']}/{$_GET['external_reference']}");
+            // header("Location: $url");
+            // exit;
+        // }
+
+        $status = $params['status'];
+        $paymentId = $params['payment_id'];
+        $externalReference = $params['external_reference'];
 
         $this->paymentParams = [
             'status' => $status ?? 'unknown',
@@ -38,12 +46,12 @@ class ResultController extends Controller
         ];
 
         // Consultar la orden si tenemos external_reference
-        if ($externalReference) {
-            $this->orderData = $this->loadOrderData((int)$externalReference);
+        if ($this->paymentParams['external_reference']) {
+            $this->orderData = $this->loadOrderData((int)$this->paymentParams['external_reference']);
         }
 
         // Decidir vista según status
-        $this->renderByStatus($status);
+        $this->renderByStatus($this->paymentParams['status']);
     }
 
     private function loadOrderData(int $orderId): ?array
@@ -88,12 +96,25 @@ class ResultController extends Controller
                 // Asegúrate de que los keys coincidan con tu resultado
                 $productId = $item['product_id'] ?? null;
                 $quantity = $item['quantity'] ?? 0;
+                $stock = $item['stock'] ?? 0;
 
-                if ($productId && $quantity > 0) {
-                    $productRepo->decreaseStock($productId, $quantity);
+                if ($productId && $quantity > 0 && $quantity <= $stock) {
+                    // Restar stock
+                    $productRepo->decreaseStock($productId, $quantity, $stock);
+
+                    // Incrementar el contador de ventas
+                    $productRepo->increaseSoldCount($productId, $quantity, $stock);
                 }
             }
 
+            /**
+             * Nota de desarrollo:
+             * Actualmente el carrito no se borra correctamente en entorno local
+             * porque Mercado Pago redirige a una URL de ngrok distinta a localhost.
+             * Al ser otro dominio, la sesión se pierde y no se accede al carrito original.
+             *
+             * En producción (con un dominio único) esto no ocurre.
+             */
             $this->cart = new Cart($productRepo);
             $this->cart->clear();
         }

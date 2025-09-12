@@ -13,4 +13,7 @@
             Solicitar nuevo enlace
         </a>
     </div>
+    <?php if (in_array('cart', $assets)): ?>
+        <script async src="/anime-shop/public/assets/js/components/cart.js" type="module"></script>
+    <?php endif; ?>
 </section>

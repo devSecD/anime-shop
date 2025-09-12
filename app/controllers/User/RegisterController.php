@@ -15,7 +15,7 @@ class RegisterController extends Controller
         $title = 'Crear cuenta - Anime Shop';
         $page = 'register';
 
-        $assets = ['form']; // ejemplo para mas assets: $assets = ['form', 'datepicker', 'carousel'];
+        $assets = ['form', 'cart']; // ejemplo para mas assets: $assets = ['form', 'datepicker', 'carousel'];
 
         include __DIR__ . '/../../view/layouts/base.php';
     }

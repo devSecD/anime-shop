@@ -29,7 +29,7 @@ class LoginController extends Controller
 
         $page = 'login';
 
-        $assets = ['form']; // ejemplo para mas assets: $assets = ['form', 'datepicker', 'carousel'];
+        $assets = ['form', 'cart']; // ejemplo para mas assets: $assets = ['form', 'datepicker', 'carousel'];
 
         include __DIR__ . '/../../view/layouts/base.php';
     }

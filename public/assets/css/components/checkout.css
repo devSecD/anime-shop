@@ -8,6 +8,7 @@
 }
 
 .checkout-title {
+    color: var(--primary-color);
     font-size: var(--font-size-title);
     font-family: var(--main-font);
     margin-bottom: var(--medium-spacing);
@@ -48,7 +49,8 @@
 .product-img {
     width: 60px;
     height: 60px;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     border-radius: var(--border-radius);
 }
 
@@ -169,6 +171,56 @@
 
 /* Responsive: apilar botones en móvil */
 @media (max-width: 600px) {
+    .checkout-table thead {
+        display: none; /* ocultar encabezado */
+    }
+
+    .checkout-table, 
+    .checkout-table tbody, 
+    .checkout-table tr, 
+    .checkout-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .checkout-table tr {
+        margin-bottom: var(--medium-spacing);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: var(--small-spacing);
+    }
+
+    /* Columnas que NO son product-info reciben padding y ::before */
+    .checkout-table td:not(.product-info) {
+        text-align: left;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .checkout-table td:not(.product-info)::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        font-weight: bold;
+        padding-left: var(--small-spacing);
+        color: var(--secondary-text-color);
+    }
+
+    /* product-info sin padding extra */
+    .product-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--small-spacing);
+        padding-left: 0;
+    }
+
+    .product-img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
     .checkout-actions {
         flex-direction: column;
         align-items: stretch;

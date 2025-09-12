@@ -37,7 +37,7 @@ class ResetPasswordController extends Controller
             $content = __DIR__ . '/../../view/user/reset_invalid.php';
             $title = 'Enlace inválido - Anime Shop';
             $page = 'reset_invalid';
-            $assets = ['form'];
+            $assets = ['form', 'cart'];
 
             include __DIR__ . '/../../view/layouts/base.php';
             exit;
@@ -46,7 +46,7 @@ class ResetPasswordController extends Controller
         $content = __DIR__ . '/../../view/user/reset_password_form.php';
         $title = 'Cambiar contraseña - Anime Shop';
         $page = 'reset_password';
-        $assets = ['form'];
+        $assets = ['form', 'cart'];
         include __DIR__ . '/../../view/layouts/base.php';
 
     }

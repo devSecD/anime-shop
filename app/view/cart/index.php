@@ -14,7 +14,7 @@
                         <th>Cant.</th>
                         <th>Precio</th>
                         <th>Subtotal</th>
-                        <th></th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,12 +24,12 @@
                             <img src="/anime-shop/public/assets/images/products/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="product-img">
                             <span class="product-name"><?= htmlspecialchars(string: $item['name']) ?></span>
                         </td>
-                        <td>
+                        <td data-label="Cantidad">
                             <input type="number" min="1" value="<?= $item['qty'] ?>" data-id="<?= $pid ?>" class="cart-qty-input">
                         </td>
-                        <td>$<?= number_format($item['price'], 2) ?></td>
-                        <td>$<?= number_format($item['price'] * $item['qty'], 2) ?></td>
-                        <td><button data-id="<?= $pid ?>" class="btn-remove cart-remove">&times;</button></td>
+                        <td data-label="Precio">$<?= number_format($item['price'], 2) ?></td>
+                        <td data-label="Subtotal">$<?= number_format($item['price'] * $item['qty'], 2) ?></td>
+                        <td data-label="Acción"><button data-id="<?= $pid ?>" class="btn-remove cart-remove">&times;</button></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

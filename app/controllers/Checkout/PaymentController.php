@@ -29,7 +29,8 @@ class PaymentController extends Controller
         $this->cart = new Cart($repo);
     }
 
-    public function index(int $status): void
+    // tenia como parametro el metodo index: int $status
+    public function index(): void
     {
 
         SessionHelper::start();
