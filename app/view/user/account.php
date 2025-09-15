@@ -47,7 +47,7 @@
                         <?php foreach ($orders as $order): ?>
                             <tr>
                                 <td data-label="ID Pedido">#<?= htmlspecialchars($order['order_id']) ?></td>
-                                <td data-label="Fecha"><?= htmlspecialchars($order['created_at']) ?></td>
+                                <td data-label="Fecha"><?= htmlspecialchars(\App\helpers\DateHelper::formatShort($order['created_at'])) ?></td>
                                 <td data-label="Estado"><?= htmlspecialchars($order['status']) ?></td>
                                 <td data-label="Total">$<?= number_format($order['total'], 2) ?></td>
                                 <td data-label="Acción">

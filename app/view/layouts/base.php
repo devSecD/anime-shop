@@ -50,6 +50,10 @@
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/orders.css">
     <?php endif; ?>
 
+    <?php if (in_array('orderDetail', $assets)): ?>
+        <link rel="stylesheet" href="/anime-shop/public/assets/css/components/detail-order.css">
+    <?php endif; ?>
+
     <?php if (in_array('errors', $assets)): ?>
         <link rel="stylesheet" href="/anime-shop/public/assets/css/components/errors.css">
     <?php endif; ?>

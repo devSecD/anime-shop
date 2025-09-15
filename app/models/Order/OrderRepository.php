@@ -61,9 +61,14 @@ class OrderRepository
         return $this->model->countPendingOrders();
     }
 
-    public function getUserOrders(int $userId, int $limit = 5): array
+    public function getUserOrders(int $userId, int $limit = 5, int $offset = 0): array
     {
-        return $this->model->getOrdersByUser($userId, $limit);
+        return $this->model->getOrdersByUser($userId, $limit, $offset);
+    }
+
+    public function countUserOrders(int $userId): int
+    {
+        return $this->model->countOrdersByUser($userId);
     }
 
 }
