@@ -1,0 +1,83 @@
+.order-detail {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.order-detail h1 {
+    color: var(--primary-color);
+}
+
+.order-info p {
+    margin: 0.5rem 0;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.orders-table tbody tr:hover {
+    background-color: rgba(1, 90, 148, 0.1); /* color sutil según tu tema */
+}
+
+.orders-table th,
+.orders-table td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.product-img {
+    width: 60px;      /* aumenta un poco el tamaño si es necesario */
+    height: 60px;
+    object-fit: contain; /* evita recortes, mantiene proporción */
+    border-radius: 4px;
+}
+
+/* Alinea el botón al final de la sección en desktop */
+.back-orders {
+    margin-top: 1rem;
+    align-self: flex-end;   /* lo lleva a la derecha */
+    display: inline-block;  /* se ajusta al contenido */
+    text-align: center;
+    padding: 0.5rem 1rem;
+    transition: background 0.3s;
+}
+
+.back-orders:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .orders-table thead {
+        display: none;
+    }
+
+    .orders-table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .orders-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+    }
+
+    .orders-table td[data-label]:before {
+        content: attr(data-label);
+        font-weight: bold;
+    }
+
+    /* Responsive: ocupar todo el ancho en móviles */
+    .back-orders {
+        align-self: stretch; /* ocupa todo el ancho */
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}

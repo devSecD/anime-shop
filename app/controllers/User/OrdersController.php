@@ -27,11 +27,20 @@ class OrdersController extends Controller
             exit;
         }
 
-        $orders = $this->orderRepository->getUserOrders($dataUser['user_id'], 6);
+        // Parámetros de paginación
+        $perPage = 6; 
+        $currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+        if ($currentPage < 1) $currentPage = 1;
+        $offset = ($currentPage - 1) * $perPage;
+
+        // Obtener pedidos y total
+        $orders = $this->orderRepository->getUserOrders($dataUser['user_id'], $perPage, $offset);
+        $totalOrders = $this->orderRepository->countUserOrders($dataUser['user_id']);
+        $totalPages = (int) ceil($totalOrders / $perPage);
 
         $content = __DIR__ . '/../../view/user/orders.php';
         $title = 'Mis pedidos';
-        $page = 'orders';
+        $pageName = 'orders';
 
         $assets = ['orders', 'cart'];
 

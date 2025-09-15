@@ -48,7 +48,15 @@ class OrderModel
 
     public function getOrderById(int $orderId): ?array
     {
-        $stmt = $this->db->prepare("SELECT * FROM orders WHERE order_id = :order_id");
+        $stmt = $this->db->prepare("
+            SELECT o.*, u.name AS user_name, u.email AS user_email, sa.address_id, sa.fullname, 
+            sa.email AS sa_email, sa.phone AS sa_phone, sa.street, sa.neighborhood, sa.postal_code, 
+            sa.city, sa.state, sa.country  
+            FROM orders o
+            INNER JOIN users u ON o.user_id = u.user_id 
+            INNER JOIN shipping_addresses sa ON sa.address_id = o.shipping_address_id
+            WHERE o.order_id = :order_id
+        ");
         $stmt->bindValue(':order_id', $orderId, PDO::PARAM_INT);
         $stmt->execute();
         $order = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -61,7 +69,7 @@ class OrderModel
         $stmt = $this->db->prepare("
             SELECT oi.product_id, oi.quantity, oi.price, p.name, p.image, p.stock
             FROM order_items oi
-            JOIN products p ON oi.product_id = p.product_id
+            INNER JOIN products p ON oi.product_id = p.product_id
             WHERE oi.order_id = :order_id
         ");
         $stmt->bindValue(':order_id', $orderId, PDO::PARAM_INT);
@@ -112,15 +120,27 @@ class OrderModel
         return (int) ($result['total'] ?? 0);
     }
 
-    public function getOrdersByUser(int $userId, int $limit = 5): array
+    public function countOrdersByUser(int $userId): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM orders WHERE user_id = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return (int) ($result['total'] ?? 0);
+    }
+
+    public function getOrdersByUser(int $userId, int $limit = 5, int $offset = 0): array
     {
         $sql = "SELECT * FROM orders 
                 WHERE user_id = :user_id 
                 ORDER BY created_at DESC 
-                LIMIT :limit";
+                LIMIT :limit OFFSET :offset";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
