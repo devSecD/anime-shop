@@ -13,7 +13,6 @@ export function initRegisterForm() {
         const email = form.elements['email'].value;
         const password = form.elements['password'].value;
         const confirmPassword = form.elements['confirm_password'].value;
-        const role = form.elements['role'].value;
 
         let errors = [];
 
@@ -36,9 +35,6 @@ export function initRegisterForm() {
             errors.push('La confirmación de la contraseña es obligatoria.');
         else if (!areEqual(password, confirmPassword))
             errors.push('Las contraseñas no coinciden.');
-
-        if (!isNotEmpty(role))
-            errors.push('El rol es obligatorio.');
 
         if (errors.length > 0) {
             showToast(errors.join('\n'), 'error');

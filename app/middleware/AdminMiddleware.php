@@ -28,7 +28,7 @@ use App\Helpers\DBConnection;
 
         $roles = $this->userRepo->getUserRoles($userId);
 
-        if (!in_array('admin', $roles)) {
+        if (!array_intersect(['admin', 'superadmin'], $roles)) {
             http_response_code(403);
             echo "Acceso denegado: No tiene permisos para esta sección.";
             exit;
