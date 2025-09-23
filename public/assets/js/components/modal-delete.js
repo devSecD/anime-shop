@@ -16,24 +16,45 @@ document.querySelectorAll('.action-delete').forEach(link => {
 });
 
 confirmBtn.addEventListener('click', async () => {
-    const url = new URL(currentDeleteUrl, window.location.origin);
-    const productId = url.searchParams.get('id');
 
-    if (!productId) {
-        alert('ID de producto no válido.');
+    if (!currentDeleteUrl) {
+        alert('URL de eliminación no válida.');
         return;
     }
 
-    const res = await sendRequest('/anime-shop/public/admin/products/delete', { product_id: productId });
+    const url = new URL(currentDeleteUrl, window.location.origin);
+
+    const id = url.searchParams.get('id');
+
+    if (!id) {
+        alert('ID o identificador no válido.');
+        return;
+    }
+
+    // ✅ Ahora mandamos la petición a la URL que venga del href
+    const res = await sendRequest(currentDeleteUrl, { id });
 
     if (res.success) {
-        if (currentRow) currentRow.remove(); // ✅ UX: eliminar visualmente
+        if (currentRow) {
+            if (res.success && res.product_was_deactivated) { 
+                currentRow.classList.add('inactive-product'); // fondo gris y opacidad
+                const statusCell = currentRow.querySelector('.status-cell');
+                if (statusCell)  {
+                    // Solo marcar como Inactivo si el producto fue desactivado
+                    statusCell.textContent = 'Inactivo';
+                    statusCell.classList.add('inactive-text');
+                }
+            } else {
+                // Caso newsletter u otros: simplemente removemos la fila
+                currentRow.remove();
+            }
+        }
         modal.classList.add('hidden');
         currentDeleteUrl = '';
         currentRow = null;
-        alert(res.message || 'Producto eliminado.');
+        alert(res.message || 'Eliminado correctamente.');
     } else {
-        alert(res.message || 'Error al eliminar producto.');
+        alert(res.message || 'Error al eliminar.');
     }
 });
 

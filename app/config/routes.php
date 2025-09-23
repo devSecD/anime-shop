@@ -88,12 +88,20 @@ return [
         'controller' => 'Admin\Order\ListController', 
         'action' => 'index'
     ], 
+    'admin/order/detail' => [
+        'controller' => 'Admin\Order\DetailController', 
+        'action' => 'index'
+    ], 
     'admin/user' => [
         'controller' => 'Admin\User\ListController', 
         'action' => 'index'
     ], 
     'admin/newsletters' => [
         'controller' => 'Admin\Newsletter\ListController', 
+        'action' => 'index'
+    ], 
+    'admin/newsletter/delete' => [
+        'controller' => 'Admin\Newsletter\DeleteController', 
         'action' => 'index'
     ], 
     'admin/setting' => [

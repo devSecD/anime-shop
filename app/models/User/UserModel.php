@@ -111,23 +111,64 @@ class UserModel
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    public function getAll(): array
+    public function countAllUsers(): int
     {
-        $sql = "SELECT 
-                    u.user_id,
-                    u.name,
-                    u.email,
-                    u.phone,
+        $sql = "SELECT COUNT(*) AS total FROM users";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return (int) ($result['total'] ?? 0);
+    }
+
+    public function getUsersCountByRole(string $role): int
+    {
+        $sql = "SELECT COUNT(*) AS total FROM users WHERE role = :role";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':role', $role, \PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return (int) ($result['total'] ?? 0);
+    }
+
+    public function getPaginatedUsers(int $limit, int $offset): array
+    {
+        $sql = "SELECT u.user_id, u.name, u.email, u.phone, u.created_at,
                     u.role,
-                    u.created_at,
-                    GROUP_CONCAT(r.role_name SEPARATOR ', ') AS roles
+                    GROUP_CONCAT(r.role_name) AS roles
                 FROM users u
                 LEFT JOIN user_roles ur ON u.user_id = ur.user_id
                 LEFT JOIN roles r ON ur.role_id = r.role_id
                 GROUP BY u.user_id
-                ORDER BY u.created_at DESC";
+                ORDER BY u.created_at DESC
+                LIMIT :limit OFFSET :offset";
 
         $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getUsersByRole(string $role, int $limit, int $offset): array
+    {
+        $sql = "SELECT u.user_id, u.name, u.email, u.phone, u.created_at,
+                    u.role,
+                    GROUP_CONCAT(r.role_name) AS roles
+                FROM users u
+                LEFT JOIN user_roles ur ON u.user_id = ur.user_id
+                LEFT JOIN roles r ON ur.role_id = r.role_id
+                WHERE u.role = :role
+                GROUP BY u.user_id
+                ORDER BY u.created_at DESC
+                LIMIT :limit OFFSET :offset";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':role', $role, PDO::PARAM_STR);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset,\PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -175,5 +216,14 @@ class UserModel
             return false;
         }
     }
+
+    public function existsByEmail(string $email): bool
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
 
 }

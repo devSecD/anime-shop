@@ -76,7 +76,7 @@ class ProductRepository
         return $this->productModel->getByIds($ids, $in);
     }
 
-    public function getFilteredPaginatedProducts($filter, $sort, $category, $limit, $offset, $search)
+    public function getFilteredPaginatedProducts($filter, $sort, $category, $limit, $offset, $search, $onlyActive = true)
     {
         $sql = "SELECT 
                 p.*, 
@@ -88,6 +88,10 @@ class ProductRepository
             WHERE 1=1";
         $conditions = [];
         $params = [];
+
+        if ($onlyActive) {
+            $conditions[] = "p.is_active = 1";
+        }
 
         if ($filter === 'in-stock') {
             $conditions[] = "p.stock > 0";
@@ -128,11 +132,15 @@ class ProductRepository
 
         return $this->productModel->executeQuery($sql, $params);
     }
-    public function countFilteredProducts($filter, $category, $search)
+    public function countFilteredProducts($filter, $category, $search, $onlyActive = true)
     {
         $sql = "SELECT COUNT(*) FROM products WHERE 1=1";
         $conditions = [];
         $params = [];
+
+        if ($onlyActive) {
+            $conditions[] = "is_active = 1";
+        }
 
         if ($filter === 'in-stock') {
             $conditions[] = "stock > 0";
@@ -234,6 +242,23 @@ class ProductRepository
 
     public function deleteProduct(int $productId): array
     {
+        // $product = $this->productModel->getById($productId);
+
+        // if (!$product) {
+            // return ['success' => false, 'message' => 'Producto no encontrado.'];
+        // }
+
+        // $deleted = $this->productModel->delete($productId);
+
+        // if (!$deleted) {
+            // return ['success' => false, 'message' => 'No se pudo eliminar el producto.'];
+        // }
+
+        // unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
+
+        // return ['success' => true, 'message' => 'Producto eliminado correctamente.'];
+
+        // nueva implementacion
         $product = $this->productModel->getById($productId);
 
         if (!$product) {
@@ -243,12 +268,13 @@ class ProductRepository
         $deleted = $this->productModel->delete($productId);
 
         if (!$deleted) {
-            return ['success' => false, 'message' => 'No se pudo eliminar el producto.'];
+            return ['success' => false, 'message' => 'No se pudo desactivar el producto.'];
         }
 
-        unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
+        // unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
 
-        return ['success' => true, 'message' => 'Producto eliminado correctamente.'];
+        return ['success' => true, 'message' => 'Producto desactivado correctamente.'];
+
     }
 
     /**
@@ -290,6 +316,11 @@ class ProductRepository
     public function getRelatedProducts($categoryId, $excludeProductId)
     {
         return $this->productModel->getRelated($categoryId, $excludeProductId);
+    }
+
+    public function getTotalSoldCount(): int
+    {
+        return $this->productModel->getTotalSoldCount();
     }
 
     // metodos para poder insertar varias imagenes del producto

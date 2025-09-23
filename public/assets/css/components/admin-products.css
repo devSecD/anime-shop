@@ -16,12 +16,22 @@
     width: 100%;
     border-collapse: collapse;
     font-family: var(--secondary-font);
+    background-color: #fff;
 }
 
 /* Encabezado de tabla */
 .admin-products-table thead {
     background-color: var(--primary-color);
     color: var(--text-color);
+}
+
+.admin-products-table tbody tr {
+    transition: background-color 0.3s;
+}
+
+/* Hover para resaltar fila */
+.admin-products-table tbody tr:hover {
+    background-color: #f9f9f9;
 }
 
 .admin-products-table th,
@@ -58,6 +68,11 @@
 /* Estilo para texto "Sin imagen" */
 .no-image {
     color: #aaa;
+}
+
+.inactive-text {
+    color: #d9534f; /* rojo/alerta */
+    font-weight: bold;
 }
 
 /* Acciones (íconos de editar y eliminar) */
@@ -97,3 +112,101 @@
     font-weight: bold;
 }
 /*paginado del listado  */
+
+/* para identificar si el subscriptor de la newsletter esta registrado o no */
+.badge-registered {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    background-color: #5cb85c;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    vertical-align: middle;
+}
+
+.badge-guest {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    background-color: #f0ad4e;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    vertical-align: middle;
+}
+
+.label-mobile { display: none; }
+
+/* --- Tabla de productos responsiva --- */
+@media (max-width: 768px) {
+    .admin-products-table,
+    .admin-products-table thead,
+    .admin-products-table tbody,
+    .admin-products-table th,
+    .admin-products-table td,
+    .admin-products-table tr {
+        display: block;
+    }
+
+    .admin-products-table thead {
+        display: none; /* ocultar encabezados */
+    }
+
+    .admin-products-table tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: var(--small-spacing);
+        box-shadow: var(--box-shadow);
+        background-color: #fff;
+    }
+
+    .admin-products-table td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 0.9rem;
+        box-sizing: border-box;
+    }
+
+    .label-mobile { 
+        display: inline;
+        margin-left: 4px;
+    }
+
+    .admin-products-table td:last-child {
+        border-bottom: none;
+    }
+
+    .admin-products-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: var(--small-spacing);
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        text-align: left;
+        color: var(--primary-color);
+    }
+}
+
+/* Responsive del paginado */
+@media (max-width: 600px) {
+    .pagination-container {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .pagination-btn {
+        flex: 1 1 40px; /* se adaptan al ancho disponible */
+        min-width: 40px;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}

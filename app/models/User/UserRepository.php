@@ -90,14 +90,24 @@ class UserRepository
         }
     }
 
+    public function countUsers(?string $role = null): int
+    {
+        // Si se pasa un rol, usar getUsersCountByRole del modelo, si no, countAllUsers
+        return $role
+            ? $this->model->getUsersCountByRole($role)
+            : $this->model->countAllUsers();
+    }
+
     public function getUserRoles(int $userId): array 
     {
         return $this->model->getUserRoles($userId);
     }
 
-    public function getAllUsers(): array
+    public function getUsers(?string $role = null, int $limit = 20, int $offset = 0): array
     {
-        return $this->model->getAll();
+        return $role
+            ? $this->model->getUsersByRole($role, $limit, $offset)
+            : $this->model->getPaginatedUsers($limit, $offset);
     }
 
     public function findByEmail(string $email): ?array

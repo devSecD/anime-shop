@@ -24,8 +24,10 @@ class DeleteController extends Controller
         // rechazar si no es metodo post
         ValidationHelper::rejectIfNotPost();
 
+        $id_product = (int) $_POST['id'];
+
         // para el controlador
-        if (!isset($_POST['product_id'])) {
+        if (!isset($id_product)) {
             ResponseHelper::jsonResponse([
                 'success' => false,
                 'message' => 'ID de producto no recibido.'
@@ -33,14 +35,13 @@ class DeleteController extends Controller
         }
 
        // para el controlador
-        if (ValidationHelper::mustBePositiveInt('id', $_POST['product_id'])) {
+        if (ValidationHelper::mustBePositiveInt('id', $id_product)) {
             ResponseHelper::jsonResponse([
                 'success' => false,
                 'message' => 'ID de producto inválido.'
             ]);
         }
 
-        $id_product = (int) $_POST['product_id'];
         $repo = new ProductRepository($this->db);
         $response = $repo->deleteProduct($id_product);
 
@@ -53,7 +54,8 @@ class DeleteController extends Controller
 
         ResponseHelper::jsonResponse([
             'success' => true,
-            'message' => '¡Producto elimnado exitosamente!.',
+            'message' => 'Producto desactivado.',
+            'product_was_deactivated' => true
         ]);
     }
 }

@@ -41,24 +41,40 @@ class OrderRepository
         return $this->model->getOrderById($orderId) !== null;
     }
 
+    /*
     public function getPaginatedOrders(int $limit, int $offset): array
     {
         return $this->model->getPaginatedWithUser($limit, $offset);
     }
+    */
 
-    public function countOrders(): int
+    public function getPaginatedOrders(int $limit, int $offset, ?string $status = null): array
     {
-        return $this->model->countAll();
+        // Construcción del query
+        $sql = "SELECT o.*, u.name AS user_name, u.email AS user_email
+                FROM orders o
+                INNER JOIN users u ON o.user_id = u.user_id WHERE 1=1"; // '1=1' para poder concatenar AND fácilmente
+        $params = [];
+
+        if ($status) {
+            $sql .= " AND status = :status";
+            $params[':status'] = $status;
+        }
+
+        $sql .= " ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
+        $params[':limit'] = $limit;
+        $params[':offset'] = $offset;
+
+        // Se delega la ejecución al modelo
+        return $this->model->executeQuery($sql, $params);
     }
 
-    public function getTotalOrdersCount(): int
-    {
-        return $this->model->countAll();
-    }
 
-    public function getPendingOrdersCount(): int
+    public function countOrders(?string $status = null): int
     {
-        return $this->model->countPendingOrders();
+        return $status === 'pending'
+            ? $this->model->countPendingOrders()
+            : $this->model->countAll();       
     }
 
     public function getUserOrders(int $userId, int $limit = 5, int $offset = 0): array

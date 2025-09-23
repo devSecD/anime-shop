@@ -1,0 +1,107 @@
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: var(--background-color-secondary);
+    color: var(--text-color);
+    padding: var(--medium-spacing);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.sidebar h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--medium-spacing);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: var(--medium-spacing);
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    color: var(--secondary-color);
+}
+
+.sidebar ul li ul.submenu {
+    display: none;
+    padding-left: 15px;
+}
+
+.sidebar ul li:hover ul.submenu {
+    display: block;
+}
+
+.sidebar ul li ul.submenu li {
+    margin: 5px 0;
+}
+
+/* Estado escondido */
+.sidebar.sidebar-hidden {
+    transform: translateX(-100%);
+    z-index: 3;
+}
+
+/* Botón hamburguesa */
+.sidebar-toggle-btn {
+    text-align: left;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-color);
+    margin: 1rem;
+    display: none; /* por defecto oculto */
+    z-index: 4;
+}
+
+/* Desktop: sidebar siempre visible, botón oculto */
+@media (min-width: 769px) {
+    .sidebar {
+        transform: none !important; /* siempre visible */
+        position: relative;
+        height: auto;
+    }
+
+    .sidebar.hidden {
+        transform: none !important; /* evitar que se oculte */
+    }
+
+    .sidebar-toggle-btn {
+        display: none; /* oculto en desktop */
+    }
+}
+
+/* Móviles: sidebar oculto y solo botón visible */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: var(--background-color-secondary);
+        z-index: 3;
+    }
+
+    .sidebar-toggle-btn {
+        display: block; /* botón hamburguesa visible */
+    }
+}

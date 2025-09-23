@@ -51,10 +51,12 @@ class OrderModel
         $stmt = $this->db->prepare("
             SELECT o.*, u.name AS user_name, u.email AS user_email, sa.address_id, sa.fullname, 
             sa.email AS sa_email, sa.phone AS sa_phone, sa.street, sa.neighborhood, sa.postal_code, 
-            sa.city, sa.state, sa.country  
+            sa.city, sa.state, sa.country, 
+            JSON_UNQUOTE(JSON_EXTRACT(pl.payload, '$.status_original')) AS status_original 
             FROM orders o
             INNER JOIN users u ON o.user_id = u.user_id 
-            INNER JOIN shipping_addresses sa ON sa.address_id = o.shipping_address_id
+            INNER JOIN shipping_addresses sa ON sa.address_id = o.shipping_address_id 
+            LEFT JOIN payment_logs pl ON pl.order_id = o.order_id
             WHERE o.order_id = :order_id
         ");
         $stmt->bindValue(':order_id', $orderId, PDO::PARAM_INT);
@@ -77,6 +79,7 @@ class OrderModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /*
     public function getPaginatedWithUser(int $limit, int $offset): array
     {
         $sql = "SELECT o.*, u.name AS user_name, u.email AS user_email
@@ -92,13 +95,39 @@ class OrderModel
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    */
+
+    /**
+     * Ejecuta un query con parámetros y devuelve el resultado como array asociativo.
+     *
+     * @param string $sql
+     * @param array $params
+     * @return array
+     */
+    public function executeQuery(string $sql, array $params = []): array
+    {
+        $stmt = $this->db->prepare($sql);
+
+        foreach ($params as $key => $value) {
+            // Detectar el tipo de parámetro
+            if (is_int($value)) {
+                $stmt->bindValue($key, $value, PDO::PARAM_INT);
+            } else {
+                $stmt->bindValue($key, $value, PDO::PARAM_STR);
+            }
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * Retorna el total de órdenes
      * @return int
      */
     public function countAll(): int
     {
-        $sql = "SELECT COUNT(*) FROM orders";
+        $sql = "SELECT COUNT(*) AS total FROM orders";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -112,7 +141,7 @@ class OrderModel
      */
     public function countPendingOrders(): int
     {
-        $sql = "SELECT COUNT(*) as total FROM orders WHERE status IN ('pending', 'paid')";
+        $sql = "SELECT COUNT(*) as total FROM orders WHERE status IN ('pending')"; // WHERE status IN ('pending', 'paid' para mejora de la version 2
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

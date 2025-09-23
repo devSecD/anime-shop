@@ -36,18 +36,26 @@
                         <?php else: ?>
                             <?php foreach ($users as $user): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($user['user_id']) ?></td>
-                                    <td><?= htmlspecialchars($user['name']) ?></td>
-                                    <td><?= htmlspecialchars($user['email']) ?></td>
-                                    <td><?= htmlspecialchars($user['phone'] ?? '-') ?></td>
-                                    <td><?= htmlspecialchars($user['role']) ?></td>
-                                    <td><?= htmlspecialchars($user['roles']) ?></td>
-                                    <td><?= date('d/m/Y', strtotime($user['created_at'])) ?></td>
+                                    <td data-label="ID"><?= htmlspecialchars($user['user_id']) ?></td>
+                                    <td data-label="Nombre"><?= htmlspecialchars($user['name']) ?></td>
+                                    <td data-label="Email"><?= htmlspecialchars($user['email']) ?></td>
+                                    <td data-label="Teléfono"><?= htmlspecialchars($user['phone'] ?? '-') ?></td>
+                                    <td data-label="Rol principal"><?= htmlspecialchars($user['role']) ?></td>
+                                    <td data-label="Roles adicionales"><?= htmlspecialchars($user['roles']) ?></td>
+                                    <td data-label="Fecha de registro"><?= date('d/m/Y', strtotime($user['created_at'])) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </tbody>
                 </table>
+
+                <?php
+                    $queryParams = [];
+                    if ($role) $queryParams['role'] = $role;
+
+                    include __DIR__ . '/../../../view/admin/components/pagination.php';
+                ?>
+
             </div>
         </main>
     </div>

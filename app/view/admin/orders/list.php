@@ -35,14 +35,14 @@
                         <?php else: ?>
                             <?php foreach($orders as $order): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($order['order_id']) ?></td>
-                                    <td><?= htmlspecialchars($order['user_name']) ?></td>
-                                    <td>$<?= number_format($order['total'], 2) ?></td>
-                                    <td><?= ucfirst(htmlspecialchars($order['status'])) ?></td>
-                                    <td><?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></td>
-                                    <td>
+                                    <td data-label="ID Orden"><?= htmlspecialchars($order['order_id']) ?></td>
+                                    <td data-label="Usuario"><?= htmlspecialchars($order['user_name']) ?></td>
+                                    <td data-label="Total">$<?= number_format($order['total'], 2) ?></td>
+                                    <td data-label="Estado"><?= ucfirst(htmlspecialchars($order['status'])) ?></td>
+                                    <td data-label="Fecha"><?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></td>
+                                    <td data-label="Acciones">
                                         <!-- Aquí puedes poner acciones como ver detalle, cancelar, etc. -->
-                                        <a href="/anime-shop/public/admin/orders/view/<?= $order['order_id'] ?>" title="Ver detalle" class="action-edit">
+                                        <a href="/anime-shop/public/admin/order/detail?order_id=<?= $order['order_id'] ?>" title="Ver detalle" class="action-edit">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
                                     </td>
@@ -51,6 +51,14 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
+
+            <?php
+                $queryParams = [];
+                if ($status) $queryParams['status'] = $status;
+
+                include __DIR__ . '/../../../view/admin/components/pagination.php';
+            ?>
+
             </div>
 
         </main>
