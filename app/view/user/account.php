@@ -5,7 +5,7 @@
         <h1>Mi cuenta</h1>
         <h2>Información del usuario</h2>
         <div class="account-info">
-            <p><strong>Nombre:</strong> <?php echo ""; //= htmlspecialchars($userDetails['name']) ?></p>
+            <p><strong>Nombre:</strong> <?= htmlspecialchars($userDetails['name']) ?></p>
             <p><strong>Email:</strong> <?= htmlspecialchars($userDetails['email']) ?></p>
             <p><strong>Teléfono:</strong> <?= htmlspecialchars($userDetails['phone'] ?? 'No registrado') ?></p>
         </div>

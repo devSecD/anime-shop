@@ -1,3 +1,8 @@
+<?php
+    use App\Helpers\SessionHelper;
+    SessionHelper::start();
+    $user = SessionHelper::getUser();
+?>
 <!-- Botón hamburguesa -->
 <button class="sidebar-toggle-btn" id="sidebarToggle">
     <i class="fa fa-bars"></i>
@@ -35,9 +40,11 @@
                     <li><a href="/anime-shop/public/admin/newsletters"><i class="fa fa-list"></i> Ver todos</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="/anime-shop/public/admin/setting"><i class="fa fa-cogs"></i> Configuración</a>
-            </li>
+            <?php if(in_array( 'superadmin', $user['roles'])): ?>
+                <li>
+                    <a href="/anime-shop/public/admin/setting"><i class="fa fa-cogs"></i> Configuración</a>
+                </li>
+            <?php endif; ?>
             <li>
                 <a href="/anime-shop/public/user/logout">
                     <i class="fa fa-sign-out-alt"></i> Cerrar sesión
