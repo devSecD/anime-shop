@@ -8,39 +8,39 @@
     <?php include $html_head ?>
 <body>
     <div class="admin-dashboard">
-
         <?php include $sidebar ?>
         <!-- Main Content -->
         <main class="main-content">
             <header class="dashboard-header">
-            <h1>Panel de Administración</h1>
-            <p>Bienvenido, <?= $user["name"] ?></p>
+                <h1>Panel de Administración</h1>
+                <p>Bienvenido, <?= $user["name"] ?></p>
             </header>
 
             <!-- Summary Cards -->
             <section class="dashboard-cards">
-            <div class="card">
-                <h3><?= $totalProducts ?></h3>
-                <p>Productos</p>
-            </div>
-            <div class="card">
-                <h3><?= $totalOrders ?></h3>
-                <p>Órdenes</p>
-            </div>
-            <div class="card">
-                <h3><?= $totalSubscribers ?></h3>
-                <p>Suscriptores</p>
-            </div>
-            <div class="card">
-                <h3><?= $pendingOrders ?></h3>
-                <p>En espera</p>
-                <!--
-                Explicación rápida:
-                1. 'pending' = órdenes esperando pago o confirmación
-                2. 'paid' = pagadas pero aún no enviadas (aún en proceso)
-                Los estados 'shipped' y 'cancelled' usualmente no se consideran “en espera” porque ya están en envío o canceladas.
-                -->
-            </div>
+                <a href="/anime-shop/public/admin/products" class="card" title="Ver todos los productos">
+                    <h3><?= $totalProducts ?></h3>
+                    <p>Productos</p>
+                </a>
+                <a href="/anime-shop/public/admin/orders" class="card" title="Ver todas las órdenes">
+                    <h3><?= $totalOrders ?></h3>
+                    <p>Órdenes</p>
+                </a>
+                <a href="/anime-shop/public/admin/newsletters" class="card" title="Ver todos los suscriptores">
+                    <h3><?= $totalSubscribers ?></h3>
+                    <p>Suscriptores</p>
+                </a>
+                <a href="/anime-shop/public/admin/orders?status=pending" class="card" title="Ver órdenes pendientes de pago">
+                    <h3><?= $pendingOrders ?></h3>
+                    <p>Pendientes de pago</p>
+                </a>
+                <!-- /anime-shop/public/admin/products/sold_count -->
+                <!-- title="Ver ventas totales" -->
+                <!-- Crear controlador, metodo repo, metodo modeelo en products -->
+                <a href="#" class="card" >
+                    <h3><?= $soldCountTotal ?></h3>
+                    <p>Recuento total vendido</p>
+                </a>
             </section>
 
             <!-- Products Table -->
@@ -59,11 +59,11 @@
                 <tbody>
                     <?php foreach ($recentProducts as $product): ?>
                         <tr>
-                            <td>#<?= htmlspecialchars($product['product_id']) ?></td>
-                            <td><?= htmlspecialchars($product['name']) ?></td>
-                            <td>$<?= number_format($product['price'], 2) ?></td>
-                            <td><?= (int)$product['stock'] ?></td>
-                            <td>
+                            <td data-label="ID">#<?= htmlspecialchars($product['product_id']) ?></td>
+                            <td data-label="Nombre"><?= htmlspecialchars($product['name']) ?></td>
+                            <td data-label="Precio">$<?= number_format($product['price'], 2) ?></td>
+                            <td data-label="Stock"><?= (int)$product['stock'] ?></td>
+                            <td data-label="Acciones">
                                 <a href="/anime-shop/public/admin/product/update/<?= $product['product_id'] ?>" title="Editar" class="action-edit">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>

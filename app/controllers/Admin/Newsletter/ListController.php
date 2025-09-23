@@ -21,7 +21,30 @@ class ListController extends Controller
     {
         $this->auth->handle();
 
-        $subscribers = $this->newsletterRepo->getAll();
+        // Paginación
+        $currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+        $subscribersPerPage = 20;
+        $offset = ($currentPage - 1) * $subscribersPerPage;
+
+        // Conteo total de suscriptores
+        $totalSubscribers = $this->newsletterRepo->getSubscribersCount();
+        $totalPages = (int) ceil($totalSubscribers / $subscribersPerPage);
+
+        // Obtener suscriptores paginados
+        $subscribers = $this->newsletterRepo->getAllPaginated($subscribersPerPage, $offset);
+
+        $subscribers = array_map(function($subscriber) {
+            $subscriber['is_registered'] = $this->newsletterRepo->isUserRegistered($subscriber['email']);
+            return $subscriber;
+        }, $subscribers);
+
+        // Preparar datos de paginación para la vista
+        $pagination = [
+            'currentPage' => $currentPage,
+            'totalPages'  => $totalPages,
+            'hasPrev'     => $currentPage > 1,
+            'hasNext'     => $currentPage < $totalPages
+        ];
 
         $html_head = __DIR__ . '/../../../view/admin/components/html_head.php';
         $sidebar = __DIR__ . '/../../../view/admin/components/sidebar.php';
@@ -29,7 +52,7 @@ class ListController extends Controller
 
         $title = 'Suscriptores del newsletter';
         $page = 'admin_newsletter_list';
-        extract(compact('subscribers', 'title', 'page'));
+        extract(compact('subscribers', 'pagination', 'title', 'page', 'modalConfirmDelete'));
 
         include __DIR__ . '/../../../view/admin/newsletter/list.php';
     }

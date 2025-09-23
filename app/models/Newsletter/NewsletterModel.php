@@ -42,20 +42,25 @@ class NewsletterModel
         return $stmt->fetchColumn() > 0;
     }
 
-    public function getAll(): array
+    public function getPaginated(int $limit, int $offset): array
     {
-        $sql = "SELECT * FROM newsletter_subscriptions ORDER BY subscribed_at DESC";
+        $sql = "SELECT * FROM newsletter_subscriptions 
+                ORDER BY subscribed_at DESC
+                LIMIT :limit OFFSET :offset";
+
         $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteById(int $id): bool
+    public function deleteById(string $email): bool
     {
-        $sql = "DELETE FROM newsletter_subscriptions WHERE id = :id";
+        $sql = "DELETE FROM newsletter_subscriptions WHERE email = :email";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([':id' => $id]);
+        return $stmt->execute([':email' => $email]);
     }
 
     /**

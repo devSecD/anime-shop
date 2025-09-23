@@ -24,12 +24,13 @@ class IndexController extends Controller
 
         $productRepo = new ProductRepository($this->db);
         $totalProducts = $productRepo->getTotalProductsCount();
+        $soldCountTotal = $productRepo->getTotalSoldCount();
         $recentProducts = $productRepo->getRecentProducts(7);
 
         $orderModel = new OrderModel($this->db);
         $orderRepo = new OrderRepository($orderModel);
-        $totalOrders = $orderRepo->getTotalOrdersCount();
-        $pendingOrders = $orderRepo->getPendingOrdersCount();
+        $totalOrders = $orderRepo->countOrders();
+        $pendingOrders = $orderRepo->countOrders('pending');
 
         $newsletterRepo = new NewsletterRepository($this->db);
         $totalSubscribers = $newsletterRepo->getSubscribersCount();

@@ -1,0 +1,165 @@
+/* ===============================
+    Sección: Detalle de Orden (Admin)
+=============================== */
+
+.order-detail {
+    margin: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.order-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.order-section {
+    margin-bottom: 2rem;
+}
+
+.order-section .section-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Grid de información y dirección */
+.order-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: stretch; /* 🔥 Hace que todas las columnas tengan la misma altura */
+}
+
+.order-info-grid .order-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* por si quieres alinear arriba el contenido */
+}
+
+/* Estado de la orden */
+.order-status {
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* .order-status.status-shipped { background-color: #0275d8; color: #fff; } */
+
+/* Estado de la orden (status_local) */
+.status-pending {
+    color: #f0ad4e;
+    font-weight: bold;
+    background-color: #fff3e0;
+    padding: 2px 6px; /* menos padding para no verse botón */
+    border-radius: 6px; /* más sutil */
+    font-size: 0.85rem;
+    line-height: 1.2;
+    display: inline; /* inline en vez de inline-block */
+}
+
+.status-paid {
+    color: #5cb85c;
+    font-weight: bold;
+    background-color: #dff0d8;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    display: inline;
+}
+
+.status-cancelled {
+    color: #d9534f;
+    font-weight: bold;
+    background-color: #f2dede;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    display: inline;
+}
+
+/* Tooltip para status_original */
+.tooltip-original {
+    visibility: hidden;
+    opacity: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    position: absolute;
+    left: 35%;
+    transform: translateX(-50%);
+    transition: opacity 0.2s ease-in-out;
+    z-index: 10;
+}
+
+.order-status:hover .tooltip-original {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Tabla de productos */
+.order-items-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-items-table tbody tr {
+    transition: background-color 0.3s;
+}
+
+/* Hover para resaltar fila */
+.order-items-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.order-items-table th,
+.order-items-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.order-items-table th {
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: bold;
+}
+
+.order-items-table img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: #f9f9f9; /* para que no se vea feo el fondo vacío */
+}
+
+/* Botón volver */
+.order-actions {
+    margin-top: 2rem;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #6c757d;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.2s ease-in-out;
+}
+
+.btn-back:hover {
+    background: #5a6268;
+}

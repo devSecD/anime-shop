@@ -1,0 +1,6 @@
+@media (max-width: 768px) {
+    .admin-products-table td {
+        padding-left: 0%;
+        text-align: center;
+    }
+}

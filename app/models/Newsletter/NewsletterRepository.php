@@ -1,15 +1,18 @@
 <?php
 namespace Models\Newsletter;
+use Models\User\UserModel;
 
 use PDO;
 
 class NewsletterRepository
 {
     protected $newsletterModel;
+    protected $userModel;
 
     public function __construct(PDO $db)
     {
         $this->newsletterModel = new NewsletterModel($db);
+        $this->userModel = new UserModel($db);
     }
 
     public function subscribe($email)
@@ -22,14 +25,14 @@ class NewsletterRepository
         return $this->newsletterModel->exists($email);
     }
 
-    public function getAll(): array
+    public function getAllPaginated(int $limit, int $offset): array
     {
-        return $this->newsletterModel->getAll();
+        return $this->newsletterModel->getPaginated($limit, $offset);
     }
 
-    public function deleteById(int $id): bool
+    public function deleteById(string $email): bool
     {
-        return $this->newsletterModel->deleteById($id);
+        return $this->newsletterModel->deleteById($email);
     }
 
     public function getSubscribersCount(): int
@@ -41,5 +44,11 @@ class NewsletterRepository
     {
         return $this->newsletterModel->deleteByEmail($email);
     }
+
+    public function isUserRegistered(string $email): bool
+    {
+        return (bool) $this->userModel->existsByEmail($email);
+    }
+
 
 }

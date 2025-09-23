@@ -170,7 +170,7 @@ class Product
 
     public function delete(int $id): bool
     {
-        $sql = "DELETE FROM products WHERE product_id = :id";
+        $sql = "UPDATE products SET is_active = 0 WHERE product_id = :id";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':id' => $id]);
     }
@@ -210,7 +210,7 @@ class Product
             FROM products p
             LEFT JOIN categories c ON p.category_id = c.category_id
             LEFT JOIN brands b ON p.brand_id = b.brand_id
-            WHERE p.product_id = :id
+            WHERE p.is_active = 1 AND p.product_id = :id
             LIMIT 1
         ";
         $stmt = $this->db->prepare($sql);
@@ -265,6 +265,15 @@ class Product
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getTotalSoldCount(): int
+    {
+        $sql = "SELECT SUM(sold_count) AS ventas_totales FROM products WHERE sold_count > 0";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return (int) ($result['ventas_totales'] ?? 0);
+    }
 
     // metodos para poder insertar varias imagenes del producto
     public function getAllProducts() {
