@@ -26,7 +26,6 @@ class DeleteController extends Controller
 
         $id_product = (int) $_POST['id'];
 
-        // para el controlador
         if (!isset($id_product)) {
             ResponseHelper::jsonResponse([
                 'success' => false,
@@ -34,7 +33,6 @@ class DeleteController extends Controller
             ]);
         }
 
-       // para el controlador
         if (ValidationHelper::mustBePositiveInt('id', $id_product)) {
             ResponseHelper::jsonResponse([
                 'success' => false,

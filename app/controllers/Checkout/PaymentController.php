@@ -56,13 +56,11 @@ class PaymentController extends Controller
         $addressRepo = new ShippingAddressRepository($db);
         $shippingAddresses = $addressRepo->getAllByUser($userId);
 
-        // Pasamos datos a la vista
         $content = __DIR__ . '/../../view/checkout/payment.php';
         $title = 'Paso de Pago';
         $page = 'checkout_payment';
         $assets = ['checkout', 'cart', 'form'];
 
-        // extract para que la vista losreciba directamente
         extract(compact('items', 'total', 'shippingAddresses'));
 
         include __DIR__ . '/../../view/layouts/base.php';
@@ -72,7 +70,6 @@ class PaymentController extends Controller
     {
         ValidationHelper::rejectIfNotPost();
 
-        // Validar que el usuario esté logueado
         if (!SessionHelper::isLoggedIn()) {
             ResponseHelper::jsonResponse([
                 'success' => false,
@@ -83,7 +80,6 @@ class PaymentController extends Controller
         $db = $this->loadDB();
         $addressRepo = new ShippingAddressRepository($db);
 
-        // Obtener datos del POST
         $data = [
             'shipping_address_id' => $_POST['shipping_address_id'] ?? null,
             'total' => $_POST['total'] ?? null
@@ -91,20 +87,17 @@ class PaymentController extends Controller
 
         $errors = [];
 
-        // Validar dirección de envío
         if ($error = ValidationHelper::required('dirección de envío', $data['shipping_address_id']))
             $errors['shipping_address_id'] = $error;
         else if ($error = ValidationHelper::validateShippingAddress(
-            fn($id) => $addressRepo->findById($id), // debemos crear un metodo en el repo de shipping address
+            fn($id) => $addressRepo->findById($id),
             (int)$data['shipping_address_id']
         )) $errors['shipping_address_id'] = $error;
 
-        // Validar total
         $total = $this->cart->total();
         if ($error = ValidationHelper::validatePositive((float)$total))
             $errors['total'] = $error;
         
-        // Ahora obtenemos productos directamente del carrito (sesión)
         $items = $this->cart->items();
 
         if (empty($items)) {
@@ -133,14 +126,12 @@ class PaymentController extends Controller
             ]);
         }
 
-        // Creamos el pedido preliminar en la BD
         $orderModel = new OrderModel($db);
         $orderRepo = new OrderRepository($orderModel);
 
         $orderItemModel = new OrderItemModel($db);
         $orderItemRepo = new OrderItemRepository($orderItemModel);
 
-        // Obtiene el usuario
         $user = SessionHelper::getUser();
         $userId = $user['user_id'] ?? null;
 

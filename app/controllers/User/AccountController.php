@@ -22,9 +22,8 @@ class AccountController extends Controller
 
     public function index() 
     {
-        // 1) Asegura sesión
         $dataUser = SessionHelper::getUser();
-        if (!$dataUser || empty($dataUser['user_id'])) {
+        if (!$dataUser || empty($dataUser['user_id'])) { // cambiar por session is logged in del helper de sesion
             // Redirige si no hay sesión
             header('Location: /anime-shop/public/user/login');
             exit;
@@ -37,7 +36,6 @@ class AccountController extends Controller
             $newsletterSubscribed = $this->newsletterRepository->isEmailSubscribed($userDetails['email']);
         }
 
-        // Orders
         $orderModel = new OrderModel($this->db);
         $orderRepository = new OrderRepository($orderModel);
         $orders = $orderRepository->getUserOrders($dataUser['user_id'], 5);

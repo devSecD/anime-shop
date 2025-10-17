@@ -85,7 +85,7 @@
     color: var(--accent-color);
 }
 
-/* paginado del listado */
+/* Paginado del listado */
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -113,7 +113,7 @@
 }
 /*paginado del listado  */
 
-/* para identificar si el subscriptor de la newsletter esta registrado o no */
+/* Para identificar si el subscriptor de la newsletter esta registrado o no */
 .badge-registered {
     display: inline-block;
     margin-left: 0.5rem;
@@ -138,7 +138,7 @@
 
 .label-mobile { display: none; }
 
-/* --- Tabla de productos responsiva --- */
+/* Tabla de productos responsiva */
 @media (max-width: 768px) {
     .admin-products-table,
     .admin-products-table thead,

@@ -1,3 +1,7 @@
+/*
+    Esta media querie se reescribio con el CSS que se reutiliza en la pantalla de configuracion del panel administrativo 
+    para poder adaptarlo al html de la pagina
+*/
 @media (max-width: 768px) {
     .admin-products-table td {
         padding-left: 0%;

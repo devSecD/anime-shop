@@ -13,9 +13,7 @@ class NewsletterModel
         $this->db = $db;
     }
 
-    /**
-     * Inserta una nueva subscripcion al newsletter
-     */
+     // Inserta una nueva subscripcion al newsletter
     public function subscribe($email)
     {
         try {
@@ -31,9 +29,7 @@ class NewsletterModel
         }
     }
 
-    /**
-     * Verifica si un email ya esta suscrito
-     */
+     // Verifica si un email ya esta suscrito
     public function exists($email)
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM newsletter_subscriptions WHERE email = :email");

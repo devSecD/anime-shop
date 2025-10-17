@@ -16,21 +16,20 @@ use App\Helpers\SecureLogger;
 class WebhookController extends Controller
 {
     public function handle() {
-        // Mercado Pago envía JSON
+        // Lee el JSON crudo que envía Mercado Pago al webhook
         $input = file_get_contents('php://input');
+        // Decodifica en un array asociativo.
         $payload = json_decode($input, true);
-
+        // Valida que el JSON sea válido.
         if (json_last_error() !== JSON_ERROR_NONE || !is_array($payload)) {
+            // Si no lo es, responde al cliente (Mercado Pago en este caso) con un error 400.
             ResponseHelper::jsonResponse(['error' => 'Invalid JSON'], 400);
         }
 
-        // Logger después de recibir payload
         $logger = new SecureLogger();
 
         $eventType = $payload['type'] ?? 'unknown';
         $paymentId = $payload['data']['id'] ?? null;
-
-        // $logger->write('📦 ID de pago recibido (test manual)', ['paymentId' => $paymentId]);
 
         $config = require __DIR__ . '/../../config/mercadopago.php';
         $paymentService = new PaymentService($config);

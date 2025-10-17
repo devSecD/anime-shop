@@ -29,17 +29,15 @@ class ManageController extends Controller
      */
     public function index()
     {
-        // rechazar si no es metodo post
         ValidationHelper::rejectIfNotPost();
 
-        // Obtiene el usuario
         $user = SessionHelper::getUser();
         $userId = $user['user_id'] ?? null;
 
         $action = $_POST['action'] ?? null;
         $productId = (int)($_POST['product_id'] ?? 0);
 
-        if (!$userId || !$action || !$productId) {
+        if (!$userId || !$action || !$productId) { // reemplazar $userId por el metodo "isLoggedIn" del helper "SessionHelper"
             ResponseHelper::jsonResponse(
                 [
                 'success' => false,
@@ -48,9 +46,10 @@ class ManageController extends Controller
             );
         }
 
-        if ($userId) {
+        if ($userId) { // reemplazar $userId por el metodo "isLoggedIn" del helper "SessionHelper"
             $wishlistRepo = new WishlistRepository(new WishlistModel($this->db));
-            $wishlistItems = $wishlistRepo->getItems($userId); // array de productos
+            $wishlistItems = $wishlistRepo->getItems($userId); // array de items/productos
+            // Guarda en la sesión 'user_wishlist' un array con todos los product_id extraídos de $wishlistItems
             SessionHelper::set('user_wishlist', array_column($wishlistItems, 'product_id'));
             SessionHelper::set('user_wishlist_count', count($wishlistItems));
         } else {
@@ -68,6 +67,7 @@ class ManageController extends Controller
                 $message = $result ? 'Producto eliminado de la wishlist' : 'No se pudo eliminar el producto';
                 break;
             default:
+                // Poner una respuesta de recurso no encontrado o algo parecido o semejante
                 ResponseHelper::jsonResponse([
                     'success' => false,
                     'message' => 'Acción inválida'

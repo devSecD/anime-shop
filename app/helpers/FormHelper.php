@@ -91,6 +91,24 @@ class FormHelper
         return isset($data[$field]) && $data[$field] == 1 ? 'checked' : '';
     }
 
+    /**
+     * Determina si una opción de un elemento <select> debe marcarse como seleccionada.
+     *
+     * Este método compara el valor actual del campo en el arreglo de datos con el valor
+     * de la opción. Si coinciden, devuelve la cadena `'selected'`, que puede insertarse
+     * directamente en el atributo del elemento HTML. En caso contrario, devuelve una cadena vacía.
+     *
+     * Ejemplo de uso:
+     * ```php
+     * <option value="1" <?= FormHelper::isSelected('category', 1, $_POST) ?>>Opción 1</option>
+     * ```
+     *
+     * @param string $field Nombre del campo del formulario a evaluar.
+     * @param mixed  $optionValue Valor de la opción que se desea comparar.
+     * @param array  $data Arreglo de datos (por ejemplo, $_POST o datos precargados del modelo).
+     *
+     * @return string Retorna 'selected' si el valor coincide; en caso contrario, una cadena vacía.
+     */
     public static function isSelected(string $field, $optionValue, array $data = []): string
     {
         return isset($data[$field]) && $data[$field] == $optionValue ? 'selected' : '';

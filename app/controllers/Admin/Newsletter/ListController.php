@@ -33,6 +33,7 @@ class ListController extends Controller
         // Obtener suscriptores paginados
         $subscribers = $this->newsletterRepo->getAllPaginated($subscribersPerPage, $offset);
 
+        // Agregar un elemento al arreglo de suscriptores para identificar cuando son usuarios con cuenta o sin cuenta
         $subscribers = array_map(function($subscriber) {
             $subscriber['is_registered'] = $this->newsletterRepo->isUserRegistered($subscriber['email']);
             return $subscriber;

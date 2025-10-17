@@ -1,4 +1,3 @@
-// newsletterToggle.js
 import { sendRequest } from '../../../assets/js/ajax/sendRequest.js';
 import { showToast } from '../../../assets/js/components/alertToast.js';
 
@@ -8,10 +7,10 @@ export function initNewsletterToggle() {
 
     if (!toggle || !statusText) return;
 
-    // 1️⃣ Cargar estado inicial del newsletter al inicio
+    // Cargar estado inicial del newsletter al inicio
     loadInitialStatus(toggle, statusText);
 
-    // 2️⃣ Configurar evento de cambio
+    // Ejecutar la función handleToggleChange cada vez que el usuario cambie el estado del toggle
     toggle.addEventListener('change', () => handleToggleChange(toggle, statusText));
 }
 
@@ -19,7 +18,7 @@ export function initNewsletterToggle() {
 async function loadInitialStatus(toggle, statusText) {
     try {
         const res = await sendRequest(
-            '/anime-shop/public/user/newsletter/status', // ruta GET para obtener estado
+            '/anime-shop/public/user/newsletter/status',
             { method: 'GET' }
         );
 
@@ -31,7 +30,6 @@ async function loadInitialStatus(toggle, statusText) {
             statusText.textContent = 'No suscrito';
         }
     } catch (error) {
-        console.error('Error cargando estado del newsletter:', error);
         toggle.checked = false;
         statusText.textContent = 'No suscrito';
     }
@@ -39,12 +37,12 @@ async function loadInitialStatus(toggle, statusText) {
 
 // Función para manejar cambios de toggle
 async function handleToggleChange(toggle, statusText) {
-    const previousState = !toggle.checked; // guardar estado previo
+    const previousState = !toggle.checked; // guardar el estado previo del toggle antes de la petición AJAX (lo contrario de su valor actual)
     statusText.textContent = toggle.checked ? 'Suscrito' : 'No suscrito';
 
     try {
         const res = await sendRequest(
-            '/anime-shop/public/user/newsletter/toggle', // ruta POST para toggle
+            '/anime-shop/public/user/newsletter/toggle',
             {},
             null,
             { method: 'POST', contentType: 'application/x-www-form-urlencoded' }
@@ -64,7 +62,6 @@ async function handleToggleChange(toggle, statusText) {
         // Revertir estado si hay error
         toggle.checked = previousState;
         statusText.textContent = previousState ? 'Suscrito' : 'No suscrito';
-        console.error('Error en toggle del newsletter:', error);
         showToast('No se pudo actualizar el newsletter.', 'error');
     }
 }

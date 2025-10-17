@@ -15,6 +15,7 @@ class ValidationHelper
     public static function rejectIfNotPost(): void
     {
         if (!self::isPostRequest()) {
+            // 405 significa que el método HTTP usado en la solicitud no está permitido para el recurso solicitado
             http_response_code(405);
             echo "Metodo no permitido";
             exit;
@@ -34,6 +35,11 @@ class ValidationHelper
             return "El nombre debe tener al menos 3 caracteres.";
         }
 
+        // \p{L} → cualquier letra Unicode (mayúscula o minúscula, de cualquier idioma)
+        // \s → cualquier espacio en blanco (espacio, tab, salto de línea, etc.)
+        // + → uno o más caracteres consecutivos que cumplan la regla
+        // $ → indica fin de la cadena.
+        // u → modificador Unicode, necesario para que \p{L} funcione correctamente con caracteres especiales como ñ, é, ü.
         if (!preg_match('/^[\p{L}\s]+$/u', $value)) {
             return "El nombre solo puede contener letras y espacios.";
         }
@@ -115,7 +121,7 @@ class ValidationHelper
         return null;
     }
 
-    /* metodo para validar stock */
+    // metodo para validar stock
     public static function validateStock(ProductRepository $repo, int $productId, ?int $quantity): ?string
     {
         // 1. Validar cantidad positiva
@@ -136,9 +142,8 @@ class ValidationHelper
 
         return self::mustNotExceed('cantidad', $quantity, $stock);
     }
-    /* metodo para validar stock */
 
-    // Valida teléfono (solo dígitos, entre 10 y 15)
+    // Valida teléfono (solo dígitos, con longitud entre 10 y 15)
     public static function validatePhone(?string $value): ?string 
     {
         $value = StringHelper::trim($value);
@@ -155,6 +160,7 @@ class ValidationHelper
     {
         $value = StringHelper::trim($value);
 
+        // {3,10} fue elegido como rango razonable para códigos postales internacionales, sin ser demasiado restrictivo ni demasiado permisivo.
         if (!preg_match('/^[A-Za-z0-9\- ]{3,10}$/', $value)) {
             return "El código postal no tiene un formato válido.";
         }
@@ -230,13 +236,13 @@ class ValidationHelper
         $error = self::validateRequiredFile($file, $fieldName);
         if ($error) return $error;
 
-        // Validar tamaño (ej. max 5 MB)
+        // Validar tamaño (5 MB)
         $maxSize = 5 * 1024 * 1024;
         if ($file['size'] > $maxSize) {
             return "La imagen excede el tamaño máximo permitido (5 MB).";
         }
 
-        // Validar extensión segura (evitar .php, .exe, etc.)
+        // Validar extensión segura
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (!in_array($ext, $allowedExtensions)) {
@@ -258,7 +264,7 @@ class ValidationHelper
             return "El archivo no contiene datos de imagen válidos.";
         }
 
-        return null; // todo bien
+        return null; // respuesta esperada si se paso las validaciones de imagen correctamente
     }
 
     /**
@@ -276,9 +282,7 @@ class ValidationHelper
         return null;
     }
 
-    /**
-     * Valida que el timezone sea válido según PHP
-     */
+     // Valida que el timezone sea válido según PHP
     public static function validateTimezone(?string $value): ?string
     {
         if (!in_array($value, timezone_identifiers_list(), true)) {
@@ -287,7 +291,7 @@ class ValidationHelper
         return null;
     }
 
-    /* metodo exclusivo para validaciones de setting del panel administrativo de la tienda */
+    // metodo exclusivo para validaciones de setting del panel administrativo de la tienda
     public static function validateSetting(string $key, ?string $value): ?string
     {
         switch ($key) {
@@ -303,7 +307,7 @@ class ValidationHelper
             case 'timezone':
                 return self::validateTimezone($value);
 
-            case 'maintenance_mode':
+            case 'maintenance_mode': // aun no esta implementado aunque aqui ya lo tomamos en cuenta para futuras versiones
                 return self::mustBeOptionalBoolean($value, 'modo mantenimiento');
 
             default:
@@ -312,6 +316,8 @@ class ValidationHelper
     }
 
     public static function validateText($value, $min = 1, $max = 255) {
+        // mb_strlen() => Devuelve la cantidad de caracteres reales de una cadena, 
+        // tomando en cuenta codificaciones multibyte como UTF-8.
         $length = mb_strlen(trim($value), 'UTF-8');
 
         if ($length < $min) {

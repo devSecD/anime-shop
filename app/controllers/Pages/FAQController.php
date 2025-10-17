@@ -14,6 +14,7 @@ class FAQController extends Controller
         $this->db = $this->loadDB();
         $this->repository = new FAQRepository($this->db);
     }
+    // Vista de preguntas frecuentes
     public function index() 
     {
         $faqs = $this->repository->getAllFAQs();

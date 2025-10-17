@@ -11,7 +11,7 @@ export const localWishlist = {
     },
     remove(productId) {
         let wishlist = this.get();
-        wishlist = wishlist.filter(id => id !== productId);
+        wishlist = wishlist.filter(id => id !== productId); // crea un nuevo array sin el productId especificado
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
     },
     has(productId) {

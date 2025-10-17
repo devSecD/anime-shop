@@ -107,7 +107,7 @@
     cursor: pointer;
 }
 
-/* Solo las flechas */
+/* Flechas del paginado */
 .page-list li a.page-previous::before {
     content: '«';
 }
@@ -186,8 +186,7 @@ a:active {
     }
 }
 
-/* Responsive paginacion */
-/* Responsive para paginado */
+/* Responsive para paginado (esta repetido con la media querie que le sigue)*/
 @media (max-width: 768px) {
     .page-list {
         grid-template-columns: repeat(5, auto);
@@ -200,8 +199,6 @@ a:active {
         font-size: 0.9rem;
     }
 }
-
-/* ================= Responsive Paginado ================= */
 
 /* Tablets */
 @media (max-width: 768px) {

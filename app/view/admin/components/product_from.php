@@ -102,7 +102,6 @@ use App\Helpers\FormHelper;
         if (file) {
             const preview = document.getElementById('preview');
             preview.src = URL.createObjectURL(file);
-            // preview.style.display = 'block';
         }
     });
     </script>

@@ -31,7 +31,6 @@ class Product
         $stmt->bindValue(':is_on_sale', $data['is_on_sale'], PDO::PARAM_INT);
         $stmt->bindValue(':is_preorder', $data['is_preorder'], PDO::PARAM_INT);
 
-        // Ejecutar con bind de datos
         $result = $stmt->execute();
 
         if ($result) {
@@ -40,9 +39,8 @@ class Product
 
         return false;
     }
-    /**
-     * Devuelve un producto por ID
-     */
+
+     // Devuelve un producto por ID
     public function getById(int $id): ?array
     {
         $sql = "SELECT * FROM products WHERE product_id = :id LIMIT 1";
@@ -60,6 +58,8 @@ class Product
         $stmt = $this->db->prepare($sql);
 
         foreach($ids as $idx => $id) {
+            // $idx + 1 se usa para coincidir con los placeholders posicionales de PDO ('?'),
+            // ya que los índices del array empiezan en 0, pero PDO los cuenta desde 1
             $stmt->bindValue($idx + 1, $id, PDO::PARAM_INT);
         }
 
@@ -90,6 +90,7 @@ class Product
         $stmt->execute();
         return (int)$stmt->fetchColumn();
     }
+
     public function interpolateNamedQuery($query, $params)
     {
         foreach ($params as $key => $value) {
@@ -168,6 +169,7 @@ class Product
         return $stmt->execute();
     }
 
+    // soft delete
     public function delete(int $id): bool
     {
         $sql = "UPDATE products SET is_active = 0 WHERE product_id = :id";
@@ -231,7 +233,7 @@ class Product
         ");
         $stmt->bindValue(':id', $productId);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN); // devuelve array de URLs
+        return $stmt->fetchAll(PDO::FETCH_COLUMN); // devuelve array de los nombres de las imagenes
     }
 
     // Obtener reseñas del producto
@@ -250,6 +252,7 @@ class Product
     }
 
     // Obtener productos relacionados (por categoría)
+    // establecer limite de 8 por default en los parametros del metodo
     public function getRelated($categoryId, $excludeProductId)
     {
         $stmt = $this->db->prepare("

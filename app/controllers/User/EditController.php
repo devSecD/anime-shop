@@ -21,7 +21,6 @@ class EditController extends Controller
     {
         $dataUser = SessionHelper::getUser();
         if (!$dataUser || empty($dataUser['user_id'])) {
-            // Redirige si no hay sesión
             header('Location: /anime-shop/public/user/login');
             exit;
         }
@@ -42,7 +41,6 @@ class EditController extends Controller
     {
         $dataUser = SessionHelper::getUser();
         if (!$dataUser || empty($dataUser['user_id'])) {
-            // Redirige si no hay sesión
             header('Location: /anime-shop/public/user/login');
             exit;
         }
@@ -85,7 +83,7 @@ class EditController extends Controller
             ]);
         }
 
-        $passwordHash = !empty($data['password']) ? password_hash($data['password'], PASSWORD_BCRYPT) : null;
+        $passwordHash = !empty($data['password']) ? password_hash($data['password'], PASSWORD_DEFAULT) : null;
 
         $updateData = [
             'name' => $data['name'],

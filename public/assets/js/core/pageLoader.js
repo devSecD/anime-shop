@@ -1,3 +1,29 @@
+/**
+ * ========================================================================
+ * Archivo: pageLoader.js
+ * Descripción:
+ *   Módulo encargado de la carga dinámica de scripts específicos por página.
+ *   Permite importar e inicializar únicamente los módulos JavaScript necesarios
+ *   según la vista activa, optimizando rendimiento y manteniendo el código modular.
+ *
+ * Estructura:
+ *   - `pageModules`: objeto que mapea cada página con su función de importación
+ *     dinámica del módulo correspondiente.
+ *   - `loadPageModule(page)`: función que recibe el nombre de la página y ejecuta
+ *     el módulo asociado, manejando errores de importación.
+ *
+ * Notas:
+ *   - Cada módulo se encuentra en `public/assets/js/components/`.
+ *   - Se recomienda que cada módulo exporte una función de inicialización
+ *     con nombre descriptivo (ej. initRegisterForm).
+ * ========================================================================
+ */
+
+/**
+ * Mapa de páginas a módulos JS.
+ * Cada propiedad corresponde al nombre de la página y su valor es
+ * una función que importa dinámicamente el módulo y ejecuta su inicializador.
+ */
 const pageModules = {
     register: () => import('../components/registerForm.js').then(m => m.initRegisterForm()),
     login: () => import('../components/loginForm.js').then(m => m.initLoginForm()),
@@ -16,6 +42,11 @@ const pageModules = {
 
 };
 
+/**
+ * Carga e inicializa el módulo JavaScript correspondiente a la página activa.
+ *
+ * @param {string} page - Identificador de la página (coincide con `data-page` en <main>).
+ */
 export function loadPageModule(page) {
     if (pageModules[page]) {
         pageModules[page]()

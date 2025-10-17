@@ -16,7 +16,6 @@ class PasswordResetRepository
     {
         $tokenHash = hash('sha256', $plainToken);
 
-        // opcional: eliminar tokens previos
         $this->model->deleteAllByUser($userId);
 
         return $this->model->create([

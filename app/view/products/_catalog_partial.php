@@ -1,6 +1,5 @@
 <?php use App\Helpers\StringHelper; ?>
 <section class="section-catalog-product">
-    <!-- Primera fila -->
     <?php foreach($products as $product): ?>
     <section class="container-product">
         <div class="badge-container">
@@ -11,7 +10,6 @@
                 <span class="badge badge-preorder">Preventa</span>
             <?php endif; ?>
         </div>
-        <!-- Enlace a detalle del producto -->
         <a href="/anime-shop/public/product/detail?product_id=<?= $product['product_id'] ?>&product_name=<?= StringHelper::generateSlug($product['name']) ?>">
             <img src="/anime-shop/public/assets/images/products/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
         </a>
@@ -22,7 +20,6 @@
             </a>
         </h5>
         <p><?= number_format($product['price'], 2); ?></p>
-        <!-- <input type="button" value="Añadir al carrito"> -->
             <button class="btn-add-to-cart"
                 data-id="<?= $product['product_id'] ?>"
                 data-qty="1">
@@ -61,7 +58,6 @@
             <?php if ($currentPage < $totalPages): ?>
                 <li><a href="?page=<?= $currentPage + 1 . $extraParams; ?>" class="page-next">Siguiente</a></li>
             <?php endif; ?>
-            <!-- <span class="points">...</span> --> <!-- pendiente por implementar logica-->
         </ul>
     </aside>
     <?php endif; ?>

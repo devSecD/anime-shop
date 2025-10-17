@@ -21,7 +21,7 @@ class Cart
         return $this->repo;
     }
 
-    /** Inicializa el carrito si no existe en sesión */
+    // Inicializa el carrito si no existe en sesión
     public function init(): void
     {
         SessionHelper::start();
@@ -75,6 +75,7 @@ class Cart
         SessionHelper::set(self::SESSION_KEY, $cart);
     }
 
+    // retorna arreglo asociativo
     public function items(): array
     {
         return SessionHelper::get(self::SESSION_KEY) ?? [];
@@ -88,17 +89,17 @@ class Cart
 
     public function total(): float
     {
+        // Recorre todos los items del carrito y retorna la suma total de (precio * cantidad) iniciando en 0.0
         return array_reduce($this->items(), fn($t, $i) => $t + $i['price'] * $i['qty'], 0.0);
     }
 
     public function count(): int
     {
+        // Recorre todos los items del carrito y retorna la suma total de las cantidades (qty) iniciando en 0
         return array_reduce($this->items(), fn($c, $i) => $c + $i['qty'], 0);
     }
 
-    /**
-     * Vacía todo el carrito de la sesión.
-     */
+     // Vacía todo el carrito de la sesión.
     public function clear(): void
     {
         SessionHelper::start();

@@ -6,10 +6,10 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Rutas absolutas
-define('ROOT', dirname(__DIR__));
+define('ROOT', dirname(__DIR__)); // raíz del proyecto
 define('APP_PATH', ROOT . '/app');
 
-define('BASE_PATH', dirname(__DIR__));
+define('BASE_PATH', dirname(__DIR__)); // base path para rutas
 
 // ** Cargar Autoload de Composer primero **
 require_once ROOT . '/vendor/autoload.php';

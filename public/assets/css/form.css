@@ -2,9 +2,9 @@
     max-width: 600px;
     margin: var(--large-spacing) auto;
     padding: var(--medium-spacing);
-    border: 1px solid rgba(255, 193, 7, 0.5); /* como en el catalogo */
+    border: 1px solid rgba(255, 193, 7, 0.5);
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.2); /* como en el catalogo */
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.2);
     font-family: var(-main-font);
     transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
@@ -36,8 +36,8 @@
     height: auto;           /* Mantiene proporción */
     object-fit: contain;    /* Ajuste sin recorte */
     border: 1px solid #ddd; /* Borde suave */
-    border-radius: 6px;     /* Esquinas redondeadas */
-    margin-top: 8px;        /* Espacio superior */
+    border-radius: 6px;
+    margin-top: 8px;
     display: block;         /* Evita alineación inline rara */
 }
 
@@ -88,7 +88,7 @@
 .file-upload-label {
     display: inline-block;
     padding: 10px 16px;
-    background-color: var(--primary-color); /* o un color que uses para botones */
+    background-color: var(--primary-color);
     color: white;
     border-radius: 6px;
     cursor: pointer;
@@ -149,6 +149,7 @@
     background-color: var(--background-color);
     color: var(--secondary-text-color);
     appearance: none; /* Oculta la flecha nativa */
+    /* la url es una imagen de una flecha hacia abajo color azul tipo svg */
     background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%230277bd' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.7rem center;
@@ -262,7 +263,7 @@
     margin-left: 4px;
 }
 
-/* Responsividad para pantallas pequeñas */
+/* Responsive para pantallas pequeñas */
 @media (max-width: 480px) {
     .form-container {
         padding: var(--small-spacing);

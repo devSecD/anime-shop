@@ -10,9 +10,7 @@ class WishlistRepository
         $this->model = $model;
     }
 
-    /**
-     * Agregar producto a la wishlist del usuario
-     */
+     // Agregar producto a la wishlist del usuario
     public function addItem(int $userId, int $productId): bool
     {
         // Primero validamos que no exista ya en la lista
@@ -23,17 +21,13 @@ class WishlistRepository
         return $this->model->addItem($userId, $productId);
     }
 
-    /**
-     * Eliminar producto de la wishlist
-     */
+     // Eliminar producto de la wishlist del usuario
     public function removeItem(int $userId, int $productId): bool
     {
         return $this->model->removeItem($userId, $productId);
     }
 
-    /**
-     * Verificar si un producto ya está en la wishlist
-     */
+     // Verificar si un producto ya está en la wishlist del usuario
     public function exists($userId, $productId)
     {
         return $this->model->exists($userId, $productId);
@@ -41,9 +35,11 @@ class WishlistRepository
 
     public function getItems(int $userId): array
     {
+        // retornamos todos los productos de la wishlist del usuario
         return $this->model->getByUser($userId);
     }
 
+    // Se obtiene el total de productos de la wishlist
     public function getCount($userId) {
         $items = $this->getItems($userId);
         return count($items);

@@ -12,9 +12,7 @@ class WishlistModel
         $this->db = $db;
     }
 
-    /**
-     * Agregar producto al wishlist
-     */
+     // Agregar producto a la wishlist
     public function addItem(int $userId, int $productId): bool
     {
         $sql = "INSERT INTO wishlist (user_id, product_id, created_at)
@@ -25,9 +23,7 @@ class WishlistModel
         return $stmt->execute();
     }
 
-    /**
-     * Eliminar producto del wishlist
-     */
+     // Eliminar producto de la wishlist
     public function removeItem(int $userId, int $productId): bool
     {
         $sql = "DELETE FROM wishlist WHERE user_id = :user_id AND product_id = :product_id";
@@ -37,9 +33,7 @@ class WishlistModel
         return $stmt->execute();
     }
 
-    /**
-     * Verificar si un producto ya está en el wishlist
-     */
+     // Verificar si un producto ya está en el wishlist
     public function exists(int $userId, int $productId): bool
     {
         $sql = "SELECT COUNT(*) FROM wishlist WHERE user_id = :user_id AND product_id = :product_id";
@@ -50,9 +44,7 @@ class WishlistModel
         return $stmt->fetchColumn() > 0;
     }
 
-    /**
-     * Obtener todos los productos del wishlist de un usuario
-     */
+     // Obtener todos los productos de la wishlist de un usuario
     public function getByUser(int $userId): array
     {
         $sql = "SELECT w.product_id, p.name, p.price, p.image

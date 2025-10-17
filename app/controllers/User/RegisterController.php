@@ -15,14 +15,13 @@ class RegisterController extends Controller
         $title = 'Crear cuenta - Anime Shop';
         $page = 'register';
 
-        $assets = ['form', 'cart']; // ejemplo para mas assets: $assets = ['form', 'datepicker', 'carousel'];
+        $assets = ['form', 'cart'];
 
         include __DIR__ . '/../../view/layouts/base.php';
     }
 
     public function process()
     {
-        // rechazar si no es metodo post
         ValidationHelper::rejectIfNotPost();
 
         $data = [

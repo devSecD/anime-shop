@@ -21,8 +21,7 @@ class OrdersController extends Controller
     public function index() 
     {
         $dataUser = SessionHelper::getUser();
-        if (!$dataUser || empty($dataUser['user_id'])) {
-            // Redirige si no hay sesión
+        if (!$dataUser || empty($dataUser['user_id'])) { // usarl el metodo logged del helper de sesion
             header('Location: /anime-shop/public/user/login');
             exit;
         }
@@ -33,7 +32,7 @@ class OrdersController extends Controller
         if ($currentPage < 1) $currentPage = 1;
         $offset = ($currentPage - 1) * $perPage;
 
-        // Obtener pedidos y total
+        // Obtener ordenes/pedidos, total y total de paginas para el paginado del listado en este caso de ordenes
         $orders = $this->orderRepository->getUserOrders($dataUser['user_id'], $perPage, $offset);
         $totalOrders = $this->orderRepository->countUserOrders($dataUser['user_id']);
         $totalPages = (int) ceil($totalOrders / $perPage);

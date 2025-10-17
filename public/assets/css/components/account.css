@@ -62,7 +62,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--secondary-color); /* color base */
+    background-color: var(--secondary-color);
     transition: 0.4s;
     border-radius: 28px;
 }
@@ -138,7 +138,7 @@ input:checked + .slider:before {
     cursor: pointer;
     font-size: var(--font-size-paragraph);
     transition: background 0.3s ease;
-    text-decoration: none; /* quita subrayado si es <a> */
+    text-decoration: none;
 }
 
 .btn-edit-profile:hover {
@@ -146,7 +146,6 @@ input:checked + .slider:before {
 }
 
 /* Responsive */
-
 @media (max-width: 768px) {
     .account-page {
         grid-template-columns: 1fr;

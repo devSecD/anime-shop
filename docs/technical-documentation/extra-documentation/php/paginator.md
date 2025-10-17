@@ -1,0 +1,1 @@
+- El paginador app\core\Paginator.php que sirve literalmente para el pagina de los listados que tenemos en el proyecto como por ejemplo el de productos, newsletter, etc para el panel administrativo. Aun falta implementarlo en el catologo.

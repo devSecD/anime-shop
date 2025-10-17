@@ -8,14 +8,15 @@ import { handleCartError } from '../../../assets/js/util/handleCartError.js';
 
 loadCartCount();
 
-/** Delegación global para clicks */
+// Delegación global para clicks
 document.addEventListener('click', async e => {
-    /* Añadir al carrito desde catalogo*/
+    // Añadir al carrito desde catalogo
     if (e.target.matches('.btn-add-to-cart')) {
         const id = e.target.dataset.id;
+        // El segundo parámetro de parseInt(), llamado radix, especifica la base numérica en la que debe interpretarse la cadena.
+        // significa que la cadena se interpretará como un número decimal (base 10).
         const qty = parseInt(e.target.dataset.qty || '1', 10);
-        const res = await sendRequest('/anime-shop/public/cart/add', {product_id: id, qty}); // /anime-shop/public/user/login/process
-        console.log(res);
+        const res = await sendRequest('/anime-shop/public/cart/add', {product_id: id, qty});
         if (res.success) {
             updateCartCounter(res.count);
             updateCartTotal(res.total);
@@ -25,7 +26,7 @@ document.addEventListener('click', async e => {
         }
     }
 
-    /** Eliminar del carrito  */
+    // Eliminar del carrito
     if (e.target.matches('.cart-remove')) {
         const id = e.target.dataset.id;
         const res = await sendRequest('/anime-shop/public/cart/remove', {product_id: id});
@@ -41,7 +42,7 @@ document.addEventListener('click', async e => {
     }
 });
 
-/** Cambiar cantidad dentro del carrito */
+// Cambiar cantidad dentro del carrito
 document.addEventListener('change', async e => {
     if (e.target.matches('.cart-qty-input')) {
         const id = e.target.dataset.id;
@@ -52,8 +53,6 @@ document.addEventListener('change', async e => {
         if (res.success) {
             updateCartCounter(res.count);
             updateCartTotal(res.total);
-            // Si tienes cálculo de subtotales por JS, actualízalos aquí;
-            // de lo contrario, recarga para reflejar cambios:
             location.reload();
         } else {
             handleCartError(res.message, res.error_type);

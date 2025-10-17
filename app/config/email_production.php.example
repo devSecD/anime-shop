@@ -1,0 +1,10 @@
+<?php
+return [
+    'host' => 'smtp.gmail.com',       // Cambiar si usas otro proveedor
+    'username' => 'tu_correo@gmail.com',  // Dejar vacío o indicar ejemplo
+    'password' => 'tu_contraseña',       // Nunca subir la real
+    'port' => 465,                       // SSL: 465 / TLS: 587
+    'from_email' => 'tu_correo@gmail.com',
+    'from_name' => 'Nombre de tu sitio',
+    'secure' => 'ssl',                   // ssl o tls según tu proveedor
+];

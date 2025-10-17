@@ -5,7 +5,6 @@ use Core\Controller;
 
 use App\Models\Wishlist\WishlistRepository;
 use App\Models\Wishlist\WishlistModel;
-use App\Helpers\ResponseHelper;
 use App\Helpers\SessionHelper;
 
 class ListController extends Controller
@@ -21,29 +20,22 @@ class ListController extends Controller
         SessionHelper::regenerate();
     }
 
-    /**
-     * Mostrar la wishlist del usuario
-     * GET /wishlist
-     */
+    // Mostrar la wishlist del usuario
     public function index()
     {
-        // Obtiene el usuario
         $user = SessionHelper::getUser();
         $userId = $user['user_id'] ?? null;
 
         $wishlistItems = [];
 
-        if (!$userId) {
-            // Usuario no logueado
+        if (!$userId) { // debemos usar el metodo LoggedIn del helper de sesion
             $loginMessage = 'Debes iniciar sesión para ver tu lista de deseos.';
         } else {
-            // Usuario logueado: obtiene los items
             $wishlistItems = $this->repository->getItems($userId);
         }
 
-        // Renderizar la vista (HTML + CSS)
         $content = __DIR__ . '/../../view/wishlist/index.php';
-        $title = 'Lista ded deseos';
+        $title = 'Lista de deseos';
         $page = 'wishlist';
         $assets = ['wishlist', 'cart'];
 

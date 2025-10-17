@@ -1,5 +1,5 @@
 <?php
-    // controlador exclusivo para guardar en bd y fisicamente imagenes de un producto
+    // contorlador para generar fisicamente y guardar en base de datos las imagenes excluyendo la principal del producto
     namespace Controllers\Product;
 
     use Core\Controller;

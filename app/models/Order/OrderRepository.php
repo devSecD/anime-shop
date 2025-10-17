@@ -12,6 +12,7 @@ class OrderRepository
 
     public function createOrder(int $userId, float $total, ?string $preferenceId, int $shippingAddressId, string $status = 'pending'): int
     {
+        // de acuerdo al modelo de ordenes retorna el id de la orden que se creo
         return $this->model->create($userId, $total, $preferenceId, $shippingAddressId, $status);
     }
 
@@ -41,16 +42,8 @@ class OrderRepository
         return $this->model->getOrderById($orderId) !== null;
     }
 
-    /*
-    public function getPaginatedOrders(int $limit, int $offset): array
-    {
-        return $this->model->getPaginatedWithUser($limit, $offset);
-    }
-    */
-
     public function getPaginatedOrders(int $limit, int $offset, ?string $status = null): array
     {
-        // Construcción del query
         $sql = "SELECT o.*, u.name AS user_name, u.email AS user_email
                 FROM orders o
                 INNER JOIN users u ON o.user_id = u.user_id WHERE 1=1"; // '1=1' para poder concatenar AND fácilmente
@@ -65,7 +58,7 @@ class OrderRepository
         $params[':limit'] = $limit;
         $params[':offset'] = $offset;
 
-        // Se delega la ejecución al modelo
+        // Se delega la ejecución al modelo. Devuelve un arreglo asociativo
         return $this->model->executeQuery($sql, $params);
     }
 
@@ -79,6 +72,7 @@ class OrderRepository
 
     public function getUserOrders(int $userId, int $limit = 5, int $offset = 0): array
     {
+        // Devuelve un arreglo de órdenes de un usuario, con paginación controlada por $limit y $offset
         return $this->model->getOrdersByUser($userId, $limit, $offset);
     }
 

@@ -1,5 +1,8 @@
 /* public/assets/css/errors.css adaptado a tus variables y estilo de botones */
-
+/*
+    Verificar que haga match con los estilos de variables.css
+    Unificarlos
+*/
 :root {
     --brand: var(--primary-color);
     --accent: var(--accent-color);
@@ -106,7 +109,6 @@ body.error-page {
     .error404__actions { justify-content: center; }
 }
 
-/* Botones 404 adaptados a estilo de catálogo */
 .btn {
     appearance: none;
     border: 1px solid var(--accent);
@@ -130,9 +132,8 @@ body.error-page {
     color: var(--text-color);
     border: 1px solid var(--secondary-color);
     transform: none;       /* quitar cualquier desplazamiento */
-    box-shadow: none;      /* quitar sombra extra */
+    box-shadow: none;
 }
-
 
 .btn--primary {
     background-color: var(--primary-color);

@@ -23,7 +23,7 @@ class DetailController extends Controller
 
         // Obtenemos el producto principal con detalles
         $product = $productRepo->findDetailedById($productId);
-        // $product = null;
+
         if (!$product) {
             http_response_code(404);
             $content = __DIR__ . '/../../view/errors/404.php';
@@ -34,6 +34,7 @@ class DetailController extends Controller
             exit;
         }
 
+        // mezclar la iamgen principal del producto con las demas
         $product['images'] = array_merge(
             [$product['image']], // imagen principal
             $productRepo->getProductImages($productId) // imágenes adicionales
@@ -51,9 +52,8 @@ class DetailController extends Controller
         $content = __DIR__ . '/../../view/product/detail.php';
         $title = $product['name'] . ' - Anime Shop';
         $page = 'productDetail';
-        $assets = ['product-detail', 'cart']; // si tienes CSS o JS específicos
+        $assets = ['product-detail', 'cart'];
 
-        // Pasamos $product a la vista
         include __DIR__ . '/../../view/layouts/base.php';
     }
 }

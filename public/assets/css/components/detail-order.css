@@ -19,7 +19,7 @@
 }
 
 .orders-table tbody tr:hover {
-    background-color: rgba(1, 90, 148, 0.1); /* color sutil según tu tema */
+    background-color: rgba(1, 90, 148, 0.1);
 }
 
 .orders-table th,
@@ -30,7 +30,7 @@
 }
 
 .product-img {
-    width: 60px;      /* aumenta un poco el tamaño si es necesario */
+    width: 60px; /* aumenta un poco el tamaño si es necesario */
     height: 60px;
     object-fit: contain; /* evita recortes, mantiene proporción */
     border-radius: 4px;

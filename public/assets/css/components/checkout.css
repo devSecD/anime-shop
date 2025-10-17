@@ -86,7 +86,6 @@
     border-bottom: none;
 }
 
-
 .checkout-actions {
     display: flex;
     justify-content: flex-end;
@@ -116,7 +115,6 @@
 /* Reiniciar estilos del botón para evitar estilos por defecto del navegador */
 .checkout-actions button.btn {
     all: unset;
-    /* luego reaplicar estilos necesarios */
     box-sizing: border-box;
     display: inline-block;
     padding: 0.7rem;

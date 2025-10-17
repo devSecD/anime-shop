@@ -1,16 +1,22 @@
 /**
- * Envía datos vía fetch usando URL‑encoded por defecto.
- *
+ * Envía datos al servidor usando fetch de forma asíncrona,
+ * con `application/x-www-form-urlencoded` como formato predeterminado.
+ * 
  * @param {string}   url        – Endpoint absoluto o relativo.
  * @param {Object}   data       – Pares clave‑valor a enviar.
  * @param {Function} callback   – (opcional) Se ejecuta con la respuesta JSON.
  * @param {Object}   options    – { method, contentType } extra.
+ * 
+ * @returns {Promise<Object>} Respuesta JSON del servidor o un objeto de error.
  */
 
 export async function sendRequest(url, data = {}, callback = null, options = {}) {
+    // Desestructuración del objeto 'options' recibido como parámetro de la función.
+    // Se extraen las propiedades 'method' y 'contentType', asignando valores por defecto
+    // en caso de que no estén definidas dentro de 'options'.
     const {
-        method = 'POST', 
-        contentType = 'application/x-www-form-urlencoded'
+        method = 'POST', // valor por defecto: "POST"
+        contentType = 'application/x-www-form-urlencoded' // valor por defecto: "application/x-www-form-urlencoded"
     } = options;
 
     const body = 

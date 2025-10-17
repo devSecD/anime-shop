@@ -25,6 +25,7 @@ class NewsletterRepository
         return $this->newsletterModel->exists($email);
     }
 
+    // Devuelve un array de suscripciones al newsletter con paginación según el límite y el offset especificados
     public function getAllPaginated(int $limit, int $offset): array
     {
         return $this->newsletterModel->getPaginated($limit, $offset);

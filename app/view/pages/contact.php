@@ -24,12 +24,10 @@
                 <textarea id="message" name="message" rows="6" placeholder="Escribe tu mensaje aquí"></textarea>
             </div>
 
-            <!-- Honeypot oculto -->
             <input type="text" name="website" autocomplete="off" tabindex="-1">
 
             <button type="submit" class="btn-primary">Enviar mensaje</button>
 
-            <!-- Div para mensajes -->
             <div id="formMessage" class="form-message"></div>
         </form>
     </div>

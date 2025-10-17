@@ -21,7 +21,7 @@
 }
 
 .who-we-are p span.text-animeshop {
-    color: var(--secondary-color); /* Amarillo */
+    color: var(--secondary-color);
     font-weight: bold; /* Refuerza el impacto */
     text-shadow: 
         2px 2px 4px rgba(0, 0, 0, 0.6),   /* Sombra oscura suave */
@@ -93,7 +93,7 @@
 }
 
 .newsletter-message.succes {
-    border-left: 4px solid var(--secondary-color); /* amarillo (CTA) */
+    border-left: 4px solid var(--secondary-color); /* amarillo */
     color: var(--secondary-text-color);
 }
 

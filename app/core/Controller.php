@@ -8,7 +8,8 @@ class Controller
         // Extraer variables
         extract($data);
 
-        // Convertir 'product/list' en ruta real
+        // Construye la ruta completa del archivo de la vista a partir del nombre proporcionado
+        // Ejemplo: 'product.list' → '/ruta_proyecto/app/view/product/list.php'
         $viewPath = APP_PATH . '/view/' . str_replace('.', '/', $view) . '.php';
 
         if(file_exists($viewPath)) {

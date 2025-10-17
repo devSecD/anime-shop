@@ -23,6 +23,7 @@ class SettingModel
      */
     public function findValueByKey(string $key): ?string
     {
+        // key => Se pone entre backticks (comillas invertidas) porque es palabra reservada en SQL.
         $sql = "SELECT value FROM settings WHERE `key` = :key LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':key', $key, PDO::PARAM_STR);
@@ -33,6 +34,7 @@ class SettingModel
     }
     public function update($key, $value)
     {
+        // key => Se pone entre backticks (comillas invertidas) porque es palabra reservada en SQL.
         $sql = "UPDATE settings SET value = :value WHERE `key` = :key";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':key' => $key, ':value' => $value]);

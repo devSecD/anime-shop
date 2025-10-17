@@ -132,7 +132,7 @@ class CreateController extends Controller
             ]);
         }
 
-        // ✅ SUBIR IMAGEN FÍSICAMENTE (solo si pasó validación)
+        // Subir imagen fisicamente (solo si pasó validación)
         $uploadService = new UploadService();
         $fileName = $uploadService->upload($_FILES['image'], 'products');
 
@@ -146,7 +146,6 @@ class CreateController extends Controller
         $data['is_on_sale'] = (int) $data['is_on_sale'];
         $data['is_preorder'] = (int) $data['is_preorder'];
 
-        // Insertar el producto
         $db = $this->loadDB();
         $productRepo = new ProductRepository($db);
 

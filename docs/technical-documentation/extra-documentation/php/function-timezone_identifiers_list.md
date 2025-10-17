@@ -1,0 +1,1 @@
+- Para validar el uso horario/zona horaria (timezone/ time zone) hacemos uso de la funcion nativa de PHP timezone_identifiers_list que contiene todos los timezone (menos los obsoletos) aplicandole el in_array. Hay que fijarse que como tercer parametro el pasamos true (strict) para activar la comparación estricta (tipo y valor).

@@ -53,6 +53,7 @@ export function isRadioChecked(selector) {
 
 export function validatePositive(value) {
     const num = parseFloat(value);
+    // !isNaN => si es un numero válido
     return !isNaN(num) && num > 0;
 }
 
@@ -62,7 +63,7 @@ export function mustBePositiveInt(value) {
 }
 
 export function mustBeOptionalBoolean(value, fieldName) {
-    if (value === undefined) return null; // checkbox desmarcado = válido
+    if (value === undefined) return null;
     const allowed = [true, false, '1', '0', 1, 0];
     if (!allowed.includes(value)) {
         return `El campo ${fieldName} debe ser verdadero o falso.`;
@@ -75,14 +76,13 @@ export function isValidTimezone(tz) {
         const validTimezones = Intl.supportedValuesOf('timeZone');
         return validTimezones.includes(tz);
     }
+
     // Fallback simple (puedes ampliar con lista estática si quieres)
     const fallback = ['UTC', 'America/New_York', 'Europe/London', 'Asia/Tokyo'];
     return fallback.includes(tz);
 }
 
-/**
- * Valida que un texto tenga un tamaño entre min y max caracteres.
- */
+ // Valida que un texto tenga un tamaño entre min y max caracteres.
 export function isTextLengthBetween(value, min, max) {
     const length = trimValue(value).length;
     return length >= min && length <= max;

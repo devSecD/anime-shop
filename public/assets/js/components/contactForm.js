@@ -16,7 +16,7 @@ export function initContactForm() {
         const email = form.elements['email'].value;
         const subject = form.elements['subject'].value;
         const message = form.elements['message'].value;
-        const website = form.elements['website'].value; // honeypot
+        const website = form.elements['website'].value;
 
         let errors = [];
 
@@ -40,7 +40,6 @@ export function initContactForm() {
             errors.push('El mensaje debe tener entre 10 y 1000 caracteres.');
 
         if (website.trim() !== '') {
-            // Bot detected
             return updateFormMessage("contactForm", "Se detectó actividad sospechosa.", false);
         }
 

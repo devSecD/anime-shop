@@ -2,14 +2,11 @@
 namespace Controllers\Pages;
 
 use Core\Controller;
-use Models\Contact\Contact;
 use Models\Contact\ContactRepository;
 
 use App\Helpers\ValidationHelper;
 use App\Helpers\StringHelper;
 use App\Helpers\ResponseHelper;
-
-use PDO;
 
 class ContactController extends Controller
 {
@@ -21,9 +18,7 @@ class ContactController extends Controller
         $this->repository = new ContactRepository($this->db);
     }
 
-    /**
-     * Muestra la página de contacto
-     */
+     // Muestra la página de contacto
     public function index()
     {
         $content = __DIR__ . '/../../view/pages/contact.php';
@@ -36,12 +31,9 @@ class ContactController extends Controller
         include __DIR__ . '/../../view/layouts/base.php';
     }
 
-    /**
-     * Procesa el envío del formulario
-     */
+     // Procesa el envío del formulario
     public function send()
     {
-        // rechazar si no es metodo post
         ValidationHelper::rejectIfNotPost();
 
         $data = [
@@ -60,7 +52,6 @@ class ContactController extends Controller
             ]);
         }
 
-        // validaciones de los campos del formulario de contacto
         $errors = [];
 
         if ($error = ValidationHelper::required('nombre', $data['name']))
@@ -89,6 +80,7 @@ class ContactController extends Controller
         $recaptchaResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaConfig['secret_key']}&response={$recaptchaToken}");
         $recaptchaData = json_decode($recaptchaResponse, true);
 
+        // Validacion del reCAPTCHA
         if (!$recaptchaData['success'] || $recaptchaData['score'] < 0.5) {
             $errors['recaptcha'] = 'Error de validación de reCAPTCHA. Intenta de nuevo.';
         }

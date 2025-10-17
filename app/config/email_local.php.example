@@ -1,0 +1,10 @@
+<?php
+return [
+    'host' => 'smtp.gmail.com',
+    'username' => 'tu_correo_local@gmail.com',
+    'password' => '',
+    'port' => 587,                        // TLS para entorno local
+    'from_email' => 'tu_correo_local@gmail.com',
+    'from_name' => 'Nombre de tu entorno local',
+    'secure' => 'tls',                     // ssl o tls según tu proveedor
+];

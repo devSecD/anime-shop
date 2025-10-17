@@ -1,4 +1,3 @@
-<!-- app/views/user/account.php -->
 <div class="account-page">
     <!-- Información del usuario -->
     <section class="account-section">
@@ -25,7 +24,6 @@
             </label>
         </div>
     </section>
-
 
     <!-- Pedidos recientes -->
     <section class="orders-section">
@@ -61,7 +59,7 @@
                     </tbody>
                 </table>
             <?php else: ?>
-                <!-- <p>Aún no tienes pedidos registrados.</p> -->
+                <p>Aún no tienes pedidos registrados.</p>
             <?php endif; ?>
         </div>
     </section>
