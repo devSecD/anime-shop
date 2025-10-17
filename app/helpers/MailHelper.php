@@ -44,13 +44,14 @@ class MailHelper
         try {
             $this->mailer->clearAddresses();
             $this->mailer->addAddress($to);
+            // está en UTF-8 y el texto está codificado en Base64
             $this->mailer->Subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
             $this->mailer->Body = $body;
 
             return $this->mailer->send();
         } catch (Exception $e) {
-            // Podés loguear el error si querés
-            error_log("Error al enviar correo: " . $e->getMessage());
+            // En caso de error, podés registrar o lanzar
+            error_log("Error al enviar correo: " . $e->getMessage()); // cambiar por el logger seguro
             return false;
         }
     }

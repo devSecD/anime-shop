@@ -17,9 +17,7 @@ class PaymentService
         MercadoPagoConfig::setAccessToken($this->accessToken);
     }
 
-    /**
-     * Verifica si el pago pertenece a mi cuenta (collector_id)
-     */
+     // Verifica si el pago pertenece a mi cuenta (collector_id)
     public function isPaymentFromMyCollector($payment): bool
     {
         $logger = new SecureLogger();
@@ -33,9 +31,7 @@ class PaymentService
         return true;
     }
 
-    /**
-     * Verifica si el pago es válido: aprobado y de mi cuenta
-     */
+     // Verifica si el pago es válido: aprobado y de mi cuenta
     public function isPaymentValid($payment): bool
     {
         $logger = new SecureLogger();
@@ -50,9 +46,7 @@ class PaymentService
         return true;
     }
 
-    /**
-     * Mapea status de MP a status local
-     */
+     // Mapea status de Mercado Pago a status local
     public function mapPaymentStatus($payment): ?string
     {
         $logger = new SecureLogger();
@@ -85,6 +79,8 @@ class PaymentService
         try {
             $client = new PaymentClient();
             return $client->get($paymentId);
+            // Retorna un objeto Payment del SDK de Mercado Pago con la información del pago.
+            // En caso de error (capturado por el try/catch), el método retornará null.
         } catch (\Exception $e) {
             $logger->write('Excepción al consultar payment', ['error' => $e->getMessage()]);
             return null;

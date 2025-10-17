@@ -12,12 +12,9 @@ class ContactRepository
         $this->model = new Contact($db);
     }
 
-    /**
-     * Maneja la lógica de negocio antes de guardar
-     */
+     // Valida y limpia los datos del formulario de contacto antes de guardarlos en la base de datos
     public function submitMessage(array $data): bool
     {
-        // Puedes agregar validaciones extra aquí si lo deseas
         $data['name'] = trim($data['name']);
         $data['email'] = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $data['subject'] = trim($data['subject']);

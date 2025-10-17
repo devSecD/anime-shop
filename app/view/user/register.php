@@ -18,7 +18,7 @@
                 <input type="password" id="confirm_password" name="confirm_password">
         </div>
         <button type="submit" class="btn-primary">Registrarse</button>
-        <p>¿Ya tienes una cuenta? <a href="../user/login">Inicia  sesión aquí</a></p>
+        <p>¿Ya tienes una cuenta? <a href="../user/login">Inicia sesión aquí</a></p>
     </form>
     <script async type="module" src="../../public/assets/js/main.js"></script>
     <?php if (in_array('cart', $assets)): ?>

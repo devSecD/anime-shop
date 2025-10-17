@@ -38,8 +38,7 @@ class UpdateController extends Controller
         $this->auth->handle();
 
         if (!$id) {
-            // Redireccionar o lanzar error
-            header('Location: /admin/products'); // pediente
+            header('Location: /admin/products');
             exit;
         }
 
@@ -48,8 +47,7 @@ class UpdateController extends Controller
         $brands = $this->brandRepo->getAll();
 
         if (!$product) {
-            // Redireccionar o lanzar error si no se encuentra
-            header('Location: /admin/products'); // pediente
+            header('Location: /admin/products');
             exit;
         }
 
@@ -102,7 +100,6 @@ class UpdateController extends Controller
             'is_preorder' => $_POST['is_preorder'] ?? null,
         ];
 
-        // 👇 esta línea es clave
         $data['image'] = $_FILES['image'] ?? null;
 
         $errors = [];

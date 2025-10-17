@@ -1,5 +1,4 @@
 <section class="checkout-section">
-    <?php /** @var array $items  @var float $total */ ?>
     <h2 class="checkout-title">Resumen de tu pedido</h2>
 
     <div class="checkout-table-container">

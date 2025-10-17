@@ -5,9 +5,7 @@ use Core\Controller;
 
 class TermsController extends Controller 
 {
-    public function __construct() 
-    {
-    }
+    // Vista terminos y condiciones
     public function index() 
     {
 

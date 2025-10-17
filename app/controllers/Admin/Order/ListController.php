@@ -26,7 +26,6 @@ class ListController extends Controller
 
         $status = $_GET['status'] ?? null;
 
-        // total de órdenes (el repo ya decide si cuenta todas o solo pending)
         $totalOrders = $this->orderRepo->countOrders($status);
 
         // instanciamos el paginador

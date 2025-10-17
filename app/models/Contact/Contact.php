@@ -2,7 +2,6 @@
 namespace Models\Contact;
 
 use PDO;
-use PDOException;
 
 class Contact
 {
@@ -13,9 +12,7 @@ class Contact
         $this->db = $db;
     }
 
-    /**
-     * Guarda un mensaje de contacto en la base de datos
-     */
+     // Guarda un mensaje de contacto en la base de datos
     public function saveMessage(array $data): bool
     {
         $sql = "INSERT INTO contacts (name, email, subject, message, created_at)

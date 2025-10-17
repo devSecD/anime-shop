@@ -97,7 +97,7 @@ body {
     color: var(--text-color);
 }
 
-/* ================= Responsive ================= */
+/* Responsive */
 @media (max-width: 768px) {
     .order-summary {
         padding: var(--small-spacing);

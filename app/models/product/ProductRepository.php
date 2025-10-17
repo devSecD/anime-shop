@@ -56,21 +56,18 @@ class ProductRepository
         ];
     }
 
-    /**
-     * Devuelve un producto o null si no existe
-     */
+     // Devuelve un producto o null si no existe
     public function findById(int $id): ?array
     {
         return $this->productModel->getById($id);
     }
 
-    /**
-     * Devuelve varios productos a partir de un array de IDs
-     */
+     // Devuelve varios productos a partir de un array de IDs
     public function findByIds(array $ids): array
     {
         if (!$ids) return [];
 
+        // Crea una cadena de placeholders "?, ?, ?" según la cantidad de IDs
         $in = implode(',', array_fill(0, count($ids), '?'));
 
         return $this->productModel->getByIds($ids, $in);
@@ -180,7 +177,7 @@ class ProductRepository
     {
         if ($qty <= 0 || $qty > $stock) return false;
 
-        // Aquí podrías agregar validaciones adicionales si lo requieres
+        // Podrías agregar más validaciones aquí si quieres
 
         return $this->productModel->increaseSoldCount($productId, $qty);
     }
@@ -226,7 +223,7 @@ class ProductRepository
         if (!isset($data['image'])) {
             $data['image'] = $product['image'];
         } else {
-            // Si quieres, aquí podrías eliminar la imagen anterior del disco
+            // Eliminar la imagen anterior del disco
             unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
         }
 
@@ -242,36 +239,20 @@ class ProductRepository
 
     public function deleteProduct(int $productId): array
     {
-        // $product = $this->productModel->getById($productId);
-
-        // if (!$product) {
-            // return ['success' => false, 'message' => 'Producto no encontrado.'];
-        // }
-
-        // $deleted = $this->productModel->delete($productId);
-
-        // if (!$deleted) {
-            // return ['success' => false, 'message' => 'No se pudo eliminar el producto.'];
-        // }
-
-        // unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
-
-        // return ['success' => true, 'message' => 'Producto eliminado correctamente.'];
-
-        // nueva implementacion
         $product = $this->productModel->getById($productId);
 
         if (!$product) {
             return ['success' => false, 'message' => 'Producto no encontrado.'];
         }
 
+        // soft delete
         $deleted = $this->productModel->delete($productId);
 
         if (!$deleted) {
             return ['success' => false, 'message' => 'No se pudo desactivar el producto.'];
         }
 
-        // unlink(dirname(__DIR__, 3) . '/public/assets/images/products/' . $product['image']);
+        // no eliminamos del disco la imagen porque el borrado es un soft delete
 
         return ['success' => true, 'message' => 'Producto desactivado correctamente.'];
 
@@ -300,19 +281,21 @@ class ProductRepository
     {
         return $this->productModel->getDetailedById($id);
     }
-    // 1️⃣ Imágenes adicionales
+
+    // Obtiene imágenes adicionales
     public function getProductImages($productId)
     {
         return $this->productModel->getImages($productId);
     }
 
-    // 2️⃣ Reseñas del producto
+    // Obtiene reseñas del producto
     public function getReviews($productId)
     {
         return $this->productModel->getReviews($productId);
     }
 
-    // 3️⃣ Productos relacionados (por categoría)
+    // Obtiene productos relacionados (por categoría)
+    // establecer limite de 8 por default en los parametros del metodo
     public function getRelatedProducts($categoryId, $excludeProductId)
     {
         return $this->productModel->getRelated($categoryId, $excludeProductId);
@@ -324,6 +307,23 @@ class ProductRepository
     }
 
     // metodos para poder insertar varias imagenes del producto
+
+    /**
+     * Genera imágenes adicionales de cada producto con un watermark de texto.
+     *
+     * Para cada producto registrado:
+     * - Verifica que exista la imagen principal.
+     * - Crea hasta 4 copias con watermark en la esquina superior izquierda.
+     * - Soporta formatos: jpg, jpeg, png, webp, gif.
+     * - Inserta la nueva imagen en la base de datos si aún no existe.
+     *
+     * Nota:
+     * - Maneja transparencia en PNG y WebP usando alpha.
+     * - Usa funciones dinámicas según la extensión (`imagecreatefrom*` y `image*`).
+     * - Libera memoria con `imagedestroy` después de cada imagen.
+     *
+     * @throws Exception Si ocurre algún error durante la generación de imágenes.
+     */
     public function generateImagesWithWatermark() {
         try {
             $products = $this->productModel->getAllProducts();
@@ -358,7 +358,7 @@ class ProductRepository
 
                     imagestring($img, 5, 10, 10, "Image $i", $color);
                     $saveFunc($img, $destPath);
-                    imagedestroy($img);
+                    imagedestroy($img); // liberar memoria
 
                     $this->productModel->insertProductImage($productId, "$newImageName");
                 }
@@ -368,6 +368,19 @@ class ProductRepository
         }
     }
 
+    /**
+     * Devuelve la función de PHP para crear un recurso de imagen en memoria
+     * según la extensión proporcionada.
+     *
+     * Ejemplos:
+     * - 'jpg'  -> 'imagecreatefromjpeg'
+     * - 'png'  -> 'imagecreatefrompng'
+     * - 'webp' -> 'imagecreatefromwebp'
+     * - 'gif'  -> 'imagecreatefromgif'
+     *
+     * @param string $ext La extensión del archivo de imagen (en minúsculas).
+     * @return string|null El nombre de la función GD para crear la imagen o null si no soportada.
+     */
     private function getCreateFunc($ext) {
         return match($ext) {
             'jpg', 'jpeg' => 'imagecreatefromjpeg',
@@ -378,6 +391,19 @@ class ProductRepository
         };
     }
 
+    /**
+     * Devuelve la función de PHP para guardar un recurso de imagen en disco
+     * según la extensión proporcionada.
+     *
+     * Ejemplos:
+     * - 'jpg'  -> 'imagejpeg'
+     * - 'png'  -> 'imagepng'
+     * - 'webp' -> 'imagewebp'
+     * - 'gif'  -> 'imagegif'
+     *
+     * @param string $ext La extensión del archivo de imagen (en minúsculas).
+     * @return string|null El nombre de la función GD para guardar la imagen o null si no soportada.
+     */
     private function getSaveFunc($ext) {
         return match($ext) {
             'jpg', 'jpeg' => 'imagejpeg',

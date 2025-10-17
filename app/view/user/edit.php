@@ -19,20 +19,9 @@
             </div>
 
             <div class="form-group optional">
-                <!--
-                * Buenas prácticas combinadas
-
-                    - Input tipo password.
-                    - Atributo autocomplete="new-password".
-                    - Mensajes de ayuda claros y visibles.
-                    - Validación tanto frontend (UX) como backend (seguridad).
-                    - Opcional confirm password para evitar errores.
-                    - Nunca enviar la contraseña en texto plano por email ni en logs.
-                -->
                 <label>
                     Nueva contraseña <span class="optional-tag">(opcional)</span>
                     <input type="password" name="password" autocomplete="new-password" placeholder="Dejar vacío si no deseas cambiar">
-                    <!-- <small class="form-message">La contraseña debe tener al menos 8 caracteres.</small> -->
                 </label>
                 <label>
                     Confirmar nueva contraseña

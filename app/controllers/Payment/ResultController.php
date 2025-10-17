@@ -7,7 +7,6 @@ use Models\Product\ProductRepository;
 use Models\Order\OrderRepository;
 use Models\Order\OrderModel;
 use App\Helpers\RequestHelper;
-// use App\Helpers\UrlHelper;
 
 class ResultController extends Controller
 {
@@ -65,7 +64,7 @@ class ResultController extends Controller
             case 'approved':
                 $this->successView();
                 break;
-            case 'in_process': // pending - pendiente
+            case 'in_process':
                 $this->pendingView();
                 break;
             case 'failure':

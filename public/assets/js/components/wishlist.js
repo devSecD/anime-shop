@@ -1,4 +1,3 @@
-// components/wishlist.js
 import { localWishlist } from '../util/localWishlist.js';
 import { updateHeaderCounter } from '../util/wishlistCounter.js';
 import { sendRequest } from '../ajax/sendRequest.js';
@@ -15,7 +14,7 @@ import { showToast } from '../components/alertToast.js';
 export function initWishlist() {
     const wishlistButtons = document.querySelectorAll('.btn-wishlist');
 
-    // Inicializa efecto heartbeat en los iconos
+    // Inicializa efecto del icono del corazon en los iconos
     initWishlistIcon();
 
     wishlistButtons.forEach(btn => {
@@ -34,23 +33,22 @@ export function initWishlist() {
 
             if (!window.USER_LOGGED_IN) {
                 // Usuario invitado: localStorage
-                if (this.classList.contains('added')) {
+                if (this.classList.contains('added')) { // se elimina producto de la wishlist
                     localWishlist.remove(productId);
                     this.classList.remove('added');
                     updateWishlistButtonText(this, false);
                     updateWishlistButtonIcon(btn.querySelector("i.fa-heart"), false);
                     showToast('Se ha eliminado el producto a la wishlist', 'success')
-
-                } else {
+                } else { // se agrega el producto a la wishlist
                     localWishlist.add(productId);
                     this.classList.add('added');
                     updateWishlistButtonText(this, true);
                     updateWishlistButtonIcon(btn.querySelector("i.fa-heart"), true);
                     showToast('Se ha agregado el producto a la wishlist', 'success')
-
                 }
 
-                updateHeaderCounter(); // usa localWishlist.count()
+                // actualiza el contador de la wishlist que se tiene en la barra de navegacion
+                updateHeaderCounter();
             } else {
                 // Usuario logueado: AJAX
                 const action = this.classList.contains('added') ? 'remove' : 'add';
@@ -77,7 +75,6 @@ export function initWishlist() {
                             }
 
                         } else {
-                            alert(data.message);
                             showToast('No se pudo agregar/remover de la wishlist el producto', 'error');
                         }
                     });
@@ -87,7 +84,7 @@ export function initWishlist() {
 
     // Inicializar contador al cargar
     if (window.USER_LOGGED_IN && window.USER_WISHLIST_COUNT !== undefined) {
-        // Usuario logueado: usar el valor inicial del backend
+        // Usuario logueado y tiene producto(s) en la wishlist: usar el valor inicial del backend
         updateHeaderCounter('#wishlist-count', window.USER_WISHLIST_COUNT);
     } else {
         // Invitado: usar localStorage

@@ -21,6 +21,7 @@ export function initShippingAddressForm() {
     const form = document.getElementById("shippingAddressForm");
     if (!form) return;
 
+    // registrar direccion
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -36,7 +37,6 @@ export function initShippingAddressForm() {
 
         let errors = [];
 
-        // Nombre completo
         if (!isNotEmpty(fullname)) {
             errors.push('El nombre completo es obligatorio.');
         } else if (!isAlphabeticWithSpaces(fullname)) {
@@ -45,48 +45,40 @@ export function initShippingAddressForm() {
             errors.push('El nombre completo debe tener al menos 3 caracteres.');
         }
 
-        // Teléfono
         if (!isNotEmpty(phone)) {
             errors.push('El número telefónico es obligatorio.');
         } else if (!isValidPhone(phone)) {
             errors.push('El teléfono debe contener solo números (10 a 15 dígitos).');
         }
 
-        // Correo electrónico
         if (!isNotEmpty(email)) {
             errors.push('El correo electrónico es obligatorio.');
         } else if (!isValidEmail(email)) {
             errors.push('El correo electrónico no tiene un formato válido.');
         }
 
-        // Calle
         if (!isNotEmpty(street)) {
             errors.push('La calle y número son obligatorios.');
         }
 
-        // Colonia
         if (!isNotEmpty(neighborhood)) {
             errors.push('La colonia es obligatoria.');
         }
 
-        // Código Postal
         if (!isNotEmpty(postalCode)) {
             errors.push('El código postal es obligatorio.');
         } else if (!isValidPostalCode(postalCode)) {
             errors.push('El código postal no tiene un formato válido.');
         }
 
-        // Ciudad
         if (!isNotEmpty(city)) {
             errors.push('La ciudad es obligatoria.');
         }
 
-        // Estado
         if (!isNotEmpty(state)) {
             errors.push('El estado es obligatorio.');
         }
 
-        // País
         if (!isNotEmpty(country)) {
             errors.push('El país es obligatorio.');
         }
@@ -112,7 +104,7 @@ export function initShippingAddressForm() {
         });
     });
 
-
+    // seleccionar direccion
     const formShippingAddress = document.querySelector('#shippingAddress'); 
     if (!formShippingAddress) return;
 

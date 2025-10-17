@@ -41,7 +41,6 @@
                                     <td data-label="Estado"><?= ucfirst(htmlspecialchars($order['status'])) ?></td>
                                     <td data-label="Fecha"><?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></td>
                                     <td data-label="Acciones">
-                                        <!-- Aquí puedes poner acciones como ver detalle, cancelar, etc. -->
                                         <a href="/anime-shop/public/admin/order/detail?order_id=<?= $order['order_id'] ?>" title="Ver detalle" class="action-edit">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>

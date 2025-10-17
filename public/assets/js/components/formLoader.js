@@ -12,7 +12,7 @@ export function startButtonLoader(btn, loadingText = "Procesando...") {
     }
 
     btn.disabled = true;
-    btn.classList.add("opacity-60", "cursor-not-allowed"); // tailwind friendly; opcional
+    btn.classList.add("opacity-60", "cursor-not-allowed");
 
     // Cambiar texto
     const textContainer = btn.querySelector(".btn-text");
@@ -24,14 +24,26 @@ export function startButtonLoader(btn, loadingText = "Procesando...") {
 
     // Mostrar o crear spinner
     let spinner = btn.querySelector(".spinner");
+
     if (!spinner) {
         spinner = document.createElement("span");
         spinner.classList.add("spinner");
         btn.appendChild(spinner);
     }
+
     spinner.classList.remove("hidden");
 }
 
+/**
+ * Su objetivo es:
+ * 1. Restaurar el texto original del botón (usando el atributo `data-original-text`).
+ * 2. Ocultar el spinner de carga.
+ * 3. Rehabilitar la interacción del botón y eliminar estilos visuales de "bloqueado".
+ *
+ * @function stopButtonLoader
+ * @export
+ * @param {HTMLButtonElement} btn - El botón sobre el cual se detiene el estado de carga. 
+ */
 export function stopButtonLoader(btn) {
     if (!btn) return;
 

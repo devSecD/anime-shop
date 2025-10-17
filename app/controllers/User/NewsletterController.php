@@ -18,7 +18,7 @@ class NewsletterController extends Controller
         $this->newsletterRepo = new NewsletterRepository($this->db);
 
         $user = SessionHelper::getUser();
-        if (!$user) {
+        if (!$user) { // cambiar por helper de sesion con is logged in
             ResponseHelper::jsonResponse([
                 'success' => false,
                 'message' => 'Usuario no autenticado.'
@@ -28,7 +28,7 @@ class NewsletterController extends Controller
         $this->userEmail = $user['email'];
     }
 
-    // NewsletterController.php
+    // Obtener el estado inicial del estatus de suscripcion
     public function status()
     {
         try {
@@ -54,7 +54,7 @@ class NewsletterController extends Controller
 
         if ($isSubscribed) {
             // Desuscribir
-            $this->newsletterRepo->deleteByEmail($this->userEmail); // crearemos método en repo
+            $this->newsletterRepo->deleteByEmail($this->userEmail);
             $status = false;
             $message = 'Te has desuscrito del newsletter.';
         } else {

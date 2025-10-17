@@ -7,7 +7,6 @@
     padding: 1.5rem;
     width: 97%; /* ajuste de ancho */
 }
-/* Ajusta para que no se desborden los contenedores hijos */
 
 .section-catalog-product .aside-collection-toolbar{
     grid-column: 1 / -1;
@@ -19,7 +18,7 @@
     justify-items: center;
 }
 
-/* filtro para responsive */
+/* Filtro para responsive */
 .aside-collection-toolbar .aside-filter {
     display: none;
 }
@@ -75,7 +74,7 @@
 
 .nav-filter ul li {
     margin: 0 15px;
-    position: relative; /* para pdoerle aplicar posicion absoluta al a::after */
+    position: relative; /* para poderle aplicar posicion absoluta al a::after */
 }
 
 .nav-filter ul li a {
@@ -93,7 +92,6 @@
     right: 0.5rem; /* siempre pegado al borde */
     content: "\25BC";
 }
-/* filtro para responsive */
 
 .container-product {
     padding: 1rem;
@@ -131,7 +129,7 @@
 
 .badge-preorder {
     right: 0rem; /* desplaza a la derecha para que no se superponga */
-    background-color: #007bff; /* azul */
+    background-color: #007bff;
 }
 
 .container-product img {
@@ -174,7 +172,7 @@
 }
 
 .aside-paginated {
-    grid-column: 1 / -1; /* Esto sirve para que el ancho ocupa todas las columnas disponibles grid del padre */
+    grid-column: 1 / -1; /* Esto sirve para que el ancho ocupe todas las columnas disponibles grid del padre */
 }
 
 .page-list {
@@ -204,7 +202,7 @@
     cursor: pointer;
 }
 
-/* remueve estilos por defecto de enlaces */
+/* Remueve estilos por defecto de enlaces */
 a {
     text-decoration: none;
     color: inherit;
@@ -223,9 +221,7 @@ a:focus {
 a:active {
     color: inherit;
 }
-/* remueve estilos por defecto de enlaces */
 
-/* Media queries */
 @media (max-width: 1000px) {
     .section-catalog-product {
         width: 100%;
@@ -237,10 +233,7 @@ a:active {
         padding: 0.5rem;
     }
 }
-/*
-190 - 768
-margin-top: 17rem;
-*/
+
 @media (min-width: 190px) and (max-width: 769px) {
     .section-catalog-product {
         margin-top: 17rem;
@@ -262,8 +255,6 @@ margin-top: 17rem;
     }
 }
 
-/* filtro responsive */
-
 @media (max-width: 1000px) {
     .aside-collection-toolbar .aside-filter {
         display: block;
@@ -273,36 +264,33 @@ margin-top: 17rem;
     }
 }
 
-/* felchas del menu desplegable de filtros */
+/* Felchas del menu desplegable de filtros */
 @media (min-width: 430px) and (max-width: 500px){
     .nav-filter ul li a::after {
-        right: 1rem; /* 430px a 500px => 1rem */
+        right: 1rem;
     }
 }
 
 @media (min-width: 501px) and (max-width: 640px){
     .nav-filter ul li a::after {
-        right: 2rem; /* 501px a 640px => 2rem */
+        right: 2rem;
     }
 }
 
 @media (min-width: 641px) and (max-width: 800px){
     .nav-filter ul li a::after {
-        right: 3rem; /* 641px a 800px => 3rem */
+        right: 3rem;
     }
 }
 
 @media (min-width: 801px) and (max-width: 900px){
     .nav-filter ul li a::after {
-        right: 4rem; /* 801px a 900px => 4rem */
+        right: 4rem;
     }
 }
 
 @media (min-width: 901px) and (max-width: 1000px){
     .nav-filter ul li a::after {
-        right: 5rem; /* 901px a 1000px => 5rem */
+        right: 5rem;
     }
 }
-/* felchas del menu desplegable de filtros */
-
-/* filtro responsive */

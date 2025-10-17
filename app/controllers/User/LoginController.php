@@ -29,14 +29,13 @@ class LoginController extends Controller
 
         $page = 'login';
 
-        $assets = ['form', 'cart']; // ejemplo para mas assets: $assets = ['form', 'datepicker', 'carousel'];
+        $assets = ['form', 'cart'];
 
         include __DIR__ . '/../../view/layouts/base.php';
     }
 
     public function process()
     {
-        // rechazar si no es metodo post
         ValidationHelper::rejectIfNotPost();
 
         $data = [
@@ -69,7 +68,6 @@ class LoginController extends Controller
 
         $result = $userRepo->attemptLogin($userData['email'], $userData['password']);
 
-        // Obtener roles
         $roles = $this->userRepo->getUserRoles((int)$result['user']['user_id']);
 
         if (!$result['success']) 
@@ -104,7 +102,7 @@ class LoginController extends Controller
         SessionHelper::set('user_wishlist_count', $totalWishlistCount);
 
         // Redirección según rol
-        if (in_array('admin', $roles)) {
+        if (array_intersect(['admin', 'superadmin'], $roles)) {
             ResponseHelper::jsonResponse([
                     'success' => true, 
                     'message' => $result['message'], 

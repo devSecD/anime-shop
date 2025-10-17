@@ -1,5 +1,3 @@
-// components/burgerMenu.js
-
 export function initBurgerMenu() {
     const burgerToggle = document.getElementById("burger-toggle");
     const menuBurger = document.querySelector(".menu-burger");

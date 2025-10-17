@@ -18,7 +18,7 @@ class CartController extends Controller
         $this->repo  = new ProductRepository($db);
         $this->cart = new Cart($this->repo);
     }
-    // POST /cart/add
+
     public function add(): void
     {
         $id = (int)($_POST['product_id'] ?? 0);
@@ -56,13 +56,12 @@ class CartController extends Controller
         }
     }
 
-    // POST /cart/update
     public function update(): void
     {
         $id = (int)($_POST['product_id'] ?? 0);
         $qty = (int)($_POST['qty'] ?? 1);
 
-        // Validar stock anttes de actualizar
+        // Validar stock antes de actualizar
         $error = ValidationHelper::validateStock($this->repo, $id, $qty);
         if ($error) {
             http_response_code(400);
@@ -91,7 +90,6 @@ class CartController extends Controller
         }
     }
 
-    // POST /cart/remove
     public function remove(): void
     {
         $id = (int)($_POST['product_id'] ?? 0);
@@ -115,13 +113,12 @@ class CartController extends Controller
 
     public function count()
     {
-        header('Content-Type: application/json');
+        header('Content-Type: application/json'); // esta de mas porque con jsonResponse ya lo seteamos
         ResponseHelper::jsonResponse([
             'count' => $this->cart->count(),
         ]);
     }
 
-    // GETT /cart
     public function view(): void
     {
         $items = $this->cart->items();
@@ -130,9 +127,8 @@ class CartController extends Controller
         $content = __DIR__ . '/../../view/cart/index.php';
         $title = 'Tu carrito - Anime Shop';
         $page = 'cart';
-        $assets = ['cart']; // ejemplo para mas assets: $assets = ['form', 'datepicker', 'carousel'];
+        $assets = ['cart'];
 
-        // Datos que necesitará la vista específica
         $cartData = compact('items', 'total');
 
         include __DIR__ . '/../../view/layouts/base.php';

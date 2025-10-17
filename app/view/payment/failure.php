@@ -1,6 +1,3 @@
-<?php
-// Recibe: $orderData, $paymentId
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

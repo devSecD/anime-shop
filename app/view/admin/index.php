@@ -34,9 +34,6 @@
                     <h3><?= $pendingOrders ?></h3>
                     <p>Pendientes de pago</p>
                 </a>
-                <!-- /anime-shop/public/admin/products/sold_count -->
-                <!-- title="Ver ventas totales" -->
-                <!-- Crear controlador, metodo repo, metodo modeelo en products -->
                 <a href="#" class="card" >
                     <h3><?= $soldCountTotal ?></h3>
                     <p>Recuento total vendido</p>

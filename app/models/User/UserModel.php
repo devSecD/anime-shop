@@ -62,6 +62,7 @@ class UserModel
             $lastId = (int) $this->db->lastInsertId();
             return $lastId > 0 ? $lastId : false;
         } catch (PDOException $e) {
+            // no permite registrar correos electronicos duplicados
             if ((int)$e->getCode() === 23000) {
                 return false;
             }

@@ -1,0 +1,2 @@
+- htmlspecialchars() convierte caracteres especiales en entidades HTML seguras, para que el navegador los muestre como texto literal y no los interprete como código HTML.
+  - Sirve principalmente para prevenir ataques XSS (Cross-Site Scripting).

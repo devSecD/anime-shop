@@ -29,6 +29,8 @@ class SecureLogger
         $logEntry = "[$date] $message | Context: $contextSafe" . PHP_EOL;
 
         // Append
+        // Agregando el contenido al final del archivo sin borrar lo anterior (FILE_APPEND)
+        // Se bloquea el archivo durante la escritura (LOCK_EX)
         file_put_contents($this->logFile, $logEntry, FILE_APPEND | LOCK_EX);
     }
 

@@ -1,0 +1,2 @@
+- num.toFixed(n)
+  - Redondea normalmente a n decimales (yo el digo hacia arriba pero es redondeo aplicando matematicas que es lo mismo basicamente) y devuelve string

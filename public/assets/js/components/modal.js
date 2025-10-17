@@ -1,5 +1,28 @@
 /**
  * Modal genérico reutilizable
+ *
+ * Descripción general:
+ * --------------------
+ * Esta función exportable implementa un sistema genérico y reutilizable
+ * para controlar la apertura y cierre de modales (ventanas emergentes)
+ * mediante selectores configurables. 
+ *
+ * Su objetivo es evitar duplicar código al manejar distintos modales en el sitio,
+ * permitiendo definir dinámicamente los elementos disparadores (triggers),
+ * el modal a mostrar y los botones o eventos que lo cierran.
+ *
+ * Uso típico:
+ * -----------
+ * import { initModal } from './ui/initModal.js';
+ *
+ * initModal({
+ *   triggerSelector: '.open-login-modal',
+ *   modalSelector: '#login-modal',
+ *   closeSelector: '.close-modal',
+ *   onOpen: (trigger, modal) => { console.log('Modal abierto desde:', trigger); },
+ *   onClose: (modal) => { console.log('Modal cerrado:', modal); }
+ * });
+ *
  * @param {string} triggerSelector - Selector o selectores de los elementos que abren el modal
  * @param {string} modalSelector - Selector del contenedor modal
  * @param {string} closeSelector - Selector del botón o elemento de cierre

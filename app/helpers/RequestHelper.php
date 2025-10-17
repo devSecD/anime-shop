@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class RequestHelper
 {
- /**
+    /**
      * Valida que todos los parámetros GET obligatorios estén presentes.
      *
      * @param array $requiredKeys Lista de parámetros GET obligatorios.
@@ -19,13 +19,13 @@ class RequestHelper
             if (!isset($_GET[$key]) || trim($_GET[$key]) === '') {
                 if ($exitOnError) {
                     // Respuesta estandarizada: JSON para API, o HTML para web
-                    if (self::isJsonExpected()) {
+                    if (self::isJsonExpected()) { // si espera json
                         header('Content-Type: application/json', true, 400);
                         echo json_encode([
                             'status'  => 'error',
                             'message' => "Falta el parámetro obligatorio: $key"
                         ]);
-                    } else {
+                    } else { // si no espera html
                         http_response_code(400);
                         echo "<h1>Error 400</h1><p>Falta el parámetro obligatorio: <strong>$key</strong></p>";
                     }
@@ -41,9 +41,7 @@ class RequestHelper
         return $data;
     }
 
-    /**
-     * Detecta si el cliente espera JSON (API).
-     */
+     // Detecta si el cliente espera JSON (API).
     private static function isJsonExpected(): bool
     {
         return isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;

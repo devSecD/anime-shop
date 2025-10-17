@@ -22,6 +22,10 @@ app/config/url.config.php
 app/config/recaptcha.php
 storage/user.log
 
+# --- CONFIGURACIÓN DE EMAIL LOCAL / PRODUCCIÓN ---
+app/config/email_production.php
+app/config/email_local.php
+
 # --- CACHE / LOGS ---
 cache/
 logs/

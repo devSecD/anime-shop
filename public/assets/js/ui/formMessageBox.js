@@ -16,6 +16,9 @@ export function updateFormMessage(formId, message, success) {
         messageBox = document.createElement("div");
         messageBox.id = `${formId}-messageBox`;
         messageBox.classList.add("form-message");
+        // Dentro del mismo contenedor (parentNode del form):
+        // Inserta el elemento messageBox antes del formulario (form).
+        // Resultado visual: el mensaje aparecerá por encima del formulario.
         form.parentNode.insertBefore(messageBox, form);
     }
 

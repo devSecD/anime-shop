@@ -12,14 +12,12 @@ body {
     min-height: 100vh;
 }
 
-/* Main Content */
 .main-content {
     flex-grow: 1;
     padding: var(--large-spacing);
     max-width: 100%;
 }
 
-/* Header */
 .dashboard-header {
     display: flex;
     justify-content: space-between;
@@ -32,7 +30,6 @@ body {
     color: var(--primary-color);
 }
 
-/* Cards */
 .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -68,10 +65,10 @@ body {
 
 /* Hover sutil para cards no clickeables */
 .card:not([href]):hover {
-    transform: translateY(-2px);       /* Leve elevación */
+    transform: translateY(-2px); /* Leve elevación */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-color: var(--border-color-hover); /* puedes definir un gris más oscuro o similar */
-    cursor: default;                   /* Sigue sin indicar clic */
+    border-color: var(--border-color-hover); /* la variable css no esta definida */
+    cursor: default;
 }
 
 /* Títulos dentro de la card */
@@ -81,7 +78,6 @@ body {
     color: var(--accent-color);
 }
 
-/* Table */
 .dashboard-table {
     background-color: #fff;
     padding: var(--medium-spacing);

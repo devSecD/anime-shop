@@ -12,7 +12,6 @@ class ResetPasswordController extends Controller
 {
     public function index()
     {
-
         $token = $_GET['token'] ?? '';
         $userId = (int)$_GET['uid'] ?? 0;
 
@@ -98,6 +97,7 @@ class ResetPasswordController extends Controller
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $userRepo->updatePassword($userId, $hash);
 
+        // eliminar token de la bd
         $tokenRepo->consumeToken($userId, $token);
 
         ResponseHelper::jsonResponse([

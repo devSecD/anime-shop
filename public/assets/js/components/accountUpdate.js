@@ -51,7 +51,6 @@ export function initAccountUpdate() {
             return;
         }
 
-        // Enviar formulario con AJAX
         sendForm(form, function (response) {
             if (!response.success) {
                 showToast(response.message, 'error');

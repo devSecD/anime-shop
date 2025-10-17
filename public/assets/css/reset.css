@@ -1,4 +1,19 @@
-/* Reset CSS */
+/* ==========================================================================
+    RESET GLOBAL DE ESPACIADOS Y BOX MODEL
+    ==========================================================================
+    Qué hace:
+    --------------------------------------------------------------------------
+    Este bloque elimina los márgenes y rellenos predeterminados de todos los 
+    elementos HTML, incluyendo sus pseudoelementos (::before y ::after). 
+    Además, establece el modelo de caja (box model) en "border-box", lo que 
+    asegura que el ancho y alto de los elementos incluyan el padding y el 
+    borde, facilitando el cálculo y consistencia del diseño.
+
+    Elementos afectados:
+    --------------------------------------------------------------------------
+    - Todos los elementos HTML (*)
+    - Pseudoelementos ::before y ::after
+   ========================================================================== */
 *, 
 *::before, 
 *::after {
@@ -9,7 +24,7 @@
 
 body {
     font-family: sans-serif; /* Define una fuente por defecto */
-    line-height: 1.6; /* Espaciado entre lineas */
+    line-height: 1.6; /* Espaciado entre lineas por defecto */
     background-color: #fff; /* Color de fondo por defecto */
 }
 
@@ -18,7 +33,7 @@ ul, ol {
     list-style: none;
 }
 
-/* Eliminar subrayado de los enlaces */
+/* Eliminar subrayado predeterminado de los enlaces */
 a {
     text-decoration: none;
 }
@@ -31,6 +46,7 @@ textarea {
     outline: none;
 }
 
+/* estilos personalizados para los checkbox */
 input[type="checkbox"]{
     width: 20px;
     height: 20px;

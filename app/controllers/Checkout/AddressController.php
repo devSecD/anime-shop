@@ -20,7 +20,6 @@ class AddressController extends Controller
         $this->cart = new Cart($repo);
     }
 
-    // GET /checkout/address
     public function index(): void
     {
         $items = $this->cart->items();
@@ -43,7 +42,6 @@ class AddressController extends Controller
         $db = $this->loadDB();
         $repo = new \Models\Checkout\ShippingAddressRepository($db);
 
-        // Obtiene el usuario
         $user = SessionHelper::getUser();
         $userId = $user['user_id'] ?? null;
 
@@ -71,7 +69,6 @@ class AddressController extends Controller
 
         $errors = [];
 
-        // Validar campos obligatorios y con reglas
         if ($error = ValidationHelper::required('nombre completo', $data['fullname']))
             $errors['fullname'] = $error;
         else if ($error = ValidationHelper::validateName($data['fullname']))
@@ -107,7 +104,6 @@ class AddressController extends Controller
         if ($error = ValidationHelper::required('país', $data['country']))
             $errors['country'] = $error;
 
-        // Si hay errores, responder
         if (!empty($errors)) {
             ResponseHelper::jsonResponse([
                 'success' => false,
@@ -119,7 +115,6 @@ class AddressController extends Controller
         $db = $this->loadDB();
         $repo = new \Models\Checkout\ShippingAddressRepository($db);
 
-        // Verifica si el usuario está logueado
         if (!SessionHelper::isLoggedIn()) {
             ResponseHelper::jsonResponse([
                 'success' => false, 
@@ -127,7 +122,6 @@ class AddressController extends Controller
             ]);
         }
 
-        // Obtiene el usuario
         $user = SessionHelper::getUser();
         $userId = $user['user_id'] ?? null;
 

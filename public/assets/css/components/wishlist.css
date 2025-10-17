@@ -107,12 +107,12 @@
 }
 
 .wishlist-login-link {
-    color: var(--secondary-color); /* amarillo CTA */
+    color: var(--secondary-color);
     font-weight: 600;
     text-decoration: underline; /* que se vea clicable */
     transition: color 0.3s ease;
 }
 
 .wishlist-login-link:hover {
-    color: var(--accent-color); /* efecto hover */
+    color: var(--accent-color);
 }

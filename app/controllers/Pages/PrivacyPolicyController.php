@@ -5,9 +5,7 @@ use Core\Controller;
 
 class PrivacyPolicyController extends Controller 
 {
-    public function __construct() 
-    {
-    }
+    // Vista de aviso de privacidad
     public function index() 
     {
 

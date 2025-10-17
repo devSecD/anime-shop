@@ -1,5 +1,4 @@
 <?php use App\Helpers\StringHelper; ?>
-<!-- app/view/product/detail.php -->
 <section class="product-detail-container">
     <!-- Galería de imágenes + Información -->
     <div class="product-gallery">

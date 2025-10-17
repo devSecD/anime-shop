@@ -14,9 +14,7 @@ class ShippingAddressModel
         $this->db = $db;
     }
 
-    /**
-     * Busca dirección por id
-     */
+     // Busca dirección por id
     public function findById(int $id): ?array
     {
         $sql = "SELECT * FROM shipping_addresses WHERE address_id = :id LIMIT 1";

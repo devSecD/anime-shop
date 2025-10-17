@@ -1,0 +1,3 @@
+- htmlentities
+  - Todos los caracteres con entidad HTML (incluye acentos, símbolos)
+  - Cuando quieres convertir cualquier carácter especial a entidad HTML, útil para textos multi-idioma o documentos completos.

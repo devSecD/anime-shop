@@ -2,7 +2,6 @@
 namespace Models\FAQ;
 
 use PDO;
-use PDOException;
 
 class FAQModel
 {

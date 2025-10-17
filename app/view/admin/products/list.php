@@ -101,23 +101,6 @@
                 ?>
 
             </div>
-            <!--
-            Campo	            ¿Mostrar?	Comentario
-            product_id	        ✅	        Útil como identificador interno. Puede ir oculto o visible.
-            name	            ✅	        Nombre del producto (principal).
-            price	            ✅	        Precio base (sin descuento).
-            price_discounted	✅	        Si existe, mostrar junto al precio o con un ícono de oferta.
-            stock	            ✅	        Crítico para administración.
-            sold_count	        ✅	        Útil para ver qué tan popular ha sido.
-            is_on_sale	        ✅	        Mostrar con ícono o etiqueta si está en oferta.
-            is_preorder	        ✅	        Mostrar si está en preventa.
-            image	            ✅	        Mostrar miniatura (opcional, mejora visualmente).
-            category_id	        ✅	        Mostrar nombre de categoría (usando join).
-            brand_id	        ✅	        Mostrar nombre de marca (usando join).
-            created_at	        ✅	        Mostrar solo si necesitas control temporal (ordenar por reciente, etc.).
-            description	        ❌	        No mostrar en la tabla resumen; es demasiado larga.
-            Acciones	        ✅	        Botones para "Editar", "Eliminar", "Ver detalle", etc.
-            -->
         </main>
     </div>
     <script async src="/anime-shop/public/assets/js/components/modal-delete.js" type="module"></script>

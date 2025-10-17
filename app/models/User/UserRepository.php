@@ -13,6 +13,7 @@ class UserRepository
 
     public function emailExists(string $email): bool
     {
+        // se niega el empty para validar que el email del usuario existe, si existe es true y si no es false
         return !empty($this->model->getByEmail($email));
     }
 
@@ -23,6 +24,7 @@ class UserRepository
 
     public function register(array $data): array
     {
+        // PASSWORD_DEFAULT => alias que apunta al algoritmo recomendado por PHP para nuevas aplicaciones.
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
         $created = $this->model->createUser($data);
@@ -32,6 +34,7 @@ class UserRepository
             : ['success' => false , 'message' => 'Error al registrar el usuario.'];
     }
 
+    // Metodo del loguin del usuario
     public function attemptLogin(string $email, string $password): array
     {
         $user = $this->model->getByEmail($email);
@@ -44,7 +47,7 @@ class UserRepository
             return ['success' => false, 'message' => 'Contraseña incorrecta.'];
         }
 
-        unset($user['password_hash']);
+        unset($user['password_hash']); // por seguridad se quita el password aunque este con hash aplicado
 
         return ['success' => true, 'message' => 'Inicio de sesión exitoso.', 'user' => $user];
     }
@@ -62,23 +65,20 @@ class UserRepository
     public function registerWithRole(array $data, string $roleName): array
     {
         try {
-
-            // 1. Crear usuario
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             $userId = $this->model->createUser($data);
-            // print_r($userId);
-            // exit;
+
             if (!$userId) {
                 return ['success' => false, 'message' => 'Error al registrar el usuario.'];
             }
 
-            // 2. Obtener ID del rol por nombre
+            // Obtener ID del rol por nombre
             $roleId = $this->model->getRoleIdByName($roleName);
             if (!$roleId) {
                 return ['success' => false, 'message' => "El rol '$roleName' no existe."];
             }
 
-            // 3. Asignar rol al usuario
+            // Asignar rol al usuario
             $assigned = $this->model->assignRoleToUser($userId, $roleId);
             if (!$assigned) {
                 return ['success' => false, 'message' => 'Error al asignar rol al usuario.'];

@@ -59,7 +59,7 @@ header {
 }
 
 .nav-icon-with-text {
-    position: relative;                 /* referencia para el badge */
+    position: relative; /* referencia para el badge */
 }
 
 .cart-badge {
@@ -75,7 +75,7 @@ header {
     text-align: center;
     background: var(--color-accent, #ff4242);
     color: #fff;
-    pointer-events: none;               /* que no interfiera con el clic */
+    pointer-events: none; /* que no interfiera con el clic */
 }
 
 .nav-icon-with-text span {
@@ -150,8 +150,6 @@ header {
     background-color: var(--accent-color);
     color: #fff;
 }
-/* Menu principal */
-
 
 /* Menu secundario */
 .navbar-secondary{
@@ -187,8 +185,6 @@ header {
     font-weight: bold;
     color: var(--accent-color);
 }
-
-/* Menu secundario */
 
 /* Menu de hamburguesa */
 
@@ -298,8 +294,6 @@ header {
     left: 0;
 }
 
-/* Menu de hamburguesa */
-
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -311,15 +305,18 @@ header {
     min-width: 180px;
     z-index: 10;
 }
+
 .dropdown-menu.show {
     display: block;
 }
+
 .dropdown-menu li a {
     display: block;
     padding: 10px 20px;
     color: #333;
     text-decoration: none;
 }
+
 .dropdown-menu li a:hover {
     background: var(--accent-color);
     color: #fff;
@@ -387,7 +384,7 @@ header {
         margin: 0 auto;
     }
 
-    /* 🔥 Agrupación de íconos */
+    /* Agrupación de íconos */
     .nav-icons-group {
         order: 3;
         display: flex;
@@ -463,9 +460,6 @@ header {
         margin: 0 auto;
     }
 }
-
-
-/* test */
 
 /* Clases para visibilidad */
 .desktop-only { display: flex; justify-content: center; gap: 15px; }

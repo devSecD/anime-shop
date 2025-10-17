@@ -22,7 +22,7 @@ class IndexController extends Controller
         $this->auth->handle();
 
         $repo = new SettingRepository($this->db);
-        $repo->initializeIfEmpty(); // Inicializa valores si tabla vacía
+        $repo->initializeIfEmpty(); // Inicializa valores si la tabla de BD esta vacía
 
         $settings = $repo->getSettings();
 
@@ -58,7 +58,8 @@ class IndexController extends Controller
 
         // Obtener logo actual desde DB antes de cambios
         $repo = new SettingRepository($this->db);
-        $currentLogo = $repo->getSettingValue('logo_path'); // Método que retorna el valor actual de logo_path
+        // Método que retorna el valor actual de logo_path
+        $currentLogo = $repo->getSettingValue('logo_path');
 
         // Validar y procesar archivo logo si se subió
         if (isset($_FILES['logo_path']) && $_FILES['logo_path']['error'] !== UPLOAD_ERR_NO_FILE) {
@@ -68,7 +69,7 @@ class IndexController extends Controller
             } else {
                 // Ruta absoluta de carpeta donde guardar el logo
                 $uploadDir = __DIR__ . '/../../../../public/assets/images/logo/';
-                // /anime-shop/public/assets/images/logo
+
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
                 }
@@ -79,7 +80,7 @@ class IndexController extends Controller
 
                 if (move_uploaded_file($_FILES['logo_path']['tmp_name'], $destination)) {
         
-                    // 🔹 Borrar logo anterior si existe y no es el default
+                    // Borrar logo anterior si existe y no es el default
                     if (!empty($currentLogo) && file_exists($uploadDir . $currentLogo) && $currentLogo !== 'default_logo.png') {
                         @unlink($uploadDir . $currentLogo);
                     }

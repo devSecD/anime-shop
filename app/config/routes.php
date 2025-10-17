@@ -1,7 +1,7 @@
 <?php
 return [
     'catalog' => [
-        'controller' => 'Home\IndexController', // Home\IndexController
+        'controller' => 'Home\IndexController',
         'action' => 'index'
     ],
     'newsletter/subscribe' => [

@@ -1,6 +1,25 @@
 # Proyecto Anime Shop
 
-Tienda en linea que la bautice como Anime-Shop la cual es un MVP
+Tienda en línea bautizada como **Anime-Shop**, actualmente un MVP.
+
+## Contenido
+
+- [Proyecto Anime Shop](#proyecto-anime-shop)
+  - [Contenido](#contenido)
+  - [Tecnologias usadas](#tecnologias-usadas)
+  - [Requisitos](#requisitos)
+  - [Arquitectura](#arquitectura)
+  - [Estructura del proyecto](#estructura-del-proyecto)
+  - [Funcionalidades](#funcionalidades)
+  - [Roadmap](#roadmap)
+  - [Instalación y uso](#instalación-y-uso)
+  - [Base de datos](#base-de-datos)
+  - [Features versión 2 (pendientes)](#features-versión-2-pendientes)
+  - [Contribuciones](#contribuciones)
+  - [Autor](#autor)
+  - [Licencia](#licencia)
+
+---
 
 ## Tecnologias usadas
 
@@ -9,19 +28,27 @@ Tienda en linea que la bautice como Anime-Shop la cual es un MVP
 - Javascript Vanilla
 - PHP Vanilla
 - Mysql
+- Composer
 
-## 📋 Requisitos
+---
+
+## Requisitos
 
 - Apache >= 2.4.62
 - PHP >= 8.3.16
 - MySQL >= 8.4.3
 - Servidor Apache con mod_rewrite habilitado
 - Navegador moderno (Chrome, Firefox, Edge)
+- Composer version 2.8.4
 
-## 🏗️ Arquitectura
+---
+
+## Arquitectura
 
 El proyecto está construido con un patrón **MVC + Repository** propio en PHP vanilla, 
 con un router personalizado y autoload para mantener la estructura modular y escalable.
+
+---
 
 ## Estructura del proyecto
 
@@ -48,6 +75,8 @@ anime-shop/
 ├── vendor/
 └── README.md                   # Documentación del proyecto
 ```
+
+---
 
 ## Funcionalidades
 
@@ -94,21 +123,59 @@ anime-shop/
 - [x] Componente footer
 - [x] Componente header
 
-## 🚧 Roadmap
+---
 
-- [ ] Casos de prueba completos
-- [ ] Ajustes de responsive en vistas pendientes
-- [ ] Refactorizar código donde sea necesario
-- [ ] Mejoras de UX/UI
-- [ ] Nuevas features útiles detectadas durante pruebas
+## Roadmap
 
-## Como clonar este repositorio
+- [x] Casos de prueba completos
+- [x] Ajustes de responsive en vistas pendientes
+- [x] Refactorizar código donde sea necesario
+- [x] Mejoras de UX/UI
+- [x] Nuevas features útiles detectadas durante pruebas
+
+---
+
+## Instalación y uso
+
+1. Clona el repositorio:
 
 ```bash
 git clone https://github.com/devSecD/anime-shop.git
 cd anime-shop
 ```
-## 🤝 Contribuciones
+
+2. Configura tu servidor Apache y base de datos MySQL.
+3. Importa la base de datos desde el archivo SQL proporcionado.
+3. Instala composer e instala dependencias del proyecto
+```bash
+composer install
+```
+
+   > 💡 **Notas:**  
+   > - Para checar la versión de Composer:  
+   >   ```bash
+   >   composer -V
+   >   ```  
+   > - La única dependencia del proyecto es la pasarela de pago:  
+   >   `mercadopago/dx-php 3.5.1` (Mercado Pago PHP SDK)
+
+5. Accede a la aplicación en tu navegador: http://localhost/anime-shop/public
+
+## Base de datos
+- Documentación completa de tablas, campos y relaciones disponible en [anime_shop_schema.sql](./docs/database/anime_shop_schema.sql).
+- Diagrama E-R de la base de datos disponible [dbdiagram.io](https://dbdiagram.io/d/68d47aeed2b621e422cad616).
+
+## Features versión 2 (pendientes)
+
+Documentación completa de las features de la versión 2 disponible [aquí](./docs/FEATURES_V2/bd_anime_shop_v2_features.md).
+
+<!--
+## 📸 Capturas
+
+- (Agrega imágenes o GIFs de tu aplicación funcionando: catálogo, carrito, panel admin, etc.)
+-->
+
+## Contribuciones
 
 Las contribuciones, issues y solicitudes de mejora son bienvenidas.  
 Siéntete libre de abrir un PR para nuevas ideas o correcciones.

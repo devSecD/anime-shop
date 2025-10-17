@@ -12,18 +12,14 @@ namespace App\helpers;
 
 class DateHelper
 {
-    /**
-     * Convierte una fecha de MySQL en formato corto: dd/mm/yyyy hh:mm
-     */
+     // Convierte una fecha de MySQL en formato corto: dd/mm/yyyy hh:mm
     public static function formatShort(string $dateTime): string
     {
         $date = new \DateTime($dateTime);
         return $date->format('d/m/Y H:i');
     }
 
-    /**
-     * Convierte una fecha de MySQL en formato largo: 11 de septiembre de 2025, 17:40 hrs
-     */
+     // Convierte una fecha de MySQL en formato largo: 11 de septiembre de 2025, 17:40 hrs
     public static function formatLong(string $dateTime): string
     {
         $date = new \DateTime($dateTime);
@@ -36,13 +32,10 @@ class DateHelper
             \IntlDateFormatter::GREGORIAN  // Calendario gregoriano
         );
 
-        // Devuelve algo como: "11 de septiembre de 2025, 17:40"
         return $formatter->format($date);
     }
 
-    /**
-     * Convierte una fecha de MySQL en formato relativo: "hace 2 horas", "ayer", "hace 3 días"
-     */
+     // Convierte una fecha de MySQL en formato relativo: "hace 2 horas", "ayer", "hace 3 días"
     public static function formatRelative(string $dateTime): string
     {
         $now = new \DateTime();
